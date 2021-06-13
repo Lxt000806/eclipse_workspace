@@ -1,0 +1,33 @@
+﻿<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+
+<head>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<title>This is a line of Text</title>
+	<script language="javascript" src="./commons/js/jquery.js"></script>
+	<script language="javascript" src="./commons/artDialog/jquery.artDialog.min.js"></script>
+	<link href="./commons/artDialog/skins/idialog.css" rel="stylesheet">
+</head>
+
+<script language="javascript">
+function alertDialog(){
+	$.dialog({
+		title: '欢迎',
+		content: '欢迎使用artDialog对话框组件！',
+	});
+
+}
+
+
+</script>
+
+<body>
+<h1 style="color:white;background-color:blue">
+		This is a line of Text.
+	</h1>
+
+					<a href="#" class="a5" onclick="alertDialog()">
+						<span>弹出小窗</span>
+					</a>
+</body>
+</html>

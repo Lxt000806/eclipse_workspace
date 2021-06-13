@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<config>
+	<!--
+		服务器升级后资源版本控制
+		version: 静态资源版本号
+		skin: 皮肤
+	-->
+	<category name="resource" >
+		<property name="version" value="1.0" />
+		<property name="skin" value="commons" />
+	</category>
+	
+	<category name="login">
+		<property name="limitTime" value="3" />
+	</category>
+	
+	<!-- FTP服务器 -->
+	<category name="FTP_DEFAULT">
+		<property name="FTP_SERVER_IP" value="" />
+		<property name="FTP_SERVER_PORT" value="" />
+		<property name="FTP_SERVER_USER" value="" />
+		<property name="FTP_SERVER_PWD" value="" />
+		<property name="FTP_SERVER_PATH" value="" />
+	</category>
+	
+	<!-- 定义非法字符, 定义多个字符以",分隔" -->
+	<category name="ILLEGAL_CHAR">
+		<property name="illegal_char" value="$,@" />
+	</category>
+	
+	<!-- 消息中心参数配置 -->
+	<category name="mail" desc="系统默认的邮件发送者">
+		<property name="from" value=""/>
+        <property name="host" value=""/>
+        <property name="port" value="25"/>
+        <property name="user" value=""/>
+        <property name="password" value=""/>
+    </category>
+    
+    <category name="photo" desc="图片上传路径">
+		<property name="prjProg" value="d:/homePhoto/prjProg/"/>
+		<property name="itemPreApp" value="d:/homePhoto/itemPreApp/"/>
+		<property name="itemAppSend" value="d:/homePhoto/itemAppSend/"/>
+        <property name="other" value="d:/homePhoto/other/"/>
+        <property name="prjProgNew" value="d:/homePhoto/prjProgNew/"/>
+        <property name="custDoc" value="d:/homePhoto/custDoc/"/>
+        <property name="empPic" value="d:/homePhoto/empPic/"/>
+
+        <property name="signIn" value="d:/homePhoto/signIn/"/>
+        <property name="workerPic" value="d:/homePhoto/workerPic/"/>
+		<property name="designDemoPic" value="D:/homePhoto/designDemoPic/"/>
+		<property name="itemPic" value="d:/homePhoto/ItemImage/"/>
+    </category>
+    
+    <category name="client" desc="web端图片下载路径">
+		<property name="itemPreApp" value="https://app.u-om.com:20002/homePhoto/itemPreApp/"/>
+		<property name="prjProgNew" value="https://app.u-om.com:20002/homePhoto/prjProgNew/"/>
+		<property name="custDoc" value="https://app.u-om.com:20002/homePhoto/custDoc/"/>
+	
+	<!--	 
+		<property name="custDoc" value="http://192.168.0.64:8080/homeProject/homePhoto/custDoc/"/>
+		<property name="itemPreApp" value="http://192.168.0.155:8080/homeProject/homePhoto/itemPreApp/"/>
+		<property name="prjProgNew" value="http://192.168.0.155:8080/homeProject/homePhoto/prjProgNew/"/>
+   -->
+   		<property name="designDemoPic" value="http://192.168.0.155:8080/homeProject/homePhoto/designDemoPic/"/>
+    </category>
+    
+    <category name="jpush" desc="极光推送">
+        <property name="appKey" value="6662b5735a186919495208aa"/>
+        <property name="masterSecret" value="eb084b4bb8bade33f217c04d"/>
+        <property name="employeeAppKey" value="9b0fc0898fb5c238a5c2c05e"/> 
+        <property name="workerAppKey" value="4f7ff8704db79c417a477504"/>
+        <property name="employeeMasterSecret" value="0361bf145d97ac05572d0b6c"/>
+        <property name="workerMasterSecret" value="a5559a08f597a92f7d97d6ed"/>
+        <property name="customerMasterSecret" value="4f8e034b6198e841b50751de"/>
+        <property name="customerAppKey" value="3e59ba0ce3c144abf761533b"/>
+    </category>
+    
+    <category name="appLog" desc="是否记录接口详细日志">
+        <property name="recordResponse" value="false"/>
+    </category>
+	
+	<!-- 0：ERP和供应商平台；1：ERP平台；2：供应商平台 -->
+	<category name="ptdm" desc="平台代码">
+        <property name="itemValue" value="0"/>
+    </category>
+    
+    <!-- 手机号码正则表达式 -->
+    <category name="phoneVerify" desc="手机号码正则">
+        <property name="numRule" value="^1[34578]\d{9}$"/>
+    </category>
+    
+    <category name="custPwdVerify" desc="客户APP密码规则">
+    	<property name="custPwdRule" value="(^[0-9]*$)|(^[a-zA-Z]*$)|(^.{0,7}$)|(^.{17,})"></property>
+    </category>
+    
+    <category name="rsaKey" desc="sra加密算法密钥">
+    	<property name="publicKey" value="MIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEAzDhpGFQtbW+B/F2aASpkiwXFwTtzKpXcnBervSuMdsZvuIXf2GlWBr2gciInQxmsUw+mVTTEVFC+kULyzlTAzLXGHX9J6PA8iZffwkiPBtFCjxFpb+vCgRzZ1AkS3iG87urV2gycXI8e8do1u+eWhef0I3GNqnf1/T+lshG1ts38mQIVHaQo0RCOQlS4HyyZR0yFlj8DPcnB2t+Yah/cuMW6RCRvk2SB6Ep4du9/mwdu0BuXlKQ6c5yMjb0oXs5ea4ojTsxoLwFkz3xLtHgLXTxcEr0aHN1gblb2nby4j9xAucLGd4pF5fG5uhfS4bdezJAeaK8HGtrrZDuYLnJUQwIDAQAB"></property>
+    	<property name="privateKey" value="MIIEvgIBADANBgkqhkiG9w0BAQEFAASCBKgwggSkAgEAAoIBAQDMOGkYVC1tb4H8XZoBKmSLBcXBO3MqldycF6u9K4x2xm+4hd/YaVYGvaByIidDGaxTD6ZVNMRUUL6RQvLOVMDMtcYdf0no8DyJl9/CSI8G0UKPEWlv68KBHNnUCRLeIbzu6tXaDJxcjx7x2jW755aF5/QjcY2qd/X9P6WyEbW2zfyZAhUdpCjREI5CVLgfLJlHTIWWPwM9ycHa35hqH9y4xbpEJG+TZIHoSnh273+bB27QG5eUpDpznIyNvShezl5riiNOzGgvAWTPfEu0eAtdPFwSvRoc3WBuVvadvLiP3EC5wsZ3ikXl8bm6F9Lht17MkB5orwca2utkO5guclRDAgMBAAECggEAJ8Inu8PPoEmgPdifPfDZ6DL0gB0p27WXYJA/MDIFQ654W608mi5PwDo0vWOmzyp1YSpf0KDYRC4AG9mz2bWoX3JYIrAAXKhAsOzvdCyaI9KjqaTTKSX2FRrf0ab+lF5vIPh5L91ap655cM5xvaZlqKYy4p+d2/1E18wHXzaRcQgp88JwdojE3n8FRM+KHHiVeMaK3mvuPIS+3ACuG9zo4/53Yd/IWH1jRNCskD04jjw0J9uuM8nPPiwnuosH9LF8c51hLiQu0Sbm9gfVoZZYUx8tq38d1cFcRdzzxhzHH3PVJXxo49BPJ2L0SDhBwLSpzMKPc7e2YGt3nAeKkWIM4QKBgQD5PyAfZRsAy5SFHsgMYGPMm2YaIazzn9BmZptEStsrqyeJK+5TZ30raKxf57jWSpgT8lbLgA9abIDGgv7FhIQR1Z7XoPafUhD8nila7z6NNGmyjj2tIqsobM8rlC//KtEDkH5i0fTuvueWydgC0rPqQPzYpcb0i5f+zJgM22InkwKBgQDRwPcK/U+5a/69MvFQl9Nf4DUULS+XqfPpiMgmCy8B0FWhv6T18Y/nE9qAeVkJHKdoG4KA7iiB4vb6S53FjeqwpOP0ylGurCX/E8sh2/U3Q1Z38f4lHBSvAK7n2SnnKBwPkZw5GyfuPhddkBIG0JXQXvHzl7Rx+40pUSFGZ7yukQKBgQDIldq+KVnv6+Zcs4b/HttyIGWtBgjwD19h6ZVvAmcb36Pzqp0kFhcPxi9jB1MjceittMvQ/gBdHxELsQRj5N98ktRAaFPRp/PvuUFC42MNtG6TuhE8srfX0qlvQtTVn5mSKsjrslhRguVR3qKusu8DyMUzfUZ+K5FpBzIetrdpbQKBgAN+t58TQXTRe9kjNConnXoHflrrtdNNHadShCM+JHZfRk3/p3wBnmg3SHjDjNw+AfwWGUKUtVAUvBDHmcVk6/gthy7ZACts6uUpK0VRKPDWymYNPjLYGPAhjsiGMdCMNot73aKF9VBe8Hy6ndJHP3fNXTK14GfVzTBXDbril55BAoGBAM1icalOrqoER6YHt9unNpu6DOKOwWi83rce95rmo3N1jWzlBbKYuds22rfqc2kOkMfGDjkVJxvd+C+hs7p1eQ9Ao9pPu+v5LQJCP5atVKJaqksGjIB/F+NUQZj3IzBYvtSS+ZQSkWao4bRAyG7NV1oFAs+/4T3l3wcRojlfhbAv"></property>
+    </category>
+</config>

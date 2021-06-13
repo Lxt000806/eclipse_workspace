@@ -1,0 +1,24 @@
+<<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <button class="button button-icon icon ion-ios-arrow-back" ng-click="closeModal_prjItem()"></button>
+    <h1 class="title">施工项目</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div data-ng-init="searchPrjItem(data.searchPrjItemDescr)" style="display: none"></div>
+    <ion-item class="item-input" style="padding-top: 0px;padding-bottom: 0px">
+      <input type="text" placeholder="搜索施工项目" ng-model="data.searchPrjItemDescr">
+      <button class="button button-icon icon ion-ios-search" ng-click="searchPrjItem(data.searchPrjItemDescr)"></button>
+    </ion-item>
+    <div class="list">
+      <label class="item item-radio" ng-repeat="item in prjItems"
+             ng-click="closeModal_prjItem(item.prjItemDescr,item.prjItem)">
+        <input type="radio" name="prjItemRadio">
+
+        <div class="item-content">
+          <span>{{item.prjItemDescr}}</span>
+        </div>
+        <i class="radio-icon ion-checkmark positive"></i>
+      </label>
+    </div>
+  </ion-content>
+</ion-modal-view>

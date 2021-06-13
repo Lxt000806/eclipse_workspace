@@ -1,0 +1,73 @@
+
+<div ng-controller="custGiftAppCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth">申请人</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_CustGiftApp__0__EmpCode +'|'+submitData.fp__tWfCust_CustGiftApp__0__EmpName}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">客户编号</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_CustGiftApp__0__CustCode +'|'+submitData.fp__tWfCust_CustGiftApp__0__CustDescr}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">楼盘</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_CustGiftApp__0__Address}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">工程造价</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_CustGiftApp__0__ContractFee}}"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth">申请时间</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_CustGiftApp__0__AppDate}}"/>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth" style="max-width:35%">审批人</span>
+		<select style="padding-right: 0px;width: 65%" ng-disabled="true" ng-change="chgApproveLine()"
+				ng-model="submitData.fp__tWfCust_CustGiftApp__0__ApproveLine">
+			<option value ="1">小巴巴长审批</option>
+			<option value ="2">总经理审批</option>
+			<option value ="3">总裁审批</option>
+		</select>
+	</div>
+		
+	<div class="item item-input">
+		<span class="input-label defWidth">优惠说明</span>
+		<textarea ng-model="submitData.fp__tWfCust_CustGiftApp__0__DiscountRemarks" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_CustGiftApp__0__DiscountRemarks" ng-readonly="true"></textarea>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">总经理</br>审批条款</span>
+		<textarea ng-model="submitData.fp__tWfCust_CustGiftApp__0__ManagerItems" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_CustGiftApp__0__ManagerItems" readonly="true"></textarea>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">总裁</br>审批条款</span>
+		<textarea ng-model="submitData.fp__tWfCust_CustGiftApp__0__PresidentItems" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_CustGiftApp__0__PresidentItems" readonly="true"></textarea>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_CustGiftApp__0__Remarks" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_CustGiftApp__0__Remarks" readonly="true"></textarea>
+	</div>
+	
+	<div style="border: none;background-color:rgb(245,245,245);height:36px" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" >
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event)" ></ion-gallery>
+      </div>
+    </div>
+</div>

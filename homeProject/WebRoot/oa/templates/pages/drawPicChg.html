@@ -1,0 +1,54 @@
+<div ng-controller="drawPicChgCtrl">
+	<inputcustomer id="submitData.fp__tWfCust_DrawPicChg__0__CustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_DrawPicChg__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_DrawPicChg__0__CustDescr}}" 
+				   label="客户编号" placeholder="请选择客户编号" callback="customerCallback(data)"
+				   conditions="conditions" require="true">
+	</inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>工地名称</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_DrawPicChg__0__Address"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>状态</span>
+		<select style="padding-right: 0px;width: 65%" ng-model="submitData.fp__tWfCust_DrawPicChg__0__Status"
+			disabled>
+			<option value ="订单跟踪">订单跟踪</option>
+			<option value ="合同施工">合同施工</option>
+		</select>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>月份</span>
+		<select style="padding-right: 0px;width: 65%" ng-model="submitData.fp__tWfCust_DrawPicChg__0__MonthType"
+			ng-change="statusChange()">
+			<option value ="当月">当月</option>
+			<option value ="跨月">跨月</option>
+		</select>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>调整类型</span>
+		<select style="padding-right: 0px;width: 65%" ng-model="submitData.fp__tWfCust_DrawPicChg__0__Type"
+			ng-change="statusChange()">
+			<option value ="制图费调整">制图费调整</option>
+			<option value ="效果图费调整">效果图费调整</option>
+			<option value ="绘图员调整" ng-if = "submitData.fp__tWfCust_DrawPicChg__0__Status=='订单跟踪'">绘图员调整</option>
+			<option value ="效果图员调整" ng-if = "submitData.fp__tWfCust_DrawPicChg__0__Status=='订单跟踪'">效果图员调整</option>
+			<option value ="绘图调整" ng-if="submitData.fp__tWfCust_DrawPicChg__0__Type == '绘图调整'">绘图调整</option>
+			<option value ="效果图调整" ng-if="submitData.fp__tWfCust_DrawPicChg__0__Type == '效果图调整'">效果图调整</option>
+		</select>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>调整前</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_DrawPicChg__0__BeforeAdjust">
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>调整后</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_DrawPicChg__0__AfterAdjust">
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>调整原因</span>
+		<textarea ng-model="submitData.fp__tWfCust_DrawPicChg__0__Reason"  style="width:65%"
+			textareaauto="submitData.fp__tWfCust_DrawPicChg__0__Reason" ></textarea>
+	</div>
+	
+</div>

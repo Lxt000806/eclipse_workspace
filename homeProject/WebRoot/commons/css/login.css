@@ -1,0 +1,13 @@
+/* CSS Document */
+*{ margin:0px; padding:0px;}
+body{ font-size:12px; background:#FFF;font-weight:normal; color:#000; font-family:Verdana,Arial,sans-serif; position:relative; overflow:hidden;margin:5px;}
+
+
+/*登录样式*/
+body.login_body{ background:#49E0FF url(../images/login_bg.jpg) no-repeat center top;}
+.log_con{ width:300px; padding-top:195px; padding-left:260px; margin:0px auto;}
+body.login_body .txt{ width:173px; padding:0px 3px; height:25px; line-height:25px; background:url(../images/login_inputbg.gif); border:none;}
+body.login_body .log_bt{ width:123px; height:27px; background:url(../images/login_bt_bg.gif); border:none;cursor:pointer;}
+body.login_body .txt_s{ width:72px; padding-left:3px; height:25px; line-height:25px; background:url(../images/login_input_s_bg.gif); border:none;}
+body.login_body .error{ color:#F00;}
+body.login_body table th{ color:#333; font-size:14px;}

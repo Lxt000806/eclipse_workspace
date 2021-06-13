@@ -1,0 +1,30 @@
+.ui-state-highlight, .ui-widget-content .ui-state-highlight, .ui-widget-header .ui-state-highlight {
+    border: 1px solid #999;
+    background: #E7E7E7 url("images/ui-bg_glass_55_fbf9ee_1x400.png") 50% 50% repeat-x;
+    color: #212121;
+}
+.ui-jqgrid a{
+	color: #3C7FB1;
+    line-height: 20px;
+    text-decoration: none;
+}
+.ui-state-highlight a, .ui-widget-content .ui-state-highlight a, .ui-widget-header .ui-state-highlight a {
+    color: #3C7FB1;
+}
+.ui-widget-header {
+	font-weight: normal;
+}
+.ui-jqgrid td input, .ui-jqgrid td select, .ui-jqgrid td textarea {
+    margin: 0;
+    padding-top: 3px;
+    padding-bottom: 3px;
+}
+.ui-jqgrid .ui-jqgrid-view {
+	font-size:12px;
+}
+.ui-jqgrid .ui-jqgrid-view input,
+.ui-jqgrid .ui-jqgrid-view select,
+.ui-jqgrid .ui-jqgrid-view textarea,
+.ui-jqgrid .ui-jqgrid-view button {
+    font-size: 12px;
+}

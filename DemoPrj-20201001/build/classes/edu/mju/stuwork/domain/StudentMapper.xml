@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="edu.mju.stuwork.StudentMapper">
+
+   <!-- edu.mju.stuwork.StudentMapper.addStudent -->
+  
+   <!-- 映射条目，这个条目的类型是增加操作 -->
+   <insert id="addStudent" parameterType="Student">
+       insert into tbl_student 
+       values(#{stuNo},#{stuName},#{stuMark})
+   </insert>
+   <select id="loadStus" resultType="Student">
+       select * 
+       from tbl_student 
+       order by stu_no desc;
+   </select>
+   
+   <delete id="delStudent" parameterType="int">
+       delete from tbl_student 
+       where stu_no=#{stuNo}
+   </delete>
+   
+   <select id="getStuByNo" parameterType="int" resultType="Student">
+       select * 
+       from tbl_student 
+       where stu_no=#{stuNo}
+   </select>
+   
+   <update id="updateStu" parameterType="Student">
+       update tbl_student 
+       set stu_name=#{stuName},stu_mark=#{stuMark}
+       where stu_no=#{stuNo}
+   </update>
+</mapper>

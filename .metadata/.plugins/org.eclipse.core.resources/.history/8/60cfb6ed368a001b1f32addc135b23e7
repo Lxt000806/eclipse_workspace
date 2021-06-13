@@ -1,0 +1,22 @@
+/**
+ * 
+ */
+package xunke.demo20210321_1;
+
+/**
+ * 流的分类：1。输出流   2.输入流
+ * 按内容格式分：
+ * 1.二进制流/字节流（流默认模式）
+ * 2.字符流/文本流(是二进制流经过编码过滤之后的结果)
+ *
+ */
+public class NovelWriter {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+	}
+
+}

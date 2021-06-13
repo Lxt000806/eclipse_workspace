@@ -1,0 +1,31 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+	<META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8" />
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache" />
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+	<META HTTP-EQUIV="expires" CONTENT="0"  />
+	<title> new document </title>
+	<script type="text/javascript" src="./commons/js/jquery.js"></script>
+<script type="text/javascript">
+	<!--
+	var fs = parent.document.getElementsByTagName("frameset")[1];
+	$(function(){
+		$("#flag").toggle(function(){
+			fs.setAttribute("cols", "0, 8, *");
+			$("#flag").attr("src","./commons/images/btn_show.gif");
+		},function(){
+			fs.setAttribute("cols", "190, 8, *");
+			$("#flag").attr("src","./commons/images/btn_hide.gif");
+		});
+	});
+	//-->
+</script>
+</head>
+
+<body style="position:relative; padding:0px; background:#E7EFEF;" >
+	<img id="flag" style="cursor:pointer;position:absolute;right:0px;top:250px" src="./commons/images/btn_hide.gif"></img>
+</body>
+</html>
+
+

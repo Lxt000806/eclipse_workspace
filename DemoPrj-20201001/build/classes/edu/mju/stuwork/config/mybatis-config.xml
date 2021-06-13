@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE configuration
+  PUBLIC "-//mybatis.org//DTD Config 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-config.dtd">
+  
+<configuration>
+
+   <!-- 
+    导入和关联数据库信息存储的属性文件
+    -->
+  <properties resource="edu/mju/stuwork/config/db.properties"></properties>
+  
+  <typeAliases>
+    <package name="edu.mju.stuwork.domain"/> 
+  </typeAliases>  
+  
+  <!-- 多种数据库环境  -->
+  <environments default="mysql-dev">
+    
+    <environment id="mysql-dev">
+      <transactionManager type="JDBC"/>
+      <!-- 数据源其实本质上就是连接池，一个存储结构，内部放了很多连接对象 -->
+      <dataSource type="POOLED">
+        <property name="driver" value="${mysql.driver}"/>
+        <property name="url" value="${mysql.url}"/>
+        <property name="username" value="${mysql.username}"/>
+        <property name="password" value="${mysql.password}"/>
+      </dataSource>
+    </environment>      
+    
+  </environments>   
+  
+  <mappers>
+    <mapper resource="edu/mju/stuwork/domain/StudentMapper.xml"/>
+  </mappers>  
+  
+</configuration>

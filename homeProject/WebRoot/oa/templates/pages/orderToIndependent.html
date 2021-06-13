@@ -1,0 +1,84 @@
+<div ng-controller="orderToIndependentCtrl">
+	<inputcustomer id="submitData.fp__tWfCust_OrderToIndependent__0__CustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_OrderToIndependent__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_OrderToIndependent__0__CustDescr}}" 
+				   label="转出客户" placeholder="请选择客户编号"  conditions="conditions"
+				   callback="customerCallback(data)"
+				   require="true"></inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>转出楼盘</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__Address"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>分公司</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__CompanyDescr" readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>转出金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__Amount"
+				ng-change="setNewAmount()"/>
+	</div>
+	<div class="item item-input" ng-if="submitData.tWfCust_OrderToIndependent_ConfirmAmount_Show == '1'">
+		<span class="input-label defWidth"><span style="color:red">*</span>转出审批金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__ConfirmAmount"/>
+	</div>
+	
+	<div class="item item-input" ng-if="submitData.tWfCust_OrderToIndependent_DocumentNo_Show == '1'">
+		<span class="input-label defWidth">凭证号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__DocumentNo"/>
+	</div>
+	
+	<inputcustomer id="submitData.fp__tWfCust_OrderToIndependent__0__NewCustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_OrderToIndependent__0__NewCustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_OrderToIndependent__0__NewCustDescr}}" 
+				   label="转入客户" placeholder="请选择客户编号"  conditions="newConditions"
+				   callback="customerNewCallback(data)"
+				   require="true"></inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>转入楼盘</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__NewAddress"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>转入金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__NewAmount" 
+				ng-change="checkNewAmount()"/>
+	</div>
+	<div class="item item-input" ng-if="submitData.tWfCust_OrderToIndependent_NewConfirmAmount_Show == '1'">
+		<span class="input-label defWidth"><span style="color:red">*</span>转入审批金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__NewConfirmAmount" />
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>Erp退定</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_OrderToIndependent__0__ErpReturn">
+			<option value ="未操作">未操作</option>
+			<option value ="已退定归档">已退定归档</option>
+		</select>
+	</div>
+	<mulitselect conditions="options" callback="selectCallback(data)" 
+		label="独立销售" placeholder="选择独立销售"
+		id="submitData.fp__tWfCust_OrderToIndependent__0__ItemType1" 
+		showlabel="{{submitData.fp__tWfCust_OrderToIndependent__0__ItemType1}}" 
+		ng-model="submitData.fp__tWfCust_OrderToIndependent__0__ItemType1"
+		require="true"></mulitselect>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>退定的原因</span>
+		<textarea ng-model="submitData.fp__tWfCust_OrderToIndependent__0__Reason" style="width:65%"
+				textareaauto="submitData.fp__tWfCust_OrderToIndependent__0__Reason" ></textarea>
+	</div>
+	<div style="padding: 10px;" ng-bind-html="remarks"></div>
+	
+	<div style="border: none;background-color:rgb(245,245,245);height:36px">
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event,submitData.taskDefKey != 'startevent' && submitData.taskDefKey != 'applyman')" ></ion-gallery>
+      </div>
+    </div>
+</div>
+

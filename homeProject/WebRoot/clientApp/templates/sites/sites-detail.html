@@ -1,0 +1,59 @@
+
+<ion-header-bar class="bar-positive">
+  <h1 class="title">工地信息</h1>
+  <button class="button " ui-sref="more-set">设置</button>
+</ion-header-bar>
+  <ion-content>
+    <div class="list">
+      <ion-item class="item-divider"></ion-item>
+      <label class="item item-input item-select" style="padding: 0px 0px 0px 15px">
+        <div class="input-label" style="padding:  7px 0px 7px 0px;width: 60px">
+          工地地址：
+        </div>
+        <select  ng-model="custCode"  ng-change="comboChange(custCode)" ng-options="item.code as item.address for item in custCodeList">
+        </select>
+      </label>
+      <div class="item">
+       客户姓名： <span >{{customer.descr}}</span>
+      </div>
+      <div class="item item-text-wrap">
+        施工要求：<span style="margin-left: 4px">{{customer.constructRemark}}</span>
+      </div>
+      <ion-item class="item-divider"></ion-item>
+      <div class="item item-icon-right" ng-click="goProgressUi(customer.code)">
+        <h2>工地进度</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+      <div class="item item-icon-right" ng-click="goGxrDetailUi(customer.code)">
+        <h2>干系人</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+      <div class="item item-icon-right" ng-click="goPayInfoUi(customer.code)">
+        <h2>付款信息</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+      <div class="item item-icon-right" ng-click="goBasicNeedsUi(customer.code)">
+        <h2>基础预算</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+      <div class="item item-icon-right" ng-click="goBasicChangeUi(customer.code)">
+        <h2>基础变更单</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+      <div class="item item-icon-right" ng-click="goMaterialNeedsUi(customer.code)">
+        <h2>材料预算</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+      <div class="item item-icon-right" ng-click="goMaterialChangeUi(customer.code)">
+        <h2>材料变更单</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+      <div class="item item-icon-right" ng-click="goItemAppUi(customer.code)">
+        <h2>领料单</h2>
+        <i class="icon ion-ios-arrow-right"></i>
+      </div>
+
+    </div>
+    <div ng-include="'templates/common/content-footer.html'" onload="getCustomerDetail()"></div>
+  </ion-content>
+</ion-view>

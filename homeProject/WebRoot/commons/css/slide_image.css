@@ -1,0 +1,50 @@
+#slides {
+	display: block;
+	margin: 0 auto;
+	width: 320px;
+	height: 140px;
+}
+
+.slidesjs-pagination {
+	padding-left: 0px;
+	padding-top: 5px;
+	list-style: none;
+	display: table;
+	margin: 0 auto;
+	z-index: 999;
+}
+
+.slidesjs-pagination li {
+	float: left;
+	margin: 0 1px;
+	z-index: 999;
+}
+
+.slidesjs-pagination li a {
+	background:url("../images/dot.png") no-repeat scroll 0 0 rgba(0, 0, 0, 0);
+	display:block;
+	margin-right:10px;
+	height: 9px;
+	width: 9px;
+}
+
+.slidesjs-pagination li a.active,.slidesjs-pagination li a:hover.active
+{
+	background:url("../images/dot_on.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+.slidesjs-pagination li a:hover {
+	background:url("../images/dot_on.png") repeat scroll 0 0 rgba(0, 0, 0, 0);
+}
+
+#slides a:link,#slides a:visited {
+	color: #333
+}
+
+#slides a:hover,#slides a:active {
+	color: #9e2020
+}
+
+.navbar {
+	overflow: hidden
+}

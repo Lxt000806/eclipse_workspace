@@ -1,0 +1,72 @@
+/**
+ * 
+ */
+package demo.junit.cnt;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ * @author HY
+ *
+ */
+public class CntCharNum {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		String str;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("请输入字符串：");
+        str = scanner.nextLine();
+        String[] words_Array = str.split(" ");
+        Map<String,Integer> words_Map=new HashMap<String, Integer>();
+
+        int arrLength = words_Array.length;
+
+        for(int i=0;i<arrLength;i++){
+           if(!words_Map.containsKey(words_Array[i])){
+              words_Map.put(words_Array[i], 1);
+
+              System.out.println(words_Array[i]);
+
+              System.out.println("出现");
+
+              System.out.println(words_Map.put(words_Array[i], 1));
+
+              System.out.println("次");
+
+             
+
+           }else{
+              int currentNum = words_Map.get(words_Array[i])+1;
+
+              words_Map.remove(words_Array[i]);
+
+              words_Map.put(words_Array[i], currentNum);
+
+              System.out.println(words_Array[i]);
+
+              System.out.println("出现");
+
+              System.out.println(words_Map.put(words_Array[i], currentNum));
+
+              System.out.println("次");
+
+	}
+	
+	/**
+     * 计算字符串中各个字符类型的数量
+     * @param str
+     */
+    public static void count(String str){
+
+        
+    }
+
+}

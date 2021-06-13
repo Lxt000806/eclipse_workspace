@@ -1,0 +1,123 @@
+<!-- 离职单-->
+<div ng-controller="resignRecordCtrl">
+
+	<div class="item item-input" ng-show="false">
+		<span class="input-label defWidth"><span style="color:red">*</span>公司编号</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_ResignRecord__0__Company}}"/>
+	</div>
+	<div class="item item-input" ng-show="false">
+		<span class="input-label defWidth"><span style="color:red">*</span>公司名称</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_ResignRecord__0__CompanyDescr}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>员工</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_ResignRecord__0__EmpCode +'|'+submitData.fp__tWfCust_ResignRecord__0__EmpName}}"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>部门</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ResignRecord__0__Department2" readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>岗位</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ResignRecord__0__Position" readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>入职时间</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ResignRecord__0__JoinDate" readonly="true"/>
+	</div>
+	<ionic-datepicker input-obj="datepickerObject">
+		<ion-item class="item-input">
+			<div class="input-label defWidth"><span style="color:red">*</span>离职时间:</div>
+			<div>{{submitData.fp__tWfCust_ResignRecord__0__LeaveDate}}</div>
+			<i class="icon icon ion-ios-calendar-outline" 
+				style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+		</ion-item>
+	</ionic-datepicker>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>司龄</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ResignRecord__0__CmpYears" readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth">车牌号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ResignRecord__0__CarNo"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth">微信号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ResignRecord__0__WeChatNo"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>离职类型</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_ResignRecord__0__LeaveType">
+			<option value ="试用期内">试用期内</option>
+			<option value ="合同期内">合同期内</option>
+			<option value ="合同到期">合同到期</option>
+		</select>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth">申请时间</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ResignRecord__0__ApplyDate" readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>行政物品</span>
+		<div style="width: 65%;">
+			<textarea ng-model="submitData.fp__tWfCust_ResignRecord__0__CompanyItems" style="border: 0" 
+				placeholder="电话卡/电脑等"
+				textareaauto="submitData.fp__tWfCust_ResignRecord__0__CompanyItems" ></textarea>
+		</div>
+	</div>
+	离职原因
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth">原因类型</span>
+		<select style="padding-right: 0px;width: 100%" ng-change="changeReasonType()"
+			ng-model="submitData.fp__tWfCust_ResignRecord__0__ReasonType">
+			<option value ="管理原因">管理原因</option>
+			<option value ="个人原因">个人原因</option>
+			<option value ="家庭原因">家庭原因</option>
+			<option value ="公司原因">公司原因</option>
+		</select>
+	</div>
+	
+	<mulitselect conditions="options" callback="selectCallback(data)" 
+		label="{{submitData.fp__tWfCust_ResignRecord__0__ReasonType?submitData.fp__tWfCust_ResignRecord__0__ReasonType:'原因' }}" placeholder="选择原因..."
+		id="submitData.fp__tWfCust_ResignRecord__0__Reason" 
+		showlabel="{{submitData.fp__tWfCust_ResignRecord__0__Reason}}" 
+		ng-model="submitData.fp__tWfCust_ResignRecord__0__Reason"
+		>
+	</mulitselect>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">其他原因说明</span>
+		<div style="width: 65%;">
+			<textarea ng-model="submitData.fp__tWfCust_ResignRecord__0__Remarks" style="border: 0" 
+				textareaauto="submitData.fp__tWfCust_ResignRecord__0__Remarks" ></textarea>
+		</div>
+	</div>
+	
+	<!-- 回来条件  -->
+	其他
+	<mulitselect conditions="ComeBackOptions" callback="selComeBackCallback(data)" 
+		label="是否愿回公司" placeholder="请选择条件"
+		id="submitData.fp__tWfCust_ResignRecord__0__ComeBackReason" 
+		showlabel="{{submitData.fp__tWfCust_ResignRecord__0__ComeBackReason}}" 
+		ng-model="submitData.fp__tWfCust_ResignRecord__0__ComeBackReason">
+	</mulitselect>
+	<div class="item item-input">
+		<span class="input-label defWidth">回来工作说明</span>
+		<div style="width: 65%;">
+			<textarea ng-model="submitData.fp__tWfCust_ResignRecord__0__ComeBackRemarks" style="border: 0" 
+				textareaauto="submitData.fp__tWfCust_ResignRecord__0__ComeBackRemarks" ></textarea>
+		</div>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">建议/意见</span>
+		<div style="width: 65%;">
+			<textarea ng-model="submitData.fp__tWfCust_ResignRecord__0__Suggestions" style="border: 0" 
+				textareaauto="submitData.fp__tWfCust_ResignRecord__0__Suggestions" ></textarea>
+		</div>
+	</div>
+	
+	
+	
+</div>

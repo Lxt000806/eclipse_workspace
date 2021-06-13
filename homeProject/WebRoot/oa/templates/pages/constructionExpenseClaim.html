@@ -1,0 +1,89 @@
+<!-- 人工费用报销单 -->
+<div ng-controller="constructionExpenseClaimCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>报销人</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_ConstructionExpenseClaim__0__EmpCode +'|'+submitData.fp__tWfCust_ConstructionExpenseClaim__0__EmpName}}"/>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px"
+		ng-if="submitData.fp__tWfCust_ConstructionExpenseClaim__0__Company_Show !='0'">　
+		<span class="input-label defWidth"><span style="color:red">*</span>分公司</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_ConstructionExpenseClaim__0__Company">
+			<option value ="福州有家" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家'">福州有家</option>
+			<option value ="厦门有家" ng-if="cmpCode == '厦门有家'">厦门有家</option>
+			<option value ="漳州有家" ng-if="cmpCode == '厦门有家'">漳州有家</option>
+			<option value ="郑州有家" ng-if="cmpCode == '郑州有家'">郑州有家</option>
+			<option value ="美第家居" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家'">美第家居</option>
+		</select>
+	</div>
+		
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>部门</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_ConstructionExpenseClaim__0__DeptDescr}}"/>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>材料类型</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_ConstructionExpenseClaim__0__ItemType1">
+			<option value ="主材">主材</option>
+			<option value ="软装">软装</option>
+			<option value ="集成">集成</option>
+			<option value ="基装">基装</option>
+			<option value ="礼品">礼品</option>
+		</select>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth" style="text-align: right"><span style="color:red">*</span>常规列支</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_ConstructionExpenseClaim__0__IsCommon" ng-change="typeChange()" 
+			ng-disabled="true">
+			<option value ="是">是</option>
+		</select>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">报销金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ConstructionExpenseClaim__0__Amount" 
+			ng-readonly="true"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">业务单号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ConstructionExpenseClaim__0__RefNo" 
+			ng-readonly="true"/>
+	</div>
+			   
+	<div class="item item-input">
+		<span class="input-label defWidth">备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_ConstructionExpenseClaim__0__Remarks" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_ConstructionExpenseClaim__0__Remarks"></textarea>
+	</div>
+	
+	<group scope="self" label="报销明细" addcallback="rgfyAddCallback(index)" 
+		   delcallback="rgfyDelCallback(index)" delall="rgfyDelAll" indexs="rgfyIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="rgfyAfterDetailNum()">
+		<div class="item item-input" ng-if="submitData.tWfCust_ConstructionExpenseClaimDtl_DtlAmount_Show !='0'">
+			<span class="input-label defWidth">报销金额</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_ConstructionExpenseClaimDtl__?__DtlAmount" ng-readonly="true"/>
+		</div>
+		
+		<div class="item item-input" ng-if="submitData.tWfCust_ConstructionExpenseClaimDtl_Remarks_Show !='0'">
+			<span class="input-label defWidth">报销内容</span>
+			<textarea ng-model="submitData.fp__tWfCust_ConstructionExpenseClaimDtl__?__Remarks" style="width:65%"
+				textareaauto="submitData.fp__tWfCust_ConstructionExpenseClaimDtl__?__Remarks"
+				ng-readonly="true" ></textarea>
+		</div>
+	</group>
+	<div style="border: none;background-color:rgb(245,245,245);height:36px" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" >
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event,submitData.taskDefKey != 'startevent' && submitData.taskDefKey != 'applyman')" ></ion-gallery>
+      </div>
+    </div>
+</div>

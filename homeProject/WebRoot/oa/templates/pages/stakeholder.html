@@ -1,0 +1,92 @@
+<div ng-controller="stakeholderCtrl">
+	<inputcustomer id="submitData.fp__tWfCust_Stakeholder__0__CustCode" idvar="code1" 
+				   showvalue="{{submitData.fp__tWfCust_Stakeholder__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_Stakeholder__0__CustDescr}}" 
+				   label="客户编号" placeholder="请选择客户编号"  conditions="conditions"
+				   callback="customerCallback(data)"
+				   require="true"></inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>楼盘</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_Stakeholder__0__Address" readonly="true"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>状态</span>
+		<select style="padding-right: 0px;width: 100%"  disabled="true" ng-model="submitData.fp__tWfCust_Stakeholder__0__Status">
+			<option value="" >请选择</option>
+			<option value="合同施工" >合同施工</option>
+			<option value="订单跟踪" >订单跟踪</option>
+		</select>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>类型</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_Stakeholder__0__Type" ng-change="typeChange()">				
+			<option value="" >请选择</option>
+			<option value ="撞单">撞单</option>
+			<option value ="专盘,同事业部">专盘,同事业部</option>
+			<option value ="专盘,跨事业部">专盘,跨事业部</option>
+			<option value ="人员离职调整">人员离职调整</option>
+			<option value ="设计师离职调整">设计师离职调整</option>
+			<option value ="现场设计师离职调整">现场设计师离职调整</option>
+			<option value ="业主不满意,更换设计师">业主不满意,更换设计师</option>
+			<option value ="干系人不变,部门业绩归属调整">干系人不变,部门业绩归属调整</option>
+		</select>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px"
+	 		ng-hide="submitData.fp__tWfCust_Stakeholder__0__Type =='干系人不变,部门业绩归属调整'">　
+		<span class="input-label defWidth"><span style="color:red">*</span>角色</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_Stakeholder__0__Roll" ng-change="selRole()">
+			<option value="" >请选择</option>
+			<option value="设计师" >设计师</option>
+			<option value="业务员" >业务员</option>
+			<option value="翻单员" >翻单员</option>
+			<option value="现场设计师" >现场设计师</option>
+			<option value="深化设计师" >深化设计师</option>
+		</select>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>原干系人</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_Stakeholder__0__OldEmpNumber+(submitData.fp__tWfCust_Stakeholder__0__OldEmpNumber && submitData.fp__tWfCust_Stakeholder__0__OldEmpNumber!='|'?'':'')+submitData.fp__tWfCust_Stakeholder__0__OldEmpNameChi" readonly="true"
+		ng-hide="submitData.fp__tWfCust_Stakeholder__0__Type =='干系人不变,部门业绩归属调整'"/>
+		
+	</div>
+	<!-- <inputemployee id="submitData.fp__tWfCust_Stakeholder__0__OldEmpNumber" idvar="number" label="原干系人" placeholder="请选择原干系人" 
+					   showvalue="{{submitData.fp__tWfCust_Stakeholder__0__OldEmpNumber}}" 
+					   showlabel="{{submitData.fp__tWfCust_Stakeholder__0__OldEmpNameChi}}" 
+					   callback="inputEmployee(data)" elementid="OldEmp"
+					   ng-hide="submitData.fp__tWfCust_Stakeholder__0__Type =='干系人不变,部门业绩归属调整'"
+				   	   require="true"></inputemployee> -->
+	<inputemployee id="submitData.fp__tWfCust_Stakeholder__0__NewEmpNumber" idvar="number" label="新干系人" placeholder="请选择新干系人" 
+					   showvalue="{{submitData.fp__tWfCust_Stakeholder__0__NewEmpNumber}}" 
+					   showlabel="{{submitData.fp__tWfCust_Stakeholder__0__NewEmpNameChi}}" 
+					   callback="inputEmployee(data)" elementid="NewEmp"
+					   ng-hide="submitData.fp__tWfCust_Stakeholder__0__Type =='干系人不变,部门业绩归属调整'"
+				   	   require="true"></inputemployee>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px" ng-hide="submitData.fp__tWfCust_Stakeholder__0__Type !='撞单'">　
+		<span class="input-label defWidth">角色2</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_Stakeholder__0__Roll2">
+			<option value="" >请选择</option>
+			<option value="设计师" >设计师</option>
+			<option value="业务员" >业务员</option>
+			<option value="翻单员" >翻单员</option>
+			<option value="现场设计师" >现场设计师</option>
+		</select>
+	</div>
+	<inputemployee ng-hide="submitData.fp__tWfCust_Stakeholder__0__Type !='撞单'" 
+					id="submitData.fp__tWfCust_Stakeholder__0__OldEmpNumber2" idvar="number" label="原干系人2" placeholder="请选择原干系人2" 
+					   showvalue="{{submitData.fp__tWfCust_Stakeholder__0__OldEmpNumber2}}" 
+					   showlabel="{{submitData.fp__tWfCust_Stakeholder__0__OldEmpNameChi2}}" 
+					   callback="inputEmployee(data)" elementid="OldEmp2"
+				   	   require="false"></inputemployee>
+	<inputemployee ng-hide="submitData.fp__tWfCust_Stakeholder__0__Type !='撞单'" 
+					id="submitData.fp__tWfCust_Stakeholder__0__NewEmpNumber2" idvar="number" label="新干系人2" placeholder="请选择新干系人2" 
+					   showvalue="{{submitData.fp__tWfCust_Stakeholder__0__NewEmpNumber2}}" 
+					   showlabel="{{submitData.fp__tWfCust_Stakeholder__0__NewEmpNameChi2}}" 
+					   callback="inputEmployee(data)" elementid="NewEmp2"
+				   	   require="false"></inputemployee>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_Stakeholder__0__Reason" style="width:65%" 
+		textareaauto="submitData.fp__tWfCust_Stakeholder__0__Reason" ></textarea>
+	</div>
+</div>

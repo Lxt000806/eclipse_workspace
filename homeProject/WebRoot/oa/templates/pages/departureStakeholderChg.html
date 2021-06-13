@@ -1,0 +1,41 @@
+<div ng-controller="departureStakeholderChgCtrl">
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>状态</span>
+		<select style="padding-right: 0px;width: 100%"   ng-model="submitData.fp__tWfCust_DepartureStakeholderChg__0__Status" ng-change="statusChange()">
+			<option value="" >请选择</option>
+			<option value="订单跟踪" >订单跟踪</option>
+			<option value="合同施工" >合同施工</option>
+		</select>
+	</div>
+	<inputemployee id="submitData.fp__tWfCust_DepartureStakeholderChg__0__OldStakeholder" idvar="number" label="原干系人" placeholder="请选择原干系人" 
+		   showvalue="{{submitData.fp__tWfCust_DepartureStakeholderChg__0__OldStakeholder}}" 
+		   showlabel="{{submitData.fp__tWfCust_DepartureStakeholderChg__0__OldStakeholderDescr}}" 
+		   callback="inputEmployee(data)" elementid="OldStakeholder"
+	   	   require="true">
+   	</inputemployee>
+	<inputemployee id="submitData.fp__tWfCust_DepartureStakeholderChg__0__Stakeholder" idvar="number" label="新干系人" placeholder="请选择新干系人" 
+		   showvalue="{{submitData.fp__tWfCust_DepartureStakeholderChg__0__Stakeholder}}" 
+		   showlabel="{{submitData.fp__tWfCust_DepartureStakeholderChg__0__StakeholderDescr}}" 
+		   callback="inputEmployee(data)" elementid="Stakeholder"
+	   	   require="true">
+   	</inputemployee>
+   	<div style="padding: 10px;" ng-bind-html="remarks"></div>
+	<group scope="self" label="离职调整干系人明细" addcallback="gctdAddCallback(index)" 
+		   delcallback="gctdDelCallback(index)" delall="gctdDelAll" indexs="gctdIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="gctdAfterDetailNum()">
+		<inputcustomer id="submitData.fp__tWfCust_DepartureStakeholderChgDtl__?__CustCode" idvar="code" 
+			showvalue="{{submitData.fp__tWfCust_DepartureStakeholderChgDtl__?__CustCode}}" 
+			showlabel="{{submitData.fp__tWfCust_DepartureStakeholderChgDtl__?__CustDescr}}" 
+			label="客户编号" placeholder="请选择客户编号" callback="customerCallback(data, ?)"
+			conditions="conditions"
+			require="true">
+		</inputcustomer>
+		<div class="item item-input">
+			<span class="input-label group-input-label">楼盘</span>
+			<div style="width: 65%">
+				<input type="text" ng-model="submitData.fp__tWfCust_DepartureStakeholderChgDtl__?__Address" readonly 
+				id="fp__tWfCust_DepartureStakeholderChgDtl__?__Address"/>
+			</div>
+		</div>
+	</group>	
+</div>

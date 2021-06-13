@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="purchaseExpense_main" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f63194cb-5f29-4521-bd04-d6816815e66a">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\xzy\\Desktop\\report\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="No" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select wfProcInstNo no,taxPayeeCode from tWfCust_PurchaseExpenseDtl a where a.wfprocInstNo = $P{No} group by taxPayeeCode ,WfprocinstNo]]>
+	</queryString>
+	<field name="no" class="java.lang.String"/>
+	<field name="taxPayeeCode" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="202" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="595" height="202" uuid="c4566552-fc94-45eb-9b95-045bcdbcc6f1"/>
+				<subreportParameter name="No">
+					<subreportParameterExpression><![CDATA[$F{no}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TaxPayeeCode">
+					<subreportParameterExpression><![CDATA[$F{taxPayeeCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "purchaseExpense.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+</jasperReport>

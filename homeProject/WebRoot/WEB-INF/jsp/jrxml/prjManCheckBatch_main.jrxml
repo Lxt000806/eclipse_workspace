@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="prjManCheckBatch_main" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="f0ce4026-6688-459a-9a97-139c36cdd891">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:/Users/Lenovo-381/Desktop/prjManCheck/"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoFile" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:/logo.jpg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CustCode" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select  a.code CustCode,b.type CustTypeType from tcustomer   a
+inner join tCusttype b on a.CustType=b.Code
+left outer join tEmployee c on a.ProjectMan=c.Number
+where a.Code in  ($P!{CustCode})
+order by c.NameChi asc]]>
+	</queryString>
+	<field name="CustCode" class="java.lang.String"/>
+	<field name="CustTypeType" class="java.lang.String"/>
+	<group name="prjManCheck_printGroup" isStartNewPage="true" minHeightToStartNewPage="1">
+		<groupExpression><![CDATA[$F{CustCode}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement stretchType="RelativeToTallestObject" x="0" y="0" width="180" height="100" uuid="3a668d81-f683-44c8-b2e5-b82817c69f51"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "prjManCheck_sdj.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="31">
+			<staticText>
+				<reportElement x="315" y="1" width="20" height="20" uuid="ef6fc2ce-299b-4a25-8270-a25be9b3650c"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+					<paragraph tabStopWidth="10"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="361" y="1" width="39" height="20" uuid="a70ba791-2558-400e-9d2b-dda78d4633c3"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+					<paragraph tabStopWidth="10"/>
+				</textElement>
+				<text><![CDATA[页，共]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="425" y="1" width="20" height="20" uuid="dc14f58b-5dde-4f9b-89d3-0ac143836bdd"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+					<paragraph tabStopWidth="10"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="335" y="1" width="26" height="20" uuid="cbe6b911-734e-49f6-8ec9-26066ccb32f6"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+					<paragraph tabStopWidth="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="399" y="1" width="26" height="20" uuid="2c43d1d3-677b-451f-8a7c-c8ea0f4fcc01"/>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+					<paragraph tabStopWidth="10"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

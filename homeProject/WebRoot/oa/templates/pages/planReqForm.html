@@ -1,0 +1,53 @@
+<!-- 工程退定申请 -->
+<div ng-controller="planReqFormCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>需求描述</span>
+		<div style="width: 65%;">
+			<textarea ng-model="submitData.fp__tWfCust_PlanReqForm__0__Reason" style="border: 0"
+				textareaauto="submitData.fp__tWfCust_PlanReqForm__0__Reason" ></textarea>
+		</div>
+	</div>
+	<ionic-datepicker input-obj="datepickerObject">
+		<ion-item class="item-input">
+			<div class="input-label defWidth"><span style="color:red">*</span>要求交付时间</div>
+			<div>{{submitData.fp__tWfCust_PlanReqForm__0__DeliveryDate}}</div>
+			<i class="icon icon ion-ios-calendar-outline" 
+				style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+		</ion-item>
+	</ionic-datepicker>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>类型</span>
+		<select disabled="true" style="padding-right: 0px;width: 100%"
+			 ng-model="submitData.fp__tWfCust_PlanReqForm__0__Type"
+			 ng-style="{color: submitData.fp__tWfCust_PlanReqForm__0__Type == '加急' ?  'red' : ''}"
+			 >				
+			<option value="" >请选择</option>
+			<option value ="正常">正常</option>
+			<option value ="加急"><p style="color:red">加急</p></option>
+		</select>
+	</div>
+	<inputemployee id="nextOperator" idvar="number" label="策划执行人" placeholder="请选择策划执行人"  ng-if="submitData.taskDefKey == 'usertask4' || submitData.taskDefKey == 'usertask5'"
+		   showvalue="" 
+		   showlabel="" callback="inputEmployee(data)"
+		   callback="inputEmployee(data)" elementid=""></inputemployee>
+	
+	<div style="border: none;background-color:rgb(245,245,245);height:36px">
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event,submitData.taskDefKey != 'startevent' && submitData.taskDefKey != 'applyman')" ></ion-gallery>
+      </div>
+    </div>
+	<div style="padding: 10px;" ng-bind-html="remarks"></div>
+</div>
+<style type="text/css">
+.redColor{
+	color:red!important;
+}
+
+</style>

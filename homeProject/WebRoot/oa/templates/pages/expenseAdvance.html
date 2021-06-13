@@ -1,0 +1,119 @@
+<!-- 费用预支流程 -->
+<div ng-controller="expenseAdvanceCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>员工</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_ExpenseAdvance__0__EmpCode +'|'+submitData.fp__tWfCust_ExpenseAdvance__0__EmpName}}"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px"
+		ng-if="submitData.fp__tWfCust_ExpenseAdvance__0__Company_Show !='0'">　
+		<span class="input-label defWidth"><span style="color:red">*</span>分公司</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__Company"
+			ng-disabled="submitData.fp__tWfCust_ExpenseAdvance__0__Company_Edit =='0'" ng-change="chgCompany()">
+			<option value ="福州有家" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家'">福州有家</option>
+			<option value ="厦门有家" ng-if="cmpCode == '厦门有家'">厦门有家</option>
+			<option value ="漳州有家" ng-if="cmpCode == '厦门有家' || cmpCode == '厦门有家'">漳州有家</option>
+			<option value ="郑州有家" ng-if="cmpCode == '郑州有家'">郑州有家</option>
+			<option value ="美第家居" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家' || cmpCode == '厦门有家'|| cmpCode == '漳州有家'">美第家居</option>
+		</select>
+	</div>
+				   
+	<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_ActName_Show !='0'">
+       <label class="input-label defWidth">
+         	账户名
+       </label>
+       <input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__ActName" placeholder="请输入账户名"
+       	ng-readonly="submitData.tWfCust_ExpenseAdvance_ActName_Edit =='0' "/>
+       <div class="item-button-right"  ng-show="submitData.tWfCust_ExpenseAdvance_ActName_Edit =='1'">
+         <button class="button " ng-click="openEmpCardModal(0)"><p>选择</p></button>
+       </div>
+	</div>
+	
+	<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_CardId_Show !='0'">
+		<span class="input-label defWidth"><span style="color:red">*</span>卡号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__CardId" ng-keyup="formatCardId()"
+		 ng-readonly="submitData.tWfCust_ExpenseAdvance_CardId_Edit =='0' "/>
+	</div>
+	<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_Bank_Show !='0'">
+		<span class="input-label defWidth"><span style="color:red">*</span>开户行</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__Bank"
+		 ng-readonly="submitData.tWfCust_ExpenseAdvance_Bank_Edit =='0' "/>
+	</div>
+	<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_SubBranch_Show !='0'">
+		<span class="input-label defWidth"><span style="color:red">*</span>支行</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__SubBranch"
+		 ng-readonly="submitData.tWfCust_ExpenseAdvance_SubBranch_Edit =='0' "/>
+	</div>
+	<!-- <div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_PayAccount_Show !='0'">
+		<span class="input-label defWidth"><span style="color:red">*</span>付款账户</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__PayAccount"
+		ng-if="submitData.tWfCust_ExpenseAdvance_PayAccount_Edit !='1' "/>
+	</div> -->
+	<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_BefAmount_Show !='0'">
+		<span class="input-label defWidth">借款余额</span>
+		<input type="number" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__BefAmount"
+		 readonly="true"/>
+	</div>
+	
+	<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_Amount_Show !='0'">
+		<span class="input-label defWidth">预支额</span>
+		<input type="number" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__Amount"
+		 readonly="true" placeholder="自动计算"/>
+	</div>
+	
+	<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvance_ApproveAmount_Show">
+		<span class="input-label defWidth">审批金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__ApproveAmount" 
+		ng-change="chgConfAmount()" ng-readonly="submitData.tWfCust_ExpenseAdvance_ApproveAmount_Edit !='1'"/>
+	</div>
+	<div class="item item-input" ng-if="submitData.fp__tWfCust_ExpenseAdvance__0__DocumentNo!= '否' && submitData.tWfCust_ExpenseAdvance_DocumentNo_Show">
+		<span class="input-label defWidth">凭证号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__DocumentNo" 
+			ng-readonly="submitData.tWfCust_ExpenseAdvance_DocumentNo_Edit !='1'"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth">备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_ExpenseAdvance__0__Remarks" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_ExpenseAdvance__0__Remarks"></textarea>
+	</div>
+	<div style="padding: 10px;color:red;font-weight: bold" ng-if="remarks" ng-bind-html="remarks"></div>
+	
+	<group scope="self" label="费用预支明细" addcallback="fyyzAddCallback(index)" 
+		   delcallback="fyyzDelCallback(index)" delall="fyyzDelAll" indexs="fyyzIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="fyyzAfterDetailNum()">
+		<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvanceDtl_DeptDescr_Show !='0'">
+	        <span class="input-label defWidth">
+	          	部门
+	        </span>
+	        <input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvanceDtl__?__DeptDescr" placeholder="请录入部门名称"
+	         readonly="true"/>
+	        <div class="item-button-right" style="float:right;margin-right:0" ng-show="type == ''">
+	          <button class="button " ng-click="openDept2Modal(?,'1')"><p>选择</p></button>
+	        </div>
+	    </div>
+	    
+		<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvanceDtl_DtlAmount_Show !='0'">
+			<span class="input-label defWidth">预支额</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_ExpenseAdvanceDtl__?__DtlAmount" ng-change="chgMainAmount()"
+			 ng-readonly="submitData.tWfCust_ExpenseAdvanceDtl_DtlAmount_Edit =='0' "/>
+		</div>
+		
+		<div class="item item-input" ng-if="submitData.tWfCust_ExpenseAdvanceDtl_Remarks_Show !='0'">
+			<span class="input-label defWidth">预支说明</span>
+			<textarea ng-model="submitData.fp__tWfCust_ExpenseAdvanceDtl__?__Remarks" style="width:65%"
+				textareaauto="submitData.fp__tWfCust_ExpenseAdvanceDtl__?__Remarks"
+				ng-readonly="submitData.tWfCust_ExpenseAdvanceDtl_Remarks_Edit =='0' " ></textarea>
+		</div>
+	</group>
+	<div style="border: none;background-color:rgb(245,245,245);height:36px" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" >
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event,submitData.taskDefKey != 'startevent' && submitData.taskDefKey != 'applyman')" ></ion-gallery>
+      </div>
+    </div>
+</div>

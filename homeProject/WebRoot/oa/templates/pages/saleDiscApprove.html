@@ -1,0 +1,109 @@
+<!-- 销售折扣审批 -->
+<div ng-controller="saleDiscApproveCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth">客户编号</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__CustCode +'|'+submitData.fp__tWfCust_SaleDiscApprove__0__CustDescr}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">楼盘</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__Address}}"/>
+	</div>
+	
+	<div class="item item-input" ng-show="false">
+		<span class="input-label defWidth">客户类型编号</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__CustType}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">客户类型</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__CustTypeDescr}}"/>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth">材料类型1</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_SaleDiscApprove__0__ItemType1" >
+			<option value ="软装">软装</option>
+		</select>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">销售金额</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__BefAmount}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">优惠金额</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__DiscAmount}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">折扣</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__Markup}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">优惠说明</span>
+		<textarea ng-model="submitData.fp__tWfCust_SaleDiscApprove__0__DiscRemarks" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_SaleDiscApprove__0__Markup"></textarea>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">清库存</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__IsClearInvStatus}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">最小折扣</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_SaleDiscApprove__0__MinMarkup}}"/>
+	</div>
+	
+	<!-- 明细 -->
+	<group scope="self" label="预算明细" addcallback="ysmxAddCallback(index)" 
+		   delcallback="ysmxDelCallback(index)" delall="ysmxDelAll" indexs="ysmxIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="ysmxAfterDetailNum()" id="editDiv" delbtn="delbtn">
+		<ion-item class="item-text-wrap">
+			<h2 class="padding-bottom">{{submitData.fp__tWfCust_SaleDiscApproveDtl__?__ItemDescr}}</h2>
+			<!--<div style="width: 100%;float: left;">区域：{{submitData.fp__tWfCust_SaleDiscApproveDtl__?__FixAreaDescr}}&nbsp;数量：{{submitData.fp__tWfCust_SaleDiscApproveDtl__?__Qty}}</div>
+			<div style="width: 100%;float: left;">优惠前金额：{{submitData.fp__tWfCust_SaleDiscApproveDtl__?__BefLineAmount}}&nbsp;折扣：{{submitData.fp__tWfCust_SaleDiscApproveDtl__?__Markup}}</div>
+			<div style="clear: both;" class="padding-bottom">是否样品：{{submitData.fp__tWfCust_SaleDiscApproveDtl__?__IsClearInv}}</div>
+			 -->
+			<div>
+		        <div style="width: 60%;padding-left: 4px;float: left;">
+					区域：<span ng-bind="submitData.fp__tWfCust_SaleDiscApproveDtl__?__FixAreaDescr" ></span>
+		        </div>
+		        <div style="position: absolute;right: 10px">
+					数量：<span ng-bind="submitData.fp__tWfCust_SaleDiscApproveDtl__?__Qty" ></span>
+				</div>
+			</div>
+			<div >
+		        <div style="width: 60%;padding-left: 4px;float: left;">
+					优惠前金额：<span ng-bind="submitData.fp__tWfCust_SaleDiscApproveDtl__?__BefLineAmount" ></span>
+				</div>
+				<div style="position: absolute;right: 10px">
+					折扣：<span ng-bind="submitData.fp__tWfCust_SaleDiscApproveDtl__?__Markup" ></span>
+				</div>
+			</div>
+			<div >
+		        <div style="width: 60%;padding-left: 4px;float: left;">
+		        	是否样品：<span ng-bind="submitData.fp__tWfCust_SaleDiscApproveDtl__?__IsClearInv" ></span>
+				</div>
+			</div>
+		
+		</ion-item>	
+		
+		
+	</group>
+	<div style="border: none;background-color:rgb(245,245,245);height:36px" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" >
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event,submitData.taskDefKey != 'startevent' && submitData.taskDefKey != 'applyman')" ></ion-gallery>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,32 @@
+<!-- 更改ERP楼盘 -->
+<div ng-controller="changeAddressCtrl">
+	<div class="item item-input">
+		<span class="input-label"><span style="color:red">*</span>调整原因</span>
+		<textarea ng-model="submitData.fp__tWfCust_ChangeAddress__0__Reason" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_ChangeAddress__0__Reason" ></textarea>
+	</div>
+   	<div style="padding: 10px;" ng-bind-html="remarks"></div>
+	<group scope="self" label="更改楼盘明细" addcallback="gctdAddCallback(index)" 
+		   delcallback="gctdDelCallback(index)" delall="gctdDelAll" indexs="gctdIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="gctdAfterDetailNum()">
+		<inputcustomer id="submitData.fp__tWfCust_ChangeAddressDtl__?__OldCustCode" idvar="code" 
+			showvalue="{{submitData.fp__tWfCust_ChangeAddressDtl__?__OldCustCode}}" 
+			showlabel="{{submitData.fp__tWfCust_ChangeAddressDtl__?__OldDescr}}" 
+			label="调整前" placeholder="请选择调整前" callback="customerCallback(data, ?)"
+			conditions="conditions" require="true">
+		</inputcustomer>
+		<div class="item item-input">
+			<div style="width: 35%"></div>
+			<div style="width: 65%">
+				<input type="text" ng-model="submitData.fp__tWfCust_ChangeAddressDtl__?__OldAddress"
+					disabled />
+			</div>
+		</div>
+		<div class="item item-input">
+			<span class="input-label group-input-label"><span style="color:red">*</span>调整后</span>
+			<div style="width: 65%">
+				<input type="text" ng-model="submitData.fp__tWfCust_ChangeAddressDtl__?__Address"/>
+			</div>
+		</div>
+	</group>
+</div>

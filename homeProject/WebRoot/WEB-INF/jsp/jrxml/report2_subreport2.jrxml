@@ -1,0 +1,3146 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_subreport2" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bfd5f64c-618a-490c-8212-8c3b77eceb24">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CustCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select a.*,e.NameChi,DateName(MM,b.PlanBegin) minMouth ,c.Address,DATENAME(D,a.PlanBegin)bd,DATENAME(D,a.PlanEnd)ed
+                    ,d.NOTE prjitemdescr,c.ContractDay,(cast(DateName(MM,a.PlanBegin)as int)-(select  top 1 DateName(MM,a.PlanBegin) minMouth
+                    from tPrjprog a  where a.CustCode=$P{CustCode}
+           order by cast(a.PrjItem as int ) asc )+1)mouth,datediff(m,a.PlanBegin,a.PlanEnd) total
+            ,month(a.planbegin) month,year(a.planbegin) year,bbb.beginmonth
+            from tPrjprog a
+            left join tPrjProg b on b.PK =a.Pk
+            left join tCustomer c on c.Code =a.CustCode
+            left join tXTDM d on d.CBM = a.prjItem and d.id='PRJITEM'
+            left join tEmployee e on e.number=c.ProjectMan
+             left join (select month(min(planbegin)) beginmonth
+			 from tPrjProg where CustCode=$P{CustCode} )bbb on a.CustCode=$P{CustCode}
+            where a.CustCode=$P{CustCode}
+           order by a.PlanBegin asc]]>
+	</queryString>
+	<field name="PK" class="java.lang.Integer"/>
+	<field name="year" class="java.lang.Integer"/>
+	<field name="month" class="java.lang.Integer"/>
+	<field name="beginmonth" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="NameChi" class="java.lang.String"/>
+	<field name="CustCode" class="java.lang.String"/>
+	<field name="PrjItem" class="java.lang.String"/>
+	<field name="PlanBegin" class="java.sql.Timestamp"/>
+	<field name="BeginDate" class="java.sql.Timestamp"/>
+	<field name="PlanEnd" class="java.sql.Timestamp"/>
+	<field name="EndDate" class="java.sql.Timestamp"/>
+	<field name="LastUpdate" class="java.sql.Timestamp"/>
+	<field name="LastUpdatedBy" class="java.lang.String"/>
+	<field name="Expired" class="java.lang.String"/>
+	<field name="ActionLog" class="java.lang.String"/>
+	<field name="ConfirmCZY" class="java.lang.String"/>
+	<field name="ConfirmDate" class="java.sql.Timestamp"/>
+	<field name="ConfirmDesc" class="java.lang.String"/>
+	<field name="prjLevel" class="java.lang.String"/>
+	<field name="minMouth" class="java.lang.Integer"/>
+	<field name="Address" class="java.lang.String"/>
+	<field name="bd" class="java.lang.Integer"/>
+	<field name="ed" class="java.lang.Integer"/>
+	<field name="prjitemdescr" class="java.lang.String"/>
+	<field name="ContractDay" class="java.lang.Integer"/>
+	<field name="mouth" class="java.lang.Integer"/>
+	<group name="PrjItem">
+		<groupExpression><![CDATA[$F{PrjItem}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="34" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="166" y="17" width="11" height="17" backcolor="#000000" uuid="73daad2d-d88d-4bc1-9c4a-5ab046a0ca45"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="331" y="17" width="11" height="17" backcolor="#000000" uuid="3db03685-60e8-4a33-a5a2-a991117e2544"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[21]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="386" y="17" width="11" height="17" backcolor="#000000" uuid="833eb20b-4b2c-472b-99a8-d75264aa579f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="254" y="17" width="11" height="17" backcolor="#000000" uuid="54632971-7ff9-4307-812b-c6bebe87e061"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="526" y="17" width="11" height="17" backcolor="#000000" uuid="37e48f2a-48b5-4e6f-a9de-52b591b333d7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="265" y="17" width="11" height="17" backcolor="#000000" uuid="493e9ddd-c9e9-4c58-81d1-95af6c8f2b51"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="430" y="17" width="11" height="17" backcolor="#000000" uuid="17950c49-2f00-46ee-924a-18bc5f95d0e3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="724" y="17" width="11" height="17" backcolor="#000000" uuid="2cb9522a-fc61-4fc1-8754-718f2deb6064"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="287" y="17" width="11" height="17" backcolor="#000000" uuid="27a4dfd3-da7c-4109-b6e3-977a5e373460"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="320" y="17" width="11" height="17" backcolor="#000000" uuid="3776d6f4-0c18-43e8-838d-b7d3368f9627"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="342" y="17" width="11" height="17" backcolor="#000000" uuid="a1733834-7949-41bf-bfc2-62ee598d69b7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[22]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="276" y="17" width="11" height="17" backcolor="#000000" uuid="e2e2dfbe-649d-4b26-8235-c90a38441ec1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="515" y="17" width="11" height="17" backcolor="#000000" uuid="384fb764-b291-4976-bc0a-ec65d6b58010"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="460" y="17" width="11" height="17" backcolor="#000000" uuid="46c9c859-2d51-4612-a5a8-5fbc74c446f2"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="504" y="17" width="11" height="17" backcolor="#000000" uuid="d48033a9-8f44-4cb9-9558-469bac86f5b1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="603" y="17" width="11" height="17" backcolor="#000000" uuid="49f7f1a7-3c18-4778-ba95-c272982969f8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="614" y="17" width="11" height="17" backcolor="#000000" uuid="12185875-3d0b-4f2c-a3c7-062c714d8ca1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="17" width="11" height="17" backcolor="#000000" uuid="ae0a50a6-a720-4030-9b40-2802d3a93c13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="419" y="17" width="11" height="17" backcolor="#000000" uuid="0bd39795-b9db-4a73-8cc1-aed31ca0412d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="592" y="17" width="11" height="17" backcolor="#000000" uuid="41639904-9927-47f2-9326-17d93309e7f0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="658" y="17" width="11" height="17" backcolor="#000000" uuid="1a34c87e-9cf1-4bf6-a668-de1753a6a4ce"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="199" y="17" width="11" height="17" backcolor="#000000" uuid="7739c1ff-04f5-4f97-9b52-1eb5cee77360"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="397" y="17" width="11" height="17" backcolor="#000000" uuid="cfc31034-edbb-4e16-b439-dd29f5c35bfe"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[27]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="581" y="17" width="11" height="17" backcolor="#000000" uuid="723744f7-3774-4482-a7ae-1529f7ad32a8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="232" y="17" width="11" height="17" backcolor="#000000" uuid="44567dff-ec8f-46dd-a297-354dcc8c7aee"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="757" y="17" width="11" height="17" backcolor="#000000" uuid="74041351-dd3e-4b1b-a4ea-522be43e73bf"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="17" width="111" height="17" uuid="db1136ba-2d51-4097-8947-91b724e61895"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[进度]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="790" y="17" width="11" height="17" backcolor="#000000" uuid="0afaee89-3e3a-43f4-979f-ebbb6ec4da06"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[31]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="408" y="17" width="11" height="17" backcolor="#000000" uuid="13ee410f-d914-4992-a1f7-a9fce0bba3fe"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="570" y="17" width="11" height="17" backcolor="#000000" uuid="ada6a7e4-1e35-4cd9-a509-26a610d32fc5"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="669" y="17" width="11" height="17" backcolor="#000000" uuid="54b794d3-0345-4065-997a-642ae00b0c28"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="647" y="17" width="11" height="17" backcolor="#000000" uuid="85907dd7-8bc3-4771-9645-49db37637aa4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="309" y="17" width="11" height="17" backcolor="#000000" uuid="df551f90-db0f-4d55-a3b4-a4c865ed7e8f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="713" y="17" width="11" height="17" backcolor="#000000" uuid="195e801c-ab02-40c6-a7de-4a2d6c53fae0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="471" y="17" width="11" height="17" backcolor="#000000" uuid="9db67659-10e0-48b3-88b2-a9fb9c54ae85"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="548" y="17" width="11" height="17" backcolor="#000000" uuid="c8964ce0-f738-4621-9e98-959e2315929e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="298" y="17" width="11" height="17" backcolor="#000000" uuid="74e72feb-f1ae-4342-ab71-6750194415e6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="441" y="17" width="11" height="17" backcolor="#000000" uuid="3aff4dab-c394-44ae-b450-5c6eda0a5e33"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[31]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="0" width="165" height="17" uuid="269620ba-4d74-457a-9413-920b5773b9ed"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[月份]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="680" y="17" width="11" height="17" backcolor="#000000" uuid="5f8a6470-c2b1-4a83-a022-0b4b7a6d3b0a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[21]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="111" y="17" width="11" height="17" backcolor="#000000" uuid="b22dfdd9-3d96-409e-8af2-bb073fb3e135"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="537" y="17" width="11" height="17" backcolor="#000000" uuid="33060a4a-0df8-46eb-8b97-f18d82b5a337"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="746" y="17" width="11" height="17" backcolor="#000000" uuid="48cc8603-dbe5-4703-a5db-85d0a5d3792d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[27]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="779" y="17" width="11" height="17" backcolor="#000000" uuid="ce4a22ce-7ba8-4585-bcfd-431eca439f13"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="482" y="17" width="11" height="17" backcolor="#000000" uuid="1af13408-3eac-4de3-b9f8-9c258de3b2de"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="188" y="17" width="11" height="17" backcolor="#000000" uuid="fb27046f-b75b-4ab4-bfc1-9ba3a313b045"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="768" y="17" width="11" height="17" backcolor="#000000" uuid="0515c6a9-1578-48dd-abfb-2e475cce5877"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="625" y="17" width="11" height="17" backcolor="#000000" uuid="2089e05f-aec6-4f73-9229-650285d7848d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="144" y="17" width="11" height="17" backcolor="#000000" uuid="f64557c2-faf8-4373-9b81-d08786f692fd"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="17" width="11" height="17" backcolor="#000000" uuid="b004b4c4-aba8-4c85-aaac-d2e13849064c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="559" y="17" width="11" height="17" backcolor="#000000" uuid="f3935f9f-9733-4177-bc09-0a939cb34c12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="177" y="17" width="11" height="17" backcolor="#000000" uuid="73390d50-8a6a-4f97-a1a0-2aeef603cf94"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="493" y="17" width="11" height="17" backcolor="#000000" uuid="2f85a322-87c7-4812-aee3-210a8f855dc0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="702" y="17" width="11" height="17" backcolor="#000000" uuid="c9b1d5b4-a751-4d4b-86ce-f294a806788f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="243" y="17" width="11" height="17" backcolor="#000000" uuid="f77a1d6b-eda7-46ab-878f-8675a9d55168"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="133" y="17" width="11" height="17" backcolor="#000000" uuid="378d1203-49c1-4043-b00f-c665a57fe399"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="375" y="17" width="11" height="17" backcolor="#000000" uuid="24e38388-9bbc-4cae-9249-82b9a75c5d18"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="221" y="17" width="11" height="17" backcolor="#000000" uuid="2d7a670b-d574-44d9-9313-2a3c54a6d5bb"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="364" y="17" width="11" height="17" backcolor="#000000" uuid="a4bb4463-6730-4fad-898d-b5bcc42861a5"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="353" y="17" width="11" height="17" backcolor="#000000" uuid="934e6617-e2ca-4873-b7dd-b7ab90c9ea25"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="691" y="17" width="11" height="17" backcolor="#000000" uuid="0f895672-be9b-4775-b3ef-e0b497d41a27"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[22]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="155" y="17" width="11" height="17" backcolor="#000000" uuid="50bb34f8-925f-4d3b-958d-00d2aee851a6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="735" y="17" width="11" height="17" backcolor="#000000" uuid="bb1b273b-7879-44fc-8472-56ffda56b06c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="111" height="17" uuid="28e809e4-53d6-41fc-88c8-d07345b60d3d"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center"/>
+				<text><![CDATA[月份]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="636" y="17" width="11" height="17" backcolor="#000000" uuid="c54a2dfc-d735-446f-b0e8-d5270c6cd3bb"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="281" y="0" width="171" height="17" uuid="d6bb54b7-f74a-4b9f-a02b-b77143733143"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[月份]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="0" width="176" height="17" uuid="31a40cc2-6bbe-436f-adc7-d5571ea0c61f">
+					<printWhenExpression><![CDATA[($F{minMouth}+3)%12!=0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{minMouth}+3)%12]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="460" y="0" width="176" height="17" uuid="049ced4e-1cd3-4c5f-8cda-d2c4087d2b88">
+					<printWhenExpression><![CDATA[($F{minMouth}+3)%12==0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle"/>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="111" y="0" width="170" height="17" uuid="36de5b97-18a7-420b-a8c2-a70edbb862f6">
+					<printWhenExpression><![CDATA[($F{minMouth}+2)%12==0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="111" y="0" width="170" height="17" uuid="96ca7883-1936-4899-8f28-49f4c95256ef">
+					<printWhenExpression><![CDATA[($F{minMouth}+2)%12!=0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{minMouth}+2)%12]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12">
+			<staticText>
+				<reportElement mode="Transparent" x="724" y="0" width="11" height="12" backcolor="#000000" uuid="d6f91928-e3f7-414a-a7be-172dc6505144"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="713" y="0" width="11" height="12" backcolor="#000000" uuid="03eef40e-9837-48bb-b5c4-3550332db736"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="724" y="0" width="11" height="12" backcolor="#000000" uuid="2db15903-2c00-4ff1-9e4f-7786e903dd6a">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=25&&$F{ed}>=25)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=25&&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=25&&$F{ed}>=25)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=25&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=25)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=25)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=25)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=25)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=25)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=25)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement mode="Transparent" x="779" y="0" width="11" height="12" backcolor="#000000" uuid="430c2c34-d4c7-4ef7-8f84-ad57e7e25a4f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="757" y="0" width="11" height="12" backcolor="#000000" uuid="7dc66c4c-3158-4129-ba7f-d23d3e70d992"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="746" y="0" width="11" height="12" backcolor="#000000" uuid="e759c8b9-8699-4cd6-9515-e5dfd5cbaeae"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="768" y="0" width="11" height="12" backcolor="#000000" uuid="4336b9b2-10ea-423a-a7ac-d85b0ffa3484"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="735" y="0" width="11" height="12" backcolor="#000000" uuid="49edc449-63a9-41db-b1ec-05e289804bb8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="680" y="0" width="11" height="12" backcolor="#000000" uuid="ed9d5598-7402-46d4-88df-7e57781c4f22"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="647" y="0" width="11" height="12" backcolor="#000000" uuid="50687914-2960-49db-89bb-e0d2487a9ea6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="625" y="0" width="11" height="12" backcolor="#000000" uuid="e550aa51-b560-4b99-9f12-191ee4caffb7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="592" y="0" width="11" height="12" backcolor="#000000" uuid="266665a1-9d52-4073-b783-22df1ceee3ad"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="614" y="0" width="11" height="12" backcolor="#000000" uuid="ddc5bafe-198f-4e78-b9e4-0b16b8239688"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="702" y="0" width="11" height="12" backcolor="#000000" uuid="cedcda82-7113-4ef7-b9c0-aa346c3c4624"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="581" y="0" width="11" height="12" backcolor="#000000" uuid="9dc28314-72d7-4f12-9d2b-73577aa00cc2"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="636" y="0" width="11" height="12" backcolor="#000000" uuid="fe8dfe46-27ec-41fe-964b-cd06271e7a5f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="559" y="0" width="11" height="12" backcolor="#000000" uuid="b29ecbf5-bc2b-47f2-b059-83238d0b903c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="669" y="0" width="11" height="12" backcolor="#000000" uuid="8e2c6366-cadd-4e7e-aca4-b55926018a79"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="570" y="0" width="11" height="12" backcolor="#000000" uuid="2e0772fe-387f-49f2-8fe3-485b0064fb12"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="603" y="0" width="11" height="12" backcolor="#000000" uuid="5c804281-d25a-4985-aee6-11ce7c22626a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="691" y="0" width="11" height="12" backcolor="#000000" uuid="ca0171ed-9b33-45e3-9e09-fc6db3668897"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="658" y="0" width="11" height="12" backcolor="#000000" uuid="fce23f21-543b-4e22-9f34-b21569061116"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="548" y="0" width="11" height="12" backcolor="#000000" uuid="4e0a513b-8042-437b-93c7-e43da556bfac"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="537" y="0" width="11" height="12" backcolor="#000000" uuid="5861c668-738a-4aff-973e-d6f6ff13e4d4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="526" y="0" width="11" height="12" backcolor="#000000" uuid="e0c54cf3-f1d0-4b1b-a1d8-c51af3c12a8e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="515" y="0" width="11" height="12" backcolor="#000000" uuid="8b3c3b5e-aeee-48a5-ba3e-7a76fd88a9e9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="504" y="0" width="11" height="12" backcolor="#000000" uuid="bfdcd15b-6342-491d-9871-52f2b20e688a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="493" y="0" width="11" height="12" backcolor="#000000" uuid="d7ea57ad-0783-4bc6-a1d9-73bf7143523d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="482" y="0" width="11" height="12" backcolor="#000000" uuid="943724dc-a3f2-4889-bda2-b315e29bffed"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="471" y="0" width="11" height="12" backcolor="#000000" uuid="ab6349d9-7972-4367-91f2-aa9be773c193"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="460" y="0" width="11" height="12" backcolor="#000000" uuid="74a62e4c-c659-4675-8b64-a6699928de09"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="287" y="0" width="11" height="12" backcolor="#000000" uuid="42f7933d-c647-49b4-92f3-b51225e75620"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="199" y="0" width="11" height="12" backcolor="#000000" uuid="62d02aaf-3d9c-4087-9347-021a19682a7a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="166" y="0" width="11" height="12" backcolor="#000000" uuid="3a764dff-2cfd-47c4-96b9-0808fb204af1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="188" y="0" width="11" height="12" backcolor="#000000" uuid="751f78a2-44a1-4e8b-8eb6-b7fda471640c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="254" y="0" width="11" height="12" backcolor="#000000" uuid="1950a901-c6ef-46a8-b908-d1f36f166d91"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="320" y="0" width="11" height="12" backcolor="#000000" uuid="8f199cf5-d871-438c-b8d4-e10a51a3864e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="221" y="0" width="11" height="12" backcolor="#000000" uuid="6ebc3bb0-a473-41e6-b52a-72a5b342f4c4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="441" y="0" width="11" height="12" uuid="9144288a-d974-4786-878b-1cd222046827"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="309" y="0" width="11" height="12" backcolor="#000000" uuid="e13a7d7f-a54d-4561-aa08-46b04d86c4a1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="342" y="0" width="11" height="12" backcolor="#000000" uuid="2337c393-9141-4ad7-be6a-cb244e1ab78d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="331" y="0" width="11" height="12" backcolor="#000000" uuid="b165dc27-fdac-47c7-9cfa-8c0ac2787a8e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="243" y="0" width="11" height="12" backcolor="#000000" uuid="057b914e-79fa-48ef-8d7b-b84c4d211e8b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="276" y="0" width="11" height="12" backcolor="#000000" uuid="3ef3c765-6d26-4179-9cff-0567c7d92740"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="397" y="0" width="11" height="12" backcolor="#000000" uuid="df407b4c-883d-4998-bcf0-72085540c1bc"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="298" y="0" width="11" height="12" backcolor="#000000" uuid="28d4ec1c-f235-4359-a260-b590e4ce0b9f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="408" y="0" width="11" height="12" backcolor="#000000" uuid="22a6cb93-eaa0-4896-ac36-0e52751a078a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="232" y="0" width="11" height="12" backcolor="#000000" uuid="21b13114-67b0-4a1a-bd3c-a0194226034e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="0" width="11" height="12" backcolor="#000000" uuid="e3241248-9a20-415f-8d21-6bef057be27a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="177" y="0" width="11" height="12" backcolor="#000000" uuid="935117d5-86ea-486f-8cae-19192b61ba4d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="430" y="0" width="11" height="12" backcolor="#000000" uuid="f014ea59-0357-444d-8dec-c297f391555d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="265" y="0" width="11" height="12" backcolor="#000000" uuid="c9a08cf1-9643-40ff-bbcb-cbef2c675b44"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="353" y="0" width="11" height="12" backcolor="#000000" uuid="4972a022-7827-4723-9081-d8e8cad397a1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="364" y="0" width="11" height="12" backcolor="#000000" uuid="eaa5ede0-f711-4424-93f6-2e98f13efbe8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="375" y="0" width="11" height="12" backcolor="#000000" uuid="c3013c9e-a7a4-4cc8-815e-0e62c5c62150"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="386" y="0" width="11" height="12" backcolor="#000000" uuid="69670025-413d-441f-b8ec-a7132f1dbd85"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="419" y="0" width="11" height="12" backcolor="#000000" uuid="b3ba9d54-6671-4510-bef5-eca9e1c1e688"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="0" width="11" height="12" backcolor="#000000" uuid="d7a8f4ae-2343-4ae5-945c-dfe4f3118430"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="111" y="0" width="11" height="12" backcolor="#000000" uuid="6ca96355-9220-4e82-bfc2-9dc01491d4f4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="133" y="0" width="11" height="12" backcolor="#000000" uuid="4d07ff3e-d3ba-4569-be25-afb31f805e53"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="155" y="0" width="11" height="12" backcolor="#000000" uuid="f22e8525-ab98-4471-ab5c-a5da977f7b7c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="144" y="0" width="11" height="12" backcolor="#000000" uuid="f00694ca-4025-4114-b2e1-86547427e176"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<frame>
+				<reportElement mode="Opaque" x="276" y="0" width="11" height="12" backcolor="#000000" uuid="ae15d060-2b8e-4a8c-87e0-72d36d3f80a9">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=16&&$F{ed}>=16)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=16&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=16&&$F{ed}>=16)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=16&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=16)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=16)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="287" y="0" width="11" height="12" backcolor="#000000" uuid="19a97f4e-b747-492b-9307-faa398c5d8cd">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=17&&$F{ed}>=17)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=17&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=17&&$F{ed}>=17)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=17&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=17)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=17)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="408" y="0" width="11" height="12" backcolor="#000000" uuid="cd2c6e61-b58a-42dc-a5be-ede049217e20">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=28&&$F{ed}>=28)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=28&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=28&&$F{ed}>=28)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=28&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=28)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=28)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="364" y="0" width="11" height="12" backcolor="#000000" uuid="ec2372a0-d8b8-4ebb-9da7-fd83811eb084">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=24&&$F{ed}>=24)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=24&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=24&&$F{ed}>=24)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=24&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=24)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=24)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="309" y="0" width="11" height="12" backcolor="#000000" uuid="7e3a66ec-3a01-411a-b241-fac910c6ade1">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=19&&$F{ed}>=19)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=19&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=19&&$F{ed}>=19)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=19&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=19)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=19)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="177" y="0" width="11" height="12" backcolor="#000000" uuid="9c85b279-8e55-4827-b26c-cc0773db5e5f">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=7&&$F{ed}>=7)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=7&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=7&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=7&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=7&&$F{ed}>=7)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=7&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=7&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=7)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=7)
+||($F{total}>=2&&$F{mouth}==2))
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="386" y="0" width="11" height="12" backcolor="#000000" uuid="038bd1c1-699f-4c96-9b8f-0c325a219c3c">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=26&&$F{ed}>=26)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=26&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=26&&$F{ed}>=26)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=26&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=26)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=26)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="188" y="0" width="11" height="12" backcolor="#000000" uuid="1cb529ba-d0cb-479d-9775-229eddbeb2b1">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=8&&$F{ed}>=8)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=8&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=8&&$F{ed}>=8)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=8&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=8)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=8)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="331" y="0" width="11" height="12" backcolor="#000000" uuid="c2a2a129-6583-4139-b3df-9f769788a242">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=21&&$F{ed}>=21)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=21&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=21&&$F{ed}>=21)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=21&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=21)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=21)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="353" y="0" width="11" height="12" backcolor="#000000" uuid="b8092cd0-6c48-4447-ac61-bf10b2f5ba37">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=23&&$F{ed}>=23)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=23&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=23&&$F{ed}>=23)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=23&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=23)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=23)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="430" y="0" width="11" height="12" backcolor="#000000" uuid="ab8bccf7-a0c8-4247-a017-bfbbeb039b8f">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=30&&$F{ed}>=30)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=30&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=30&&$F{ed}>=30)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=30&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=30)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=30)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&(($F{beginmonth}+2)%12!=2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="342" y="0" width="11" height="12" backcolor="#000000" uuid="5bede84e-9516-4dc0-bff4-98b7641edbd1">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=22&&$F{ed}>=22)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{bd}<=22&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=22&&$F{ed}>=22)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=22&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=22)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=22)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="243" y="0" width="11" height="12" backcolor="#000000" uuid="e66ef74f-2e63-4b84-93c5-0ae4c4e98290">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=13&&$F{ed}>=13)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=13&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=13&&$F{ed}>=13)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=13&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=13)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=13)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="111" y="0" width="11" height="12" backcolor="#000000" uuid="364d1444-7079-4f94-add3-443273bd2404">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=1&&$F{ed}>=1)&&$F{total}>=1
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=1&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=1&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{bd}<=1&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=1&&$F{ed}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=1&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=1)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="419" y="0" width="11" height="12" backcolor="#000000" uuid="7a404a66-53fe-4163-b11b-ad348b34a18c">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=29&&$F{ed}>=29)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=29&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=29&&$F{ed}>=29)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=29&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=29)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=29)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&!(!(($F{year}% 4 == 0) && (($F{year} % 100 != 0)
+ || ($F{year} % 400 == 0)))&&($F{beginmonth}+2)%12==2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="166" y="0" width="11" height="12" backcolor="#000000" uuid="7aa1feec-bcdb-4218-a121-01f4bc38affb">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=6&&$F{ed}>=7)
+   ||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=6&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=6&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=6&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=6&&$F{ed}>=6)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=6&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=6&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=6)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=6)
+||($F{total}>=2&&$F{mouth}==2)
+)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="144" y="0" width="11" height="12" backcolor="#000000" uuid="c2fd21de-1539-4561-89c0-eb9d2506fcca">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=4&&$F{ed}>=4)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=4&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=4&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=4&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=4&&$F{ed}>=4)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=4&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=4&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=4)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=4)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="265" y="0" width="11" height="12" backcolor="#000000" uuid="e8bf8932-2ed2-4168-b780-d0cab001829f">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=15&&$F{ed}>=15)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=15&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=15&&$F{ed}>=15)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=15&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=15)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=15)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="199" y="0" width="11" height="12" backcolor="#000000" uuid="a9298768-b985-47ef-8d81-a7be06522643">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=9&&$F{ed}>=9)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=9&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=9&&$F{ed}>=9)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=9&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=9)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=9)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="210" y="0" width="11" height="12" backcolor="#000000" uuid="3a6acc7c-b549-458c-901a-f22aea7fe44a">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=10&&$F{ed}>=10)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=10&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=10&&$F{ed}>=10)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=10&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=10)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=10)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="375" y="0" width="11" height="12" backcolor="#000000" uuid="2f1ab8ee-7005-49fe-ab2f-34dbb0b141d3">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=25&&$F{ed}>=25)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=25&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=25&&$F{ed}>=25)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=25&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=25)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=25)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="155" y="0" width="11" height="12" backcolor="#000000" uuid="1be310bb-7318-4070-8277-158632b9e3a2">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=5&&$F{ed}>=5)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=5&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=5&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=5&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=5&&$F{ed}>=5)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=5&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=5&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=5)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=5)
+||($F{total}>=2&&$F{mouth}==2))
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="232" y="0" width="11" height="12" backcolor="#000000" uuid="24e423b2-01c3-4250-b241-9a5018dd02ec">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=12&&$F{ed}>=12)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=12&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=12&&$F{ed}>=12)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=12&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=12)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=12)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="122" y="0" width="11" height="12" backcolor="#000000" uuid="34557d79-741b-4975-b10b-f8f9435c29b6">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=2&&$F{ed}>=2)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=2&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=2&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=2&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=2&&$F{ed}>=2)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=2&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=2&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=2)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=2)
+||($F{total}>=2&&$F{mouth}==2))
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="320" y="0" width="11" height="12" backcolor="#000000" uuid="ca6b86f1-1f40-4014-b669-cc705aa61820">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=20&&$F{ed}>=20)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=20&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=20&&$F{ed}>=20)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=20&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=20)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=20)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="298" y="0" width="11" height="12" backcolor="#000000" uuid="f0c3e019-a3ff-44cf-8822-e4b385a96571">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=18&&$F{ed}>=18)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=18&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=18&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=18&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=18&&$F{ed}>=18)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=18&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=18&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=18)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=18)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="254" y="0" width="11" height="12" backcolor="#000000" uuid="c08efb6a-4ae9-4e42-8058-8520548ea49d">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=14&&$F{ed}>=14)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=14&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=14&&$F{ed}>=14)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=14&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=14)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=14)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="133" y="0" width="11" height="12" backcolor="#000000" uuid="4d3c8d0f-ce53-47d8-b029-0a9bdd12482a">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=3&&$F{ed}>=3)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=3&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=3&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=3&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=3&&$F{ed}>=3)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=3&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=3&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=3)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=3)
+||($F{total}>=2&&$F{mouth}==2))
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="397" y="0" width="11" height="12" backcolor="#000000" uuid="4904d4c3-e01f-430e-8821-28f45ce41061">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=27&&$F{ed}>=27)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=27&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=27&&$F{ed}>=27)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=27&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=27)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=27)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="221" y="0" width="11" height="12" backcolor="#000000" uuid="6118c844-22d9-4901-aaee-2c2b84b4e971">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=11&&$F{ed}>=11)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=11&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=11&&$F{ed}>=11)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=11&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=11)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=11)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="526" y="0" width="11" height="12" backcolor="#000000" uuid="85a86cc8-dbf1-44bb-b1c9-f71841330a83">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=7&&$F{ed}>=7)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=7&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=7&&$F{ed}>=7)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=7&&$F{ed}>=7)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=7&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=7&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=7)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=7)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=7)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=7)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=7)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=7)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=7)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="603" y="0" width="11" height="12" backcolor="#000000" uuid="09d37e1e-321c-4d60-a44c-5266f107bfac">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=14&&$F{ed}>=14)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=14&&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=14&&$F{ed}>=14)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=14&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=14)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=14)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=14)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=14)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=14)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=14)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="779" y="0" width="11" height="12" backcolor="#000000" uuid="b7b24988-2c72-478d-8a45-6da9bd191d02">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=30&&$F{ed}>=30)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=30&&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=30&&$F{ed}>=30)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=30&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=30)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=30)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=30)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=30)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=30)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=30))&&$F{PlanBegin}<=$F{PlanEnd}
+&&(($F{beginmonth}+3)%12!=2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="658" y="0" width="11" height="12" backcolor="#000000" uuid="8ae23842-0a36-4179-bc89-82646f220436">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=19&&$F{ed}>=19)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=19&&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=19&&$F{ed}>=19)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=19&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=19)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=19)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=19)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=19)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=19)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=19)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="471" y="0" width="11" height="12" backcolor="#000000" uuid="317585fc-49ab-4f38-9cd1-c84d63ed6800">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=2&&$F{ed}>=2)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=2&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=2&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=2&&$F{ed}>=2)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=2&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=2&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=2)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=2)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=2)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=2)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=2)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="537" y="0" width="11" height="12" backcolor="#000000" uuid="0a2c7fe3-8bd6-473e-8849-799e0343ad1d">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=8&&$F{ed}>=8)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=8&&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=8&&$F{ed}>=8)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=8&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=8)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=8)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=8)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=8)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=8)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=8)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="669" y="0" width="11" height="12" backcolor="#000000" uuid="e0551b03-44e8-47ab-9fdb-5130cb847f52">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=20&&$F{ed}>=20)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=20&&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=20&&$F{ed}>=20)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=20&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=20)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=20)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=20)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=20)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=20)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=20)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="636" y="0" width="11" height="12" backcolor="#000000" uuid="95bb882f-f585-45e5-abaa-17e2e6433fe6">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=17&&$F{ed}>=17)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=17&&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=17&&$F{ed}>=17)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=17&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=17)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=17)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=17)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=17)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=17
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=17))
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="493" y="0" width="11" height="12" backcolor="#000000" uuid="78334794-a93e-46c2-be97-6d6ffe7e5e79">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=4&&$F{ed}>=4)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=4&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=4&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=4&&$F{ed}>=4)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=4&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=4&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=4)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=4)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=4)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=4)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=4)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=4)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="460" y="0" width="11" height="12" backcolor="#000000" uuid="24ba85f1-6225-479e-b668-1242822eb762">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=1&&$F{ed}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=1&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4&&$F{bd}<=1 &&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=1&&$F{ed}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=1&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=1&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=1)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=1)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="570" y="0" width="11" height="12" backcolor="#000000" uuid="f343c048-aebb-4e7c-affd-9ceb59e17af7">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=11&&$F{ed}>=11)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=11&&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=11&&$F{ed}>=11)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=11&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=11)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=11)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=11)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=11)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=11)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=11)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="548" y="0" width="11" height="12" backcolor="#000000" uuid="c8ead18c-073b-4fba-82bc-a54695c6a3df">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=9&&$F{ed}>=9)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=9&&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=9&&$F{ed}>=9)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=9&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=9)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=9)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=9)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=9)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=9)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=9)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="757" y="0" width="11" height="12" backcolor="#000000" uuid="27cb7158-d5b8-4e18-84eb-c732e040503a">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=28&&$F{ed}>=28)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=28&&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=28&&$F{ed}>=28)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=28&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=28)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=28)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=28)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=28)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=28)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=28)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="504" y="0" width="11" height="12" backcolor="#000000" uuid="fbaabade-0de1-4c3c-bc7d-4c4251c8ef38">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=5&&$F{ed}>=5)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=5&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=5&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=5&&$F{ed}>=5)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=5&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=5&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=5)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=5)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=5)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=5)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=5)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="746" y="0" width="11" height="12" backcolor="#000000" uuid="f0b05a36-2344-49da-bb95-6eff8e9c3942">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=27&&$F{ed}>=27)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=27&&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=27&&$F{ed}>=27)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=27&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=27)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=27)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=27)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=27)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=27)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=27)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="735" y="0" width="11" height="12" backcolor="#000000" uuid="47cd7ebc-f1ae-4017-9579-5164f8231bdf">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=26&&$F{ed}>=26)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=26&&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=26&&$F{ed}>=26)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=26&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=26)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=26)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=26)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=26)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=26)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=26)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="691" y="0" width="11" height="12" backcolor="#000000" uuid="3d46f385-8c48-4442-a839-ac92d65c4de5">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=22&&$F{ed}>=22)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=22&&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=22&&$F{ed}>=22)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=22&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=22)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=22)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=22)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=22)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=22)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=22)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="581" y="0" width="11" height="12" backcolor="#000000" uuid="4eb2dead-059e-4dd8-822e-326c7037c532">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=12&&$F{ed}>=12)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=12&&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=12&&$F{ed}>=12)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=12&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=12)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=12)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=12)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=12)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=12)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=12)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="515" y="0" width="11" height="12" backcolor="#000000" uuid="6def4385-0295-4ea6-8817-f205548543b7">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=6&&$F{ed}>=6)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=6&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=6&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=6&&$F{ed}>=6)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8 &&$F{bd}<=6&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=6&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=6)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=6)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=6)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=6)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=6)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=6)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="625" y="0" width="11" height="12" backcolor="#000000" uuid="b7732a3a-90e9-4193-a311-6d6be52d6be7">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=16&&$F{ed}>=16)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=16&&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=16&&$F{ed}>=16)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=16&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=16)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=16)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=16)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=16)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=16)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=16)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="768" y="0" width="11" height="12" backcolor="#000000" uuid="7b62725d-389a-4f7f-9e46-bbdc124a0e2e">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=29&&$F{ed}>=29)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=29&&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=29&&$F{ed}>=29)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=29&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=29)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=29)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=29)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=29)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=29)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=29)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&!(!(($F{year}% 4 == 0) && (($F{year} % 100 != 0) || ($F{year} % 400 == 0)))&&($F{beginmonth}+3)%12==2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="680" y="0" width="11" height="12" backcolor="#000000" uuid="50c9764a-7ce9-4724-8a30-f99018109d60">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=21&&$F{ed}>=21)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=21&&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=21&&$F{ed}>=21)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=21&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=21)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=21)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=21)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=21)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=21)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=21)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="647" y="0" width="11" height="12" backcolor="#000000" uuid="499d3f9a-66e0-4aa1-9826-8a812c107c5b">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=18&&$F{ed}>=18)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=18&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=18&&$F{ed}>=18)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=18&&$F{ed}>=18)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=18&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=18&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=18)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=18)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=18)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=18)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=18)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=18)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="592" y="0" width="11" height="12" backcolor="#000000" uuid="70df5686-e9a6-4465-a8f0-8b3f2878c5c7">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=13&&$F{ed}>=13)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=13&&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=13&&$F{ed}>=13)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=13&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=13)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=13)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=13)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=13)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=13)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=13)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="713" y="0" width="11" height="12" backcolor="#000000" uuid="fb95ba27-abb4-4957-b447-f80236a334e4">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=24&&$F{ed}>=24)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=24&&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=24&&$F{ed}>=24)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=24&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=24)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=24)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=24)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=24)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=24)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=24)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="559" y="0" width="11" height="12" backcolor="#000000" uuid="52300642-9afc-4700-88d5-777beb6fd613">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=10&&$F{ed}>=10)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=10&&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=10&&$F{ed}>=10)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=10&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=10)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=10)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=10)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=10)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=10)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=10)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="702" y="0" width="11" height="12" backcolor="#000000" uuid="ef472765-ee1e-45f9-9b5d-0ddc05043507">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=23&&$F{ed}>=23)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=23&&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=23&&$F{ed}>=23)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=23&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=23)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=23)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=23)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=23)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=23)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=23)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="614" y="0" width="11" height="12" backcolor="#000000" uuid="d1703c79-8165-4734-b145-562cecb2281e">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=15&&$F{ed}>=15)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=15&&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=15&&$F{ed}>=15)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=15&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=15)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=15)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=15)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=15)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=15)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=15)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="482" y="0" width="11" height="12" backcolor="#000000" uuid="2791c624-f6bc-4cf8-a8ab-dbbcc2103118">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=3&&$F{ed}>=3)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=3&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=3&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=3&&$F{ed}>=3)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=3&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=3&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=3)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=3)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{ed}>=3)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{ed}>=3)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&&$F{total}>=1&&$F{bd}<=3)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=3)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<staticText>
+				<reportElement x="790" y="0" width="11" height="12" uuid="60925c22-3e9e-4135-8195-d8b418d9d444"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<rectangle>
+				<reportElement x="441" y="0" width="11" height="12" backcolor="#000000" uuid="aee36fce-69ef-4e39-8e70-7ecc342a566f">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{bd}<=31&&$F{ed}>=31)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==3 &&$F{bd}<=31&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{bd}<=31&&$F{ed}>=31)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{bd}<=31&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-10&&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==3&&$F{total}>=1&&$F{bd}<=31)
+||($F{bd}<=$F{ed}&&$F{mouth}==-9&&$F{total}>=1&&$F{bd}<=31)
+||($F{total}>=2&&$F{mouth}==2)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&(($F{beginmonth}+2)%12!=2&&($F{beginmonth}+2)%12!=4&&($F{beginmonth}+2)%12!=6&&($F{beginmonth}+2)%12!=9&&($F{beginmonth}+2)%12!=11)]]></printWhenExpression>
+				</reportElement>
+				<graphicElement>
+					<pen lineWidth="0.0"/>
+				</graphicElement>
+			</rectangle>
+			<frame>
+				<reportElement mode="Opaque" x="790" y="0" width="11" height="12" backcolor="#000000" uuid="2c5abfa6-b208-4f4c-8dd0-2c17cb07f9eb">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{bd}<=31&&$F{ed}>=31)
+||($F{bd}>=$F{ed}&&$F{mouth}==3&&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==4 &&$F{bd}<=31&&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{bd}<=31&&$F{ed}>=31)
+||($F{bd}>=$F{ed}&&$F{mouth}==-8&&$F{bd}<=31&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-9&&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==4&&$F{total}>=1&&$F{bd}<=31)
+||($F{bd}<=$F{ed}&&$F{mouth}==-8&&$F{total}>=1&&$F{bd}<=31)
+||($F{bd}>=$F{bd}&&($F{mouth}==3||$F{mouth}==-9)&&$F{total}>=2)
+||($F{bd}>=$F{ed}&&($F{mouth}==-8||$F{mouth}==4)&$F{total}>=1&&$F{bd}<=31)
+||($F{total}>=2&&$F{mouth}==2&&$F{ed}>=31)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&(($F{beginmonth}+3)%12!=2&&($F{beginmonth}+3)%12!=4&&($F{beginmonth}+3)%12!=6&&($F{beginmonth}+3)%12!=9&&($F{beginmonth}+3)%12!=11)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<textField>
+				<reportElement x="0" y="0" width="111" height="12" uuid="124227ad-f57a-4a29-9b8d-36a51ea32f45"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prjitemdescr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band height="14">
+			<staticText>
+				<reportElement x="48" y="-1" width="77" height="15" uuid="13bb76d3-3e28-40c0-b1e7-1a16e2104451"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[工程部经理：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="331" y="-1" width="44" height="15" uuid="069a4ca7-b656-41c3-ad14-09409274ce2b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[质检：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="562" y="-1" width="67" height="15" uuid="d4061a89-6fde-4482-bb4a-c7117db95a7b"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[项目经理：]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="622" y="-1" width="77" height="15" uuid="a501b6c8-9679-4a6a-a01f-fd49ac9e90a7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="11" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NameChi}]]></textFieldExpression>
+			</textField>
+		</band>
+	</summary>
+</jasperReport>

@@ -1,0 +1,29 @@
+<ion-header-bar class="bar-positive">
+  <button class="button button-clear  icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <h1 class="title">工地信息</h1>
+</ion-header-bar>
+<ion-content>
+  <div data-ng-init="goQuery(1)" style="display: none"></div>
+  <ion-refresher on-refresh="goSearch('',sitesInfo.address,sitesInfo.stakeholder,sitesInfo.haveGd)"
+                 pulling-text="刷新...">
+  </ion-refresher>
+  <ion-list>
+    <div class="bar  bar-stable  item-input-inset">
+      <label class="item-input-wrapper light-bg" style="font-size:20px " ng-click="openModal()">
+        <i class="icon ion-ios-search " ></i>
+        <input readonly type="search" placeholder="搜索" ng-model="sitesInfo.search">
+      </label>
+    </div>
+    <ion-item ng-repeat="item in sitesItems" ng-click="goCustomerDetailUi(item.code)">
+      <div  style="width: 75%;text-align: left;float: left"><h2>{{item.address}}</h2></div>
+      <div  style="width: 25%;text-align: left;float: left"><h2>{{item.descr}}</h2></div>
+    </ion-item>
+  </ion-list>
+  <ion-list style="text-align: center" ng-if="netError">服务器未响应,请确认网络正常连接</ion-list>
+  <ion-list style="text-align: center" ng-if="!netError&&(sitesItems==''||!sitesItems)">无相关信息</ion-list>
+  <ion-infinite-scroll
+    ng-if="sitesFlag"
+    on-infinite="goQuery('',sitesInfo.address,sitesInfo.stakeholder,sitesInfo.haveGd)"
+    distance="1%">
+  </ion-infinite-scroll>
+</ion-content>

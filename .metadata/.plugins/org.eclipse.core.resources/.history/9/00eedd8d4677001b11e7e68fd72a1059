@@ -1,0 +1,26 @@
+/**
+ * 
+ */
+package xunke.demo20210225;
+
+import java.util.Date;
+
+/**
+ * @author HY
+ *
+ */
+public class Tester {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		Date now = new Date();
+		
+		System.out.println(now);
+		System.out.println(now.toLocaleString()); //本地时间字符串
+		
+	}
+
+}

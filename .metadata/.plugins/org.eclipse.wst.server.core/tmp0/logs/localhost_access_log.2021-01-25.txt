@@ -1,0 +1,13 @@
+127.0.0.1 - - [25/Jan/2021:00:16:19 +0800] "GET / HTTP/1.1" 404 700
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:24 +0800] "GET /carwork/ HTTP/1.1" 200 2024
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:25 +0800] "GET /carwork/resources/vendor/jquery/jquery-3.3.1.js;jsessionid=2CEF9341AA87D2D4AA64D428E76EEC60 HTTP/1.1" 200 271751
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:25 +0800] "GET /carwork/resources/vendor/bootstrap-4.4.1-dist/css/bootstrap.min.css;jsessionid=2CEF9341AA87D2D4AA64D428E76EEC60 HTTP/1.1" 200 159515
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:25 +0800] "GET /carwork/resources/vendor/popper.js/popper.min.js;jsessionid=2CEF9341AA87D2D4AA64D428E76EEC60 HTTP/1.1" 200 21004
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:25 +0800] "GET /carwork/resources/vendor/bootstrap-4.4.1-dist/js/bootstrap.min.js;jsessionid=2CEF9341AA87D2D4AA64D428E76EEC60 HTTP/1.1" 200 60010
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:41 +0800] "POST /carwork/login;jsessionid=2CEF9341AA87D2D4AA64D428E76EEC60 HTTP/1.1" 302 -
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:43 +0800] "GET /carwork/cars HTTP/1.1" 200 16438
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:43 +0800] "GET /carwork/resources/vendor/popper.js/popper.min.js HTTP/1.1" 200 21004
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:43 +0800] "GET /carwork/resources/vendor/bootstrap-4.4.1-dist/css/bootstrap.min.css HTTP/1.1" 200 159515
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:43 +0800] "GET /carwork/resources/js/common.js HTTP/1.1" 200 933
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:43 +0800] "GET /carwork/resources/vendor/jquery/jquery-3.3.1.js HTTP/1.1" 200 271751
+0:0:0:0:0:0:0:1 - - [25/Jan/2021:00:16:43 +0800] "GET /carwork/resources/vendor/bootstrap-4.4.1-dist/js/bootstrap.min.js HTTP/1.1" 200 60010

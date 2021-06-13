@@ -1,0 +1,203 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8" />
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache" />
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+	<META HTTP-EQUIV="expires" CONTENT="0" />
+	<title></title>
+
+	<link href="./commons/css/iss.core.css" rel="stylesheet">
+	<script language="javascript" src="./commons/js/jquery.js"></script>
+	<script language="javascript" src="./commons/js/iss.core.js"></script>
+	<script language="javascript" src="./commons/js/iss.cssForm.js"></script>
+	<script language="javascript" src="./commons/artDialog/artDialog.min.js"></script>
+	<script language="javascript" src="./commons/js/iss.cssForm.js"></script>
+	<link href="./commons/artDialog/skins/idialog.css" rel="stylesheet">
+
+
+<script language="javascript">
+
+/**初始化表单*/
+
+$(function(){
+	$document = $(document);
+	//resetDialogHeight();
+	$(window.document.body).css("overflow", "scroll").css("overflow-x", "hidden");
+});
+
+//普通提示
+function alertDialog(){
+	art.dialog({
+		content: '是否要删除相关内容?',
+		time: 3000,
+	});
+}
+
+//带有回调函数提示
+function alertDeleteDialog(){
+	art.dialog({
+		content: '是否要删除相关内容',
+		
+		okValue: "确认",
+		ok: function () {
+			//调用删除相关方法
+			alert(123)
+		}
+
+	});
+}
+
+
+function resetDialogHeight(){
+	if(window.dialogArguments == null){
+		return; //忽略非模态窗口
+	}
+   //正文高度
+	var height = document.body.scrollHeight;
+	var width = document.body.scrollWidth;
+   //卷进去高度
+	var heightTop = document.body.scrollTop;
+	if (window.XMLHttpRequest) {
+		//window.dialogHeight=(height+heightTop+5)+"px";
+		window.dialogWidth = (width + 10) +  "px"
+	} else {
+		//window.dialogHeight=(height+heightTop+55)+"px";//IE6不能自动调整高度，要加45
+	}
+}
+ 
+
+
+</script>
+</head>
+    
+<body >
+<div class="body-box-form" >
+	<div class="content-form">
+		<!--panelBar-->
+		<div class="panelBar">
+			<ul>
+				<li >
+					<a href="#" class="a1" >
+					   <span>新增(手工录入)</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="a2" >
+						<span>批量删除</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="a3">
+						<span>批量送审</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="a4">
+						<span>文件导入</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="a5">
+						<span>刷新</span>
+					</a>
+				</li>
+				<li>
+					<a href="#" class="a5" onclick="alertDialog()">
+						<span>弹出小窗</span>
+					</a>
+				</li>
+				<li class="line"></li>
+			</ul>
+			<div class="clear_float"></div>
+		</div><!--panelBar end-->
+		<div class="edit-form">
+			<form action="" method="post" enctype="multipart/form-data">
+			
+				<table cellspacing="0" cellpadding="0" width="100%">
+					<col  width="72"/>
+					<col  width="250"/>
+					<col  width="72"/>
+					<col  width="250"/>
+					<tbody>
+						<tr>
+							<td class="td-label">标题</td>
+							<td class="td-value"><input type="text" value="标题" style="width:160px;" disabled="disabled"></td>
+							<td class="td-label"><span class="required">*</span>内容状态</td>
+							<td class="td-value"><select style="width:165px;"><option>--全部--</option></select></td>
+
+						</tr>
+						<tr>
+							<td class="td-label">标题</td>
+							<td class="td-value"><input type="text" readonly="readonly" style="width:160px;"></td>
+							<td class="td-label">内容状态</td>
+							<td class="td-value"><select style="width:165px;"><option>--全部--</option></select></td>
+
+						</tr>
+
+						<tr>
+							<td class="td-label">标题</td>
+							<td class="td-value"><input type="text" style="width:160px;"></td>
+							<td class="td-label">内容状态</td>
+							<td class="td-value"><select style="width:165px;"><option>--全部--</option></select></td>
+
+						</tr>
+						<tr>
+							<td class="td-label">标题</td>
+							<td class="td-value"><input type="text" style="width:160px;"></td>
+							<td class="td-label">内容状态</td>
+							<td class="td-value"><select style="width:165px;"><option>--全部--</option></select></td>
+
+						</tr>
+
+						<tr>
+							<td class="td-label">标题</td>
+							<td class="td-value"><input type="text" style="width:160px;"></td>
+							<td class="td-label">内容状态</td>
+							<td class="td-value"><select style="width:165px;"><option>--全部--</option></select></td>
+
+						</tr>
+						<tr>
+							<td class="td-label" >所属栏目</td>
+							<td class="td-value"><input type="text" style="width:160px;"></td>
+							<td class="td-label">添加时间</td>
+							<td class="td-value" ><input type="text" style="width:160px;" class="i-date"></td>
+
+						</tr>
+						<tr>
+							<td class="td-label" >所属栏目</td>
+							<td class="td-value" colspan="3">
+								<input type="checkbox" name="" value="" /> 福州 
+								<input type="checkbox" name="" value="" /> 福州 
+								<input type="checkbox" name="" value="" /> 福州 
+								<input type="checkbox" name="" value="" /> 福州  
+						</td>
+						<tr>
+							<td class="td-label" >所属栏目</td>
+							<td class="td-value" colspan="3">
+								<input type="radio" name="" value="" /> 福州 
+								<input type="radio" name="" value="" /> 福州 
+								<input type="radio" name="" value="" /> 福州 
+								<input type="radio" name="" value="" /> 福州  
+							</td>
+						</tr>
+						<tr>
+							<td class="td-label" >所属栏目</td>
+							<td class="td-value" colspan="3">
+								<textarea  rows="5"></textarea>
+							</td>
+						</tr>
+
+
+					</tbody>
+				</table>
+
+
+			</form>
+		</div><!--edit-form end -->
+	</div>
+</div><!--body-box end-->
+</body>
+
+</html>

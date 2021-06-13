@@ -1,0 +1,137 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<!--
+    一个映射文件了说明如何对一个对象存储、读取、修改和删除，主要提供了若干条映射条目以及相关的SQL语句。
+   每个mapper的namespace类似于一个唯一标识符，是内部的映射条目的归属范围
+ 
+   一个映射条目主要就是为了某个dao方法服务的，所以其id一般也设置为和dao方法名保持一致。  
+   
+-->
+<mapper namespace="edu.mju.stuwork.dao.StudentDao">
+
+   <insert id="addStu" parameterType="Student">
+      insert into tbl_student 
+      values(#{stuNo},#{stuName},#{stuMark},#{stuPic},#{stuSex},#{stuOrigin},#{stuHobby,typeHandler=edu.mju.stuwork.handler.StringArrayTypeHandler})
+   </insert>
+   
+   <select id="loadStus" resultMap="studentMap">
+      select *
+      from tbl_student
+      order by stu_no desc
+   </select>
+   
+   <select id="loadStusByCondition" parameterType="edu.mju.stuwork.service.StudentQueryHelper" resultMap="studentMap">
+      select *
+      from tbl_student where 1=1 
+      <if test="qryStuName != null">
+          and stu_name like concat('%',#{qryStuName},'%') 
+      </if>
+      <if test="qryBeginMark != null">
+          and stu_mark >= #{qryBeginMark} 
+      </if>
+      <if test="qryEndMark != null">
+          and stu_mark &lt;= #{qryEndMark} 
+      </if>
+      <if test="qryStuSex != null and qryStuSex.length()>0">
+          and stu_sex = #{qryStuSex} 
+      </if>
+      <if test="qryStuOrigin != null and qryStuOrigin.length()>0">
+          and stu_origin = #{qryStuOrigin} 
+      </if>                         
+      order by stu_no desc      
+   </select>
+   
+   <select id="getStuByNo" parameterType="int" resultMap="studentMap">
+      select *
+      from tbl_student
+      where stu_no=#{stuNo}
+   </select>
+   
+   <select id="cntStuByCondition" parameterType="edu.mju.stuwork.service.StudentQueryHelper" resultType="long">
+      select count(*) total_cnt
+      from tbl_student where 1=1 
+      <if test="qryStuName != null">
+          and stu_name like concat('%',#{qryStuName},'%') 
+      </if>
+      <if test="qryBeginMark != null">
+          and stu_mark >= #{qryBeginMark} 
+      </if>
+      <if test="qryEndMark != null">
+          and stu_mark &lt;= #{qryEndMark} 
+      </if>
+      <if test="qryStuSex != null and qryStuSex.length()!=0">
+          and stu_sex = #{qryStuSex} 
+      </if>
+      <if test="qryStuOrigin != null and qryStuOrigin.length()!=0">
+          and stu_origin = #{qryStuOrigin} 
+      </if>                      
+   </select>
+   
+   <select id="loadScopedStusByCondition" resultMap="studentMap">
+      select *
+      from tbl_student where 1=1 
+      <if test="helper.qryStuName != null">
+          and stu_name like concat('%',#{helper.qryStuName},'%') 
+      </if>
+      <if test="helper.qryBeginMark != null">
+          and stu_mark >= #{helper.qryBeginMark} 
+      </if>
+      <if test="helper.qryEndMark != null">
+          and stu_mark &lt;= #{helper.qryEndMark} 
+      </if>
+      <if test="helper.qryStuSex != null and helper.qryStuSex.length()>0">
+          and stu_sex = #{helper.qryStuSex} 
+      </if>
+      <if test="helper.qryStuOrigin != null and helper.qryStuOrigin.length()>0">
+          and stu_origin = #{helper.qryStuOrigin} 
+      </if>                   
+      order by stu_no desc  
+      limit #{begin},#{size}   
+   </select>
+   
+   <update id="updateStu" parameterType="Student">
+      update tbl_student
+      set stu_name=#{stuName},stu_mark=#{stuMark},stu_pic=#{stuPic},stu_sex=#{stuSex}
+          ,stu_origin=#{stuOrigin},stu_hobby = #{stuHobby,typeHandler=edu.mju.stuwork.handler.StringArrayTypeHandler}
+      where stu_no=#{stuNo}
+   </update>
+   
+   <delete id="delStu" parameterType="int">
+      delete from tbl_student
+      where stu_no=#{stuNo}
+   </delete>   
+   
+   <select id="getStuPicByNo" parameterType="int" resultMap="picMap">
+      select stu_pic
+      from tbl_student
+      where stu_no=#{stuNo}
+   </select>
+   
+   <!-- 
+           读取字段stu_pic中的数据，使用BlobTypeHandler做转换，成为byte[]后
+          以imgBytes为key保存一个MAP对象中返回
+    -->
+   <resultMap type="java.util.Map" id="picMap">
+      <id column="stu_pic" property="imgBytes" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+   </resultMap>
+   
+   <resultMap type="Student" id="studentMap">
+        <id column="stu_no" property="stuNo"/>
+        <result column="stu_sex" property="stuSex"/>
+        <result column="stu_name" property="stuName"/>  
+        <result column="stu_mark" property="stuMark"/>
+        <result column="stu_origin" property="stuOrigin"/>  
+        <result column="stu_hobby"  
+                property="stuHobby" 
+                typeHandler="edu.mju.stuwork.handler.StringArrayTypeHandler"/>
+   </resultMap>
+   
+  <!--
+         属性和字段的隐射，目前走的是默认机制，驼峰和下划线的自动转换，也是最理想化的模式。
+        一个查询出来的记录集如何映射到对应的实体中，往往我们需要额外制定一个映射机制，叫做resultMap
+  --> 
+   
+</mapper>

@@ -1,0 +1,32 @@
+
+  <ion-header-bar class="bar-positive">
+    <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+    <h1 class="title">{{items[0].prjItemDescr}}</h1>
+  </ion-header-bar>
+  <style>
+    .col {
+      border: 1px solid #CCCCCC;
+    }
+  </style>
+  <ion-content  >
+    <div data-ng-init="getProgressDetail()" style="display: none" ></div>
+    <ion-list >
+      <ion-item>
+        计划时间：{{items[0].planBegin|limitTo:10|date:'yyyy-MM-dd'}}~{{items[0].planEnd| limitTo:10|date:'yyyy-MM-dd'}}
+      </ion-item>
+      <ion-item>
+       实际时间：{{items[0].beginDate|limitTo:10|date:'yyyy-MM-dd'}}~{{items[0].endDate|limitTo:10|date:'yyyy-MM-dd'}}
+      </ion-item>
+      <ion-item>
+        当前状态：{{items[0].prjStatus}}
+      </ion-item>
+      </ion-list>
+    <div class="calm">
+      <b style="margin-left:15px ">施工照片</b> </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view" id="myImage">
+        <ion-gallery ion-gallery-items="photoList"  ng-click="initSlideIndex(photoList,$event)"></ion-gallery>
+      </div>
+      </div>
+  </ion-content>
+</ion-view>

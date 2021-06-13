@@ -1,0 +1,40 @@
+<ion-header-bar class="bar-positive">
+  <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <h1 class="title">领料单</h1>
+</ion-header-bar>
+
+  <ion-content>
+    <div data-ng-init="goQuery(1)" style="display: none"></div>
+
+    <ion-refresher on-refresh="goSearch()"
+                   pulling-text="刷新...">
+    </ion-refresher>
+
+    <ion-list>
+      <label class="item item-input item-select">
+        <span class="input-label">材料类型1：</span>
+        <select ng-model="data.itemType1" ng-options="item.code as item.descr for item in itemType1List"
+                ng-change="goSearch()"><option value="" >请选择</option></select>
+      </label>
+
+      <ion-item ng-repeat="item in itemAppItems">
+        <div class="item-icon-right" ng-click="goItemAppDetailUi(item.no)" style="cursor: pointer;">
+
+          <div style="width: 60%;float: left;">{{item.itemType1Descr}}-{{item.itemType2Descr}}</div>
+          <div style="width: 40%;float: left;">状态:{{item.statusDescr}}</div>
+
+          <div style="width: 60%;float: left;">{{item.typeDescr}}</div>
+          <div style="width: 40%;float: left;">{{item.showDate|limitTo:10|date:'yyyy-MM-dd'}}</div>
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div ng-include="'templates/common/content-footer.html'" onload="footerData=itemAppItems"></div>
+
+    <ion-infinite-scroll
+      ng-if="itemAppFlag"
+      on-infinite="goQuery()"
+      distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

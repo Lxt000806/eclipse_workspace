@@ -1,0 +1,164 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itemChgDetail_main" language="groovy" pageWidth="820" pageHeight="575" columnWidth="804" leftMargin="8" rightMargin="8" topMargin="8" bottomMargin="8" uuid="009f84cd-b7a9-4b20-9dd6-fb56d1900ebd">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\xzp\\Desktop\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="No" class="java.lang.String">
+		<defaultValueExpression><![CDATA["'CL0000000059','CL0000000060 ','CL0000000058'"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoPath" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select
+h.No,h.Remarks remark,h.Date,i.Address,i.DocumentNo,i.Area,h.Amount,h.BefAmount,h.DiscAmount,h.itemtype1 itemType1,i.CustType,i.code,CONVERT(varchar(100), i.CrtDate, 112) CrtDate
+from tItemChg h
+LEFT  JOIN  tCustomer i ON h.CustCode=i.Code
+WHERE   h.no in ($P!{No})]]>
+	</queryString>
+	<field name="No" class="java.lang.String"/>
+	<field name="remark" class="java.lang.String"/>
+	<field name="Date" class="java.sql.Timestamp"/>
+	<field name="Address" class="java.lang.String"/>
+	<field name="DocumentNo" class="java.lang.String"/>
+	<field name="Area" class="java.lang.Integer"/>
+	<field name="Amount" class="java.math.BigDecimal"/>
+	<field name="BefAmount" class="java.math.BigDecimal"/>
+	<field name="DiscAmount" class="java.math.BigDecimal"/>
+	<field name="itemType1" class="java.lang.String"/>
+	<field name="CustType" class="java.lang.String"/>
+	<field name="code" class="java.lang.String"/>
+	<field name="CrtDate" class="java.lang.String"/>
+	<group name="group1" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{No}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="343" height="88" uuid="bf2f95cd-524a-46da-9d6f-19fcdcd1738a">
+					<printWhenExpression><![CDATA[$F{itemType1}.trim() == "ZC"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="No">
+					<subreportParameterExpression><![CDATA[$F{No}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemChgDetail_ZC.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="90" y="0" width="253" height="88" uuid="d3b17c41-6873-4251-ab2e-439ce34fb6da">
+					<printWhenExpression><![CDATA[$F{itemType1}.trim() == "JC"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="No">
+					<subreportParameterExpression><![CDATA[$F{No}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemChgDetail_JC.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="343" height="88" uuid="c3a49246-0e43-4a7f-bc51-408b93a1c381">
+					<printWhenExpression><![CDATA[$F{itemType1}.trim() == "RZ"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="No">
+					<subreportParameterExpression><![CDATA[$F{No}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemChgDetail_RZ.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<staticText>
+				<reportElement x="392" y="0" width="16" height="20" uuid="867a1c99-17d8-453a-bf04-51f8a937b107"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[共]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="310" y="0" width="16" height="20" uuid="0f7997d7-82ab-45b3-8976-ea5b1f0ada43"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="326" y="0" width="36" height="20" uuid="05ff7291-aeab-4dd7-a543-a50dd715d138"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="438" y="0" width="16" height="20" uuid="6b4d6f38-19f1-41c4-8883-8726031d80b1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="362" y="0" width="30" height="20" uuid="495c4de9-c215-4992-a37e-b32eb14f7af7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页，]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="group1" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="408" y="0" width="30" height="20" uuid="5c3a0c50-ae87-4050-a4f1-309078b623a7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement stretchType="RelativeToTallestObject" x="597" y="0" width="207" height="25" uuid="6faabc64-ab5a-4993-aef6-40bbac7bcf1d">
+					<printWhenExpression><![CDATA[$F{CustType}.trim()=="2"]]></printWhenExpression>
+				</reportElement>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{code}+$F{CrtDate}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

@@ -1,0 +1,56 @@
+/**
+ * 
+ */
+package demo.junit.cnt;
+
+import java.util.Scanner;
+
+/**
+ * @author HY
+ *
+ */
+public class CntCharNum {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		String str;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("请输入字符串：");
+        str = scanner.nextLine();
+        count(str);
+
+	}
+	
+	/**
+     * 计算字符串中各个字符类型的数量
+     * @param str
+     */
+    public static void count(String str){
+
+        int acc1 = 0;   //统计英文字母个数
+        int acc2 = 0; //统计数字个数
+        int acc3 = 0; //统计空格个数
+        int acc4 = 0; //统计其他字符个数
+
+        for(int i=0;i<str.length();i++){
+            if(Character.isLetter(str.charAt(i)))
+                acc1++;
+            else if(Character.isDigit(str.charAt(i)))
+                acc2++;
+            else if(Character.isSpaceChar(str.charAt(i)))
+                acc3++;
+            else
+                acc4++;
+        }
+
+        System.out.println("英文字母有"+acc1+"个");
+        System.out.println("数字有"+acc2+"个");
+        System.out.println("空格有"+acc3+"个");
+        System.out.println("其他字符有"+acc4+"个");
+    }
+
+}

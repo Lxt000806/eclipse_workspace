@@ -1,0 +1,70 @@
+<ion-header-bar class="bar-positive">
+  <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <h1 class="title">付款信息</h1>
+</ion-header-bar>
+
+  <ion-content>
+    <div class="list">
+      <ion-item class="item-divider">汇总信息</ion-item>
+      <div class="item">
+        <div style="width: 50%;float: left;">合同总造价</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.contractFee|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">设计费</div>
+        <div style="width: 50%;float: left;;text-align: right;padding-right: 10px">{{payInfoItems.designFee|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">增减金额</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.zjzje|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">已付款</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.hasPay|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">余款</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.noPay|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">本期应付</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.nowPay|number}}</div>
+      </div>
+      <ion-item class="item-divider">付款计划</ion-item>
+      <div class="item">
+        <div style="width: 50%;float: left;">期数</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">金额</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">首期款</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.firstPay|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">二期款</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.secondPay|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">三期款</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">{{payInfoItems.thirdPay|number}}</div>
+      </div>
+      <div class="item">
+        <div style="width: 50%;float: left;">尾款</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px;">
+          {{payInfoItems.fourPay|number}}
+        </div>
+      </div>
+      <ion-item class="item-divider">付款明细</ion-item>
+      <div class="item">
+        <div style="width: 50%;float: left;">日期</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px">金额</div>
+      </div>
+      <div class="item" ng-repeat="item in payInfoDetailItems">
+        <div style="width: 50%;float: left;" ng-if="$index!=payInfoDetailCount-1">{{item.date|limitTo:10|date:'yyyy-MM-dd'}}</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px" ng-if="$index!=payInfoDetailCount-1">{{item.amount|number}}</div>
+        <div style="width: 50%;float: left;border-bottom-color: #CCCCCC" ng-if="$index==payInfoDetailCount-1">{{item.date|limitTo:10|date:'yyyy-MM-dd'}}</div>
+        <div style="width: 50%;float: left;text-align: right;padding-right: 10px;border-bottom-color: #CCCCCC" ng-if="$index==payInfoDetailCount-1">{{item.amount|number}}</div>
+      </div>
+    </div>
+    <div ng-include="'templates/common/content-footer.html'" onload="getCustomerDetailPayInfo()"></div>
+  </ion-content>
+</ion-view>

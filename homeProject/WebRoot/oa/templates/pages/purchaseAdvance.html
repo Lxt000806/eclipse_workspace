@@ -1,0 +1,107 @@
+<!-- 采购预付单 -->
+<div ng-controller="PurchaseAdvanceCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth">申请人</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_PurchaseAdvance__0__EmpCode +'|'+submitData.fp__tWfCust_PurchaseAdvance__0__EmpName}}"/>
+	</div>
+		
+	<div class="item item-input">
+		<span class="input-label defWidth">部门</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_PurchaseAdvance__0__DeptDescr}}"/>
+		<input type="text" readonly="true" ng-hide="true" value ="{{submitData.fp__tWfCust_PurchaseAdvance__0__DeptCode}}"/>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth">材料类型1</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_PurchaseAdvance__0__ItemType1">
+			<option value ="主材">主材</option>
+			<option value ="软装">软装</option>
+			<option value ="集成">集成</option>
+			<option value ="基装">基装</option>
+			<option value ="礼品">礼品</option>
+		</select>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">业务单号</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_PurchaseAdvance__0__RefNo}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">预付类型</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_PurchaseAdvance__0__Type}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">申请时间</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_PurchaseAdvance__0__ApplyDate}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">申请时间</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_PurchaseAdvance__0__ApplyDate}}"/>
+	</div>
+	
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">预支总额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_PurchaseAdvance__0__AdvanceAmount"  ng-readonly="true"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">开支内容</span>
+		<textarea ng-model="submitData.fp__tWfCust_PurchaseAdvance__0__Remarks" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_PurchaseAdvance__0__Remarks"></textarea>
+	</div>
+	
+	<group scope="self" label="采购预支明细" addcallback="cgyzAddCallback(index)" 
+		   delcallback="cgyzDelCallback(index)" delall="cgyzDelAll" indexs="rgfyIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="cgyzAfterDetailNum()">
+		   
+		<div class="item item-input" ng-if="submitData.tWfCust_PurchaseAdvanceDtl_DtlAmount_Show !='0'">
+			<span class="input-label defWidth">供应商</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__SupplCode" ng-hide="true" ng-readonly="true"/>
+			<input type="text" ng-model="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__SupplDescr" ng-readonly="true"/>
+		</div>
+		
+		<div class="item item-input">
+			<span class="input-label defWidth">付款金额</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__PayAmount" ng-readonly="true"/>
+		</div>
+		
+		<div class="item item-input">
+			<span class="input-label defWidth">付款户名</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__RcvActName" ng-readonly="true"/>
+		</div>
+		
+		<div class="item item-input">
+			<span class="input-label defWidth">付款账户</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__RcvCardId" ng-readonly="true"/>
+		</div>
+		
+		<div class="item item-input">
+			<span class="input-label defWidth">付款银行</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__RcvBank" ng-readonly="true"/>
+		</div>
+		
+		<div class="item item-input">
+			<span class="input-label defWidth">预支说明</span>
+			<textarea ng-model="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__Reason" style="width:65%"
+				textareaauto="submitData.fp__tWfCust_PurchaseAdvanceDtl__?__RReason"
+				ng-readonly="true" ></textarea>
+		</div>
+	</group>
+	
+	<div style="border: none;background-color:rgb(245,245,245);height:36px" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" >
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" ng-if="type == '' || (commitDatas.taskDefKey && (commitDatas.taskDefKey == 'startman1' ||commitDatas.taskDefKey == 'applyman'))" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event)" ></ion-gallery>
+      </div>
+    </div>
+</div>

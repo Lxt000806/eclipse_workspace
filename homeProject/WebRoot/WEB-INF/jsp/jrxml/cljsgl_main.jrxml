@@ -1,0 +1,170 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cljsgk_main" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="837" leftMargin="0" rightMargin="5" topMargin="5" bottomMargin="5" whenResourceMissingType="Empty" uuid="0a78acc5-ed1b-4def-af4a-184573aa57a5">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Users\\lenovo-1011\\Desktop\\新建文件夹\\cljsgl\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="No" class="java.lang.String"/>
+	<parameter name="ItemType1" class="java.lang.String"/>
+	<parameter name="LogoFile" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:/logo.jpg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="page" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select  a.No, a.CustCode, b.DocumentNo, b.Address, b.Area, b.Status CustStatus, c.NOTE CustStatusDescr,
+        b.Descr CustDescr, a.ItemType1, d.Descr ItemType1Descr, a.Status, e.NOTE StatusDescr, a.AppEmp,
+        f.NameChi AppEmpDescr, a.Date, a.AppRemark, a.ConfirmEmp, g.NameChi ConfirmEmpDescr, a.ConfirmDate,
+        a.ConfirmRemark, a.LastUpdate, a.LastUpdatedBy, a.Expired, a.ActionLog, b.IsItemUp, x1.Note IsItemUpDescr
+from    tItemCheck a
+        left join tCustomer b on b.Code = a.CustCode
+        left join tXTDM c on c.ID = 'CUSTOMERSTATUS'
+                             and c.CBM = b.Status
+        left join tItemType1 d on d.Code = a.ItemType1
+        left join tXTDM e on e.ID = 'ITEMCHECKSTATUS'
+                             and e.CBM = a.Status
+        left join tEmployee f on f.Number = a.AppEmp
+        left join tEmployee g on g.Number = a.ConfirmEmp
+        left join tEmployee h on h.Number = b.DesignMan
+        left join tXTDM x1 on b.IsItemUp = x1.cbm
+                              and x1.id = 'YESNO'
+where   a.Expired = 'F'
+        and a.Status in ('1', '2', '4')
+        and a.ItemType1 in ('RZ', 'JZ', 'ZC', 'JC', 'CG', 'LP')
+	and a.No=($P{No})]]>
+	</queryString>
+	<field name="No" class="java.lang.String"/>
+	<field name="CustCode" class="java.lang.String"/>
+	<field name="DocumentNo" class="java.lang.String"/>
+	<field name="Address" class="java.lang.String"/>
+	<field name="Area" class="java.lang.Integer"/>
+	<field name="CustStatus" class="java.lang.String"/>
+	<field name="CustStatusDescr" class="java.lang.String"/>
+	<field name="CustDescr" class="java.lang.String"/>
+	<field name="ItemType1" class="java.lang.String"/>
+	<field name="ItemType1Descr" class="java.lang.String"/>
+	<field name="Status" class="java.lang.String"/>
+	<field name="StatusDescr" class="java.lang.String"/>
+	<field name="AppEmp" class="java.lang.String"/>
+	<field name="AppEmpDescr" class="java.lang.String"/>
+	<field name="Date" class="java.sql.Timestamp"/>
+	<field name="AppRemark" class="java.lang.String"/>
+	<field name="ConfirmEmp" class="java.lang.String"/>
+	<field name="ConfirmEmpDescr" class="java.lang.String"/>
+	<field name="ConfirmDate" class="java.sql.Timestamp"/>
+	<field name="ConfirmRemark" class="java.lang.String"/>
+	<field name="LastUpdate" class="java.sql.Timestamp"/>
+	<field name="LastUpdatedBy" class="java.lang.String"/>
+	<field name="Expired" class="java.lang.String"/>
+	<field name="ActionLog" class="java.lang.String"/>
+	<field name="IsItemUp" class="java.lang.String"/>
+	<field name="IsItemUpDescr" class="java.lang.String"/>
+	<group name="jsdgl" isStartNewPage="true">
+		<groupExpression><![CDATA[$F{No}]]></groupExpression>
+		<groupHeader>
+			<band height="1"/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="131" splitType="Stretch">
+			<subreport runToBottom="false">
+				<reportElement stretchType="RelativeToBandHeight" x="111" y="0" width="595" height="100" uuid="7169031a-94af-4ebc-8d66-a2b7616bd14f"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<subreportParameter name="ItemType1">
+					<subreportParameterExpression><![CDATA[$P{ItemType1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoFile}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cljsgl_jsd.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="116" width="100" height="1" uuid="c6f7546b-3dff-414f-a423-0e7f7115eba3"/>
+			</break>
+		</band>
+		<band height="101">
+			<subreport runToBottom="false">
+				<reportElement x="0" y="0" width="364" height="100" uuid="d3e319a9-ed89-497e-9e37-2809f62cd7e9">
+					<printWhenExpression><![CDATA[$P{ItemType1}=="RZ"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="page">
+					<subreportParameterExpression><![CDATA[$P{page}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ItemType1">
+					<subreportParameterExpression><![CDATA[$F{ItemType1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cljsgl_RZ.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport runToBottom="false">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="365" height="100" uuid="874a5118-0aff-4513-b92f-c4b558c8ed68">
+					<printWhenExpression><![CDATA[$P{ItemType1}=="ZC"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="page">
+					<subreportParameterExpression><![CDATA[$P{page}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ItemType1">
+					<subreportParameterExpression><![CDATA[$F{ItemType1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cljsgl_ZC.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="29">
+			<staticText>
+				<reportElement x="319" y="0" width="20" height="29" uuid="deaa384c-8d5e-49dc-b751-29a3b67e5c7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="364" y="0" width="39" height="29" uuid="896a95f9-4d7b-422b-b2d0-555c35183df0"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页，共]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="429" y="0" width="38" height="29" uuid="04786207-5594-405c-bc23-30cb8258cccd"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="339" y="0" width="26" height="29" uuid="7523fcd7-7c3d-4cfb-a823-8197e85d28ef"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<textField evaluationTime="Report">
+				<reportElement x="403" y="0" width="26" height="29" uuid="3af8e162-8ff9-4b26-b650-311e8004bff1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

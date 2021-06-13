@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report1" language="groovy" pageWidth="595" pageHeight="842" columnWidth="581" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7" isSummaryWithPageHeaderAndFooter="true" whenResourceMissingType="Empty" uuid="208592e9-26af-40c2-83e9-6a714f473336">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="LogoFile" class="java.lang.String">
+		<defaultValueExpression><![CDATA["logo.jpg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="code" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CountPage" class="java.lang.String">
+		<defaultValueExpression><![CDATA["1"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select case when isnull(cct.CmpnyFullName,'') <> '' then cct.CmpnyFullName else isnull(cp.CmpnyName,'有家装饰') end CmpnyName,
+                case when isnull(cct.CmpnyAddress,'') <> '' then cct.CmpnyAddress else cp.CmpnyAddress end CmpnyAddress,
+                cp.CmpnyPhone,cp.CmpnyFax, cp.CmpnyURL, a.Address
+         from   tCustomer a
+                left join tBuilder b on b.code = a.BuilderCode
+                left join tRegion c on c.code = b.regionCode
+                left join tCompany cp on cp.code = c.CmpCode
+                left join tCustType ct on ct.code = a.custtype
+                left join tCmpCustType cct on cct.CustType = ct.Code and cct.CmpCode =c.CmpCode
+ where  rtrim(a.Code) = $P{code}]]>
+	</queryString>
+	<field name="CmpnyName" class="java.lang.String"/>
+	<field name="CmpnyAddress" class="java.lang.String"/>
+	<field name="CmpnyPhone" class="java.lang.String"/>
+	<field name="CmpnyFax" class="java.lang.String"/>
+	<field name="CmpnyURL" class="java.lang.String"/>
+	<field name="Address" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<title>
+		<band height="690" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement x="10" y="219" width="569" height="47" uuid="b3c562fe-c0ce-41f0-81e7-3828a943bbdb"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="28" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CmpnyName}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="168" y="359" width="75" height="62" uuid="5386fc6c-737b-4965-8219-ef9cbeca83d7"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="46" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[预]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="225" y="281" width="130" height="38" uuid="08c693bb-40d8-414a-b4ec-e07a067c02c3"/>
+				<box>
+					<bottomPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="28" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[软装部分]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="210" y="511" width="292" height="25" uuid="d3510ed1-ca7d-450b-a2c2-43c7657dfa25"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="黑体" size="16" isBold="true" isUnderline="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="121" y="550" width="89" height="25" uuid="8b9c976f-a8b6-4df6-952c-827bd22549b1"/>
+				<textElement>
+					<font fontName="黑体" size="16" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[交付时间：]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="210" y="550" width="292" height="25" uuid="1b01ff6e-8f6b-4b17-a992-f597e3a03028"/>
+				<textElement>
+					<font fontName="黑体" size="16" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[Calendar.getInstance().get(Calendar.YEAR) + " 年 " +
+String.format("%02d", (Calendar.getInstance().get(Calendar.MONTH)+1)) + " 月 " +
+String.format("%02d", Calendar.getInstance().get(Calendar.DATE)) + " 日 "]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="84" y="627" width="65" height="20" uuid="e05f3f98-4f53-4405-8ce0-5ca0de6cf270"/>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[公司地址：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="648" width="65" height="20" uuid="bebfe3ac-52e2-4aa7-9e36-62276aa525aa"/>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[公司网址：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="84" y="670" width="65" height="20" uuid="6aba385d-6dc5-49e1-a252-607f64eee4a6"/>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[公司电话：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="121" y="511" width="89" height="25" uuid="bf167412-cb1e-4bd9-98f8-d60d67ecd241"/>
+				<textElement>
+					<font fontName="黑体" size="16" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[工程名称：]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="149" y="627" width="370" height="20" uuid="2a87fe92-df9a-4df5-8033-a7ce5004bdc4"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CmpnyAddress}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="149" y="648" width="370" height="20" uuid="3e1eb25f-9586-4acc-92b6-c5c7d18b81d9"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CmpnyURL}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="245" y="359" width="75" height="62" uuid="b3a79dbf-ee3f-4a97-a582-9ca755a34cb9"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="46" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[算]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="321" y="359" width="75" height="62" uuid="5f87365a-e3fb-4a13-b8b5-2e1244b51d0d"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="46" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[书]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="149" y="670" width="153" height="20" uuid="ffd572a1-7878-4c1e-a8b3-ba110ad12b09"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CmpnyPhone}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="311" y="670" width="67" height="20" uuid="50394686-0c90-46a0-a783-a1c46f0262ac"/>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[传真号码：]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement x="378" y="670" width="152" height="20" uuid="c82791e6-672e-476b-ab88-717d5c96d798"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="12" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CmpnyFax}]]></textFieldExpression>
+			</textField>
+			<image hAlign="Center">
+				<reportElement x="149" y="76" width="294" height="104" uuid="9274eb22-b0cb-489e-9eb2-e14468bb1bfe"/>
+				<imageExpression><![CDATA[$P{LogoFile}]]></imageExpression>
+			</image>
+		</band>
+	</title>
+</jasperReport>

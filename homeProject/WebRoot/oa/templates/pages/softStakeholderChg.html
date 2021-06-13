@@ -1,0 +1,60 @@
+<div ng-controller="softStakeholderChg">
+	<inputcustomer id="submitData.fp__tWfCust_SoftStakeholderChg__0__CustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_SoftStakeholderChg__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_SoftStakeholderChg__0__CustDescr}}" 
+				   label="客户编号" placeholder="请选择客户编号" callback="customerCallback(data)"
+				   conditions="conditions" require="true">
+	</inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>工地名称</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_SoftStakeholderChg__0__Address"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>状态</span>
+		<select style="padding-right: 0px;width: 65%" ng-model="submitData.fp__tWfCust_SoftStakeholderChg__0__Status">
+			<option value ="订单跟踪">订单跟踪</option>
+			<option value ="合同施工">合同施工</option>
+		</select>
+	</div>
+<!-- 	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>调整类型</span>
+		<select style="padding-right: 0px;width: 65%" ng-model="submitData.fp__tWfCust_SoftStakeholderChg__0__Type"
+			ng-change="changeType()">
+			<option value ="设计师调整">设计师调整</option>
+			<option value ="业务员调整">业务员调整</option>
+		</select>
+	</div> -->
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>调整原因</span>
+		<textarea ng-model="submitData.fp__tWfCust_SoftStakeholderChg__0__Reason" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_SoftStakeholderChg__0__Reason" ></textarea>
+	</div>
+
+	<group scope="self" label="软装干系人明细" addcallback="gctdAddCallback(index)" 
+		   delcallback="gctdDelCallback(index)" delall="gctdDelAll" indexs="gctdIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="gctdAfterDetailNum()">
+		<div class="item item-input item-select">
+			<span class="input-label defWidth"><span style="color:red">*</span>角色</span>
+			<select style="padding: 0;width: 65%" 
+				ng-model="submitData.fp__tWfCust_SoftStakeholderChgDtl__?__Role"\
+				ng-change="changeRole(?)">
+				<option value ="设计师">设计师</option>
+				<option value ="软装设计师">软装设计师</option>
+				<option value ="业务员">业务员</option>
+				<option value ="翻单员">翻单员</option>
+			</select>
+		</div>
+		<inputemployee id="submitData.fp__tWfCust_SoftStakeholderChgDtl__?__OldEmpCode" idvar="code" 
+			showvalue="{{submitData.fp__tWfCust_SoftStakeholderChgDtl__?__OldEmpCode}}" 
+			showlabel="{{submitData.fp__tWfCust_SoftStakeholderChgDtl__?__OldEmpName}}" 
+			label="原干系人编号" placeholder="请选择原干系人编号" callback="oldEmployeeCallback(data, ?)"
+			conditions="conditions_emp_old.condition_Emp_Old_?">
+		</inputemployee>
+		<inputemployee id="submitData.fp__tWfCust_SoftStakeholderChgDtl__?__EmpCode" idvar="code" 
+			showvalue="{{submitData.fp__tWfCust_SoftStakeholderChgDtl__?__EmpCode}}" 
+			showlabel="{{submitData.fp__tWfCust_SoftStakeholderChgDtl__?__EmpName}}" 
+			label="新干系人编号" placeholder="请选择新干系人编号" callback="employeeCallback(data, ?)"
+			conditions="" require="true">
+		</inputemployee>
+	</group>	
+</div>

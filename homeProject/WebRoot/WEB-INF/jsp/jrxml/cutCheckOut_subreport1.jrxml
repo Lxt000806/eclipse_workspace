@@ -1,0 +1,43 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cutCheckOut_subreport1" language="groovy" pageWidth="555" pageHeight="802" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="90360471-63c1-47e5-bf7c-80f380c6a15b">
+	<property name="ireport.zoom" value="1.4641000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="No" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select d.Descr+'   '+cast(cast(floor(a.Qty) as int) as nvarchar(20))+'片   '+
+case when d.PackageNum=1 or d.PackageNum=0 or a.Qty*d.PerNum<d.PackageNum then cast (cast(a.Qty*d.PerNum as float) as nvarchar(100))
+when a.Qty*d.PerNum/d.PackageNum = floor(a.Qty*d.PerNum/d.PackageNum) then cast(cast(a.Qty*d.PerNum/d.PackageNum as int) as nvarchar(100))+'件'
+else cast(cast(floor(a.Qty*d.PerNum/d.PackageNum) as int) as nvarchar(100))+'件'+ cast(cast(a.Qty*d.PerNum-d.PackageNum*floor(a.Qty*d.PerNum/d.PackageNum) as float) as nvarchar(100))+'片' end NumDescr
+from (
+	select sum(Qty)Qty,ItemCode
+	from tCutCheckOutDetail
+	where No=$P{No}
+	group by ItemCode
+) a
+left join tItem d on a.ItemCode=d.Code]]>
+	</queryString>
+	<field name="NumDescr" class="java.lang.String"/>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="20" splitType="Stretch">
+			<textField isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="553" height="20" uuid="73ab48ef-afd5-41dc-a6d6-651b93eef789"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{NumDescr}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+	<summary>
+		<band/>
+	</summary>
+</jasperReport>

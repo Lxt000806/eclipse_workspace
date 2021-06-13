@@ -1,0 +1,53 @@
+<!DOCTYPE HTML>
+	<html>
+	<head>
+	    <title>有家OA主页</title>
+  		<meta name="viewport" content="initial-scale=1, maximum-scale=1, user-scalable=no, width=device-width, viewport-fit=cover">
+  		<meta charset="utf-8">
+		<link href="lib/ionic/css/ionic.css" rel="stylesheet">
+		<!-- build:css dist_css/styles.css -->
+		<link href="css/style.css" rel="stylesheet">
+		<link href="css/timelinestyle.css" rel="stylesheet">
+		<link href="css/hscrollcards.min.css" rel="stylesheet">
+		<link href="css/ion-gallery.css" rel="stylesheet">
+		<script type="text/javascript">
+			function addLoadScript(parentElement){
+				var script = document.createElement("script");
+				script.setAttribute("defer", "defer"); 
+				script.setAttribute("async", "true"); 
+				script.setAttribute("data-main", "js/main.js"); 
+				script.setAttribute("src", "js/require.js"); 
+				parentElement.appendChild(script);
+				script.onload = function(){
+					require.config({
+						urlArgs: "v=0.0.2"
+					});
+				}
+			}
+			function addCordovaScript(parentElement){
+				var script = document.createElement("script");
+				script.setAttribute("src", "cordova.js"); 
+				parentElement.appendChild(script);
+			}
+			function indexMessageListener(e){
+				if(!window.houseMessage){
+					window.houseMessage = {};
+					window.houseMessage.origin = e.origin;
+				}
+				if(!window.houseMessage.loadApp){
+					var head = document.getElementsByTagName("head")[0];
+					addLoadScript(head);
+					addCordovaScript(head);
+					window.houseMessage.loadApp = true;
+				}
+				if(window.houseMessage.callback){
+					window.houseMessage.callback(e.data);
+				}
+			}
+			window.addEventListener("message", indexMessageListener, false);
+		</script>
+	</head>
+	<body>
+		<ion-nav-view></ion-nav-view>
+	</body>
+</html>

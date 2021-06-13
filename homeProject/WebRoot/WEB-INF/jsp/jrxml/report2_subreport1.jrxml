@@ -1,0 +1,2769 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report2_subreport1" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3d0aa824-f4ec-4919-892c-291faf4f0cde">
+	<property name="ireport.zoom" value="1.2100000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="CustCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select a.*,e.NameChi,DateName(MM,b.PlanBegin) minMouth ,c.confirmBegin,c.Address,DATENAME(D,a.PlanBegin)bd,DATENAME(D,a.PlanEnd)ed
+                    ,d.NOTE prjitemdescr,c.ConstructDay,(cast(DateName(MM,a.PlanBegin)as int)-(select  top 1 DateName(MM,a.PlanBegin) minMouth
+                    from tPrjprog a  where a.CustCode=$P{CustCode}
+           order by cast(a.PrjItem as int ) asc )+1)mouth,datediff(m,a.PlanBegin,a.PlanEnd) total
+            ,month(a.planbegin) month,year(a.planbegin) year,bbb.beginmonth
+            from tPrjprog a
+            left join tPrjProg b on b.PK =a.Pk
+            left join tCustomer c on c.Code =a.CustCode
+            left join tXTDM d on d.CBM = a.prjItem and d.id='PRJITEM'
+            left join tEmployee e on e.number=c.ProjectMan
+            left join (select month(min(planbegin)) beginmonth
+             from tPrjProg where CustCode=$P{CustCode} )bbb on a.CustCode=$P{CustCode}
+            where a.CustCode=$P{CustCode}
+           order by a.PlanBegin asc]]>
+	</queryString>
+	<field name="PK" class="java.lang.Integer"/>
+	<field name="total" class="java.lang.Integer"/>
+	<field name="beginmonth" class="java.lang.Integer"/>
+	<field name="month" class="java.lang.Integer"/>
+	<field name="year" class="java.lang.Integer"/>
+	<field name="CustCode" class="java.lang.String"/>
+	<field name="PrjItem" class="java.lang.String"/>
+	<field name="NameChi" class="java.lang.String"/>
+	<field name="PlanBegin" class="java.util.Date"/>
+	<field name="BeginDate" class="java.sql.Timestamp"/>
+	<field name="PlanEnd" class="java.sql.Timestamp"/>
+	<field name="EndDate" class="java.sql.Timestamp"/>
+	<field name="LastUpdate" class="java.sql.Timestamp"/>
+	<field name="LastUpdatedBy" class="java.lang.String"/>
+	<field name="Expired" class="java.lang.String"/>
+	<field name="ActionLog" class="java.lang.String"/>
+	<field name="ConfirmCZY" class="java.lang.String"/>
+	<field name="ConfirmDate" class="java.sql.Timestamp"/>
+	<field name="ConfirmBegin" class="java.sql.Timestamp"/>
+	<field name="ConfirmDesc" class="java.lang.String"/>
+	<field name="prjLevel" class="java.lang.String"/>
+	<field name="minMouth" class="java.lang.Integer"/>
+	<field name="Address" class="java.lang.String"/>
+	<field name="bd" class="java.lang.Integer"/>
+	<field name="ed" class="java.lang.Integer"/>
+	<field name="prjitemdescr" class="java.lang.String"/>
+	<field name="ConstructDay" class="java.lang.Integer"/>
+	<field name="mouth" class="java.lang.Integer"/>
+	<group name="PrjItem">
+		<groupExpression><![CDATA[$F{PrjItem}]]></groupExpression>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<columnHeader>
+		<band height="52" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="658" y="35" width="11" height="17" backcolor="#000000" uuid="2584c2d9-2868-424c-b802-2f22cc00a202"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="504" y="35" width="11" height="17" backcolor="#000000" uuid="62e8985a-3625-47e8-b2b8-b201452d4eff"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="276" y="35" width="11" height="17" backcolor="#000000" uuid="40e51508-5a7b-414c-a22a-8af9210e4f5b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="526" y="35" width="11" height="17" backcolor="#000000" uuid="847cc907-645d-4bb8-a31b-05e7584b18e4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="199" y="35" width="11" height="17" backcolor="#000000" uuid="0040d847-ba1b-4147-b6b7-5d8c57113a7f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="460" y="35" width="11" height="17" backcolor="#000000" uuid="6b5cfaeb-ecc7-4e07-8aff-4a8ef8466aba"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="155" y="35" width="11" height="17" backcolor="#000000" uuid="b9cd2e95-8460-4860-b224-86fbf18626f6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[5]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="592" y="35" width="11" height="17" backcolor="#000000" uuid="42dc3162-2ff6-4169-ba5c-11383f039ac8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="482" y="35" width="11" height="17" backcolor="#000000" uuid="e9981d33-4b0d-40aa-adfc-bbf9c3b546c7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="386" y="35" width="11" height="17" backcolor="#000000" uuid="4c8742de-6cc3-454e-b58b-c312db1c6317"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="559" y="35" width="11" height="17" backcolor="#000000" uuid="f0996484-2c49-4e11-8084-34ced2cf2081"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="35" width="11" height="17" backcolor="#000000" uuid="f8f098fc-1026-49ca-a065-4c4fa3c32ffc"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[10]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="614" y="35" width="11" height="17" backcolor="#000000" uuid="961f3d8f-934f-4c35-8a72-48c4366b0e09"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="254" y="35" width="11" height="17" backcolor="#000000" uuid="6a312a9d-30d3-4feb-a8ba-f60ed8e792b6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="282" y="18" width="170" height="17" uuid="387b09d7-b331-467d-97cd-bbeedbff5350"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[月份]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="779" y="35" width="11" height="17" backcolor="#000000" uuid="2b507719-58ec-495f-bc53-e0c704ac1640"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="342" y="35" width="11" height="17" backcolor="#000000" uuid="6aa8bd1d-f814-464b-a0b7-f7514e45ee36"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[22]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="636" y="18" width="165" height="17" uuid="353fce4b-b8b7-494b-8b22-28e4c18b1922"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Left" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[月份]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="768" y="35" width="11" height="17" backcolor="#000000" uuid="a3a83dd0-4922-4b54-b8ec-81e2ca48728e"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="221" y="35" width="11" height="17" backcolor="#000000" uuid="5c151758-25b4-4aa1-8069-6f6717298be1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="660" y="2" width="55" height="17" uuid="735d40f0-c8b1-413c-af4e-611bf9037e5a"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[总工期：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="548" y="35" width="11" height="17" backcolor="#000000" uuid="6890f642-3ef1-446f-b54b-76cdc36c08e3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[9]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="133" y="35" width="11" height="17" backcolor="#000000" uuid="6a7eeadb-db75-460c-b682-e7d88c3a0fae"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[3]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="309" y="35" width="11" height="17" backcolor="#000000" uuid="2940296b-873e-41ce-b1ac-5604302801de"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[19]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="265" y="35" width="11" height="17" backcolor="#000000" uuid="dfd5cc37-9b68-4dea-9ab0-64ab4c3b41cb"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[15]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="408" y="35" width="11" height="17" backcolor="#000000" uuid="be6d876f-a3be-4f49-b3ca-75a64469a420"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[28]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="471" y="35" width="11" height="17" backcolor="#000000" uuid="ce296ebf-605b-4edb-965d-03cbf83f6c19"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="166" y="35" width="11" height="17" backcolor="#000000" uuid="2ab0236d-e32c-4051-8679-ed4ceda1c8ad"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="537" y="35" width="11" height="17" backcolor="#000000" uuid="1537bd91-d563-4862-8537-14f528a67645"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="375" y="35" width="11" height="17" backcolor="#000000" uuid="1f1d3caa-9ca1-4cff-a3f7-56075f33ceb9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="298" y="35" width="11" height="17" backcolor="#000000" uuid="4f18acfb-5419-4853-9742-388f4f509b22"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="790" y="35" width="11" height="17" backcolor="#000000" uuid="0783fdf7-6828-4c4e-8832-c33fc2e57b60"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[31]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="144" y="35" width="11" height="17" backcolor="#000000" uuid="13582ade-25f0-47a7-b849-e9d4be46ed84"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="669" y="35" width="11" height="17" backcolor="#000000" uuid="79209dd7-0c1e-458c-a6fc-7fec02751724"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="419" y="35" width="11" height="17" backcolor="#000000" uuid="5032182c-487f-40cc-a3fd-6ed18b09e973"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[29]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="515" y="35" width="11" height="17" backcolor="#000000" uuid="6ad0395a-36f2-41ef-911b-d07a716f496a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[6]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="287" y="35" width="11" height="17" backcolor="#000000" uuid="5784524a-3cc0-4abb-b77b-09a56facdf52"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="331" y="35" width="11" height="17" backcolor="#000000" uuid="5c6502e0-0142-43d4-8b1f-4c7aa80f171f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[21]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="430" y="35" width="11" height="17" backcolor="#000000" uuid="a7f40338-0a3a-4188-bca8-92c2eb308fff"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[30]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="177" y="35" width="11" height="17" backcolor="#000000" uuid="c1248720-370e-408e-9ba4-076f70a8c302"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[7]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="570" y="35" width="11" height="17" backcolor="#000000" uuid="a4d3c798-8466-43ee-a29f-7476cb698b17"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[11]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="647" y="35" width="11" height="17" backcolor="#000000" uuid="58235790-93aa-411d-899e-e6665d08d0ba"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[18]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="702" y="35" width="11" height="17" backcolor="#000000" uuid="084d7971-a1b4-4cf8-87f9-db4f74ac8406"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="35" width="111" height="17" uuid="948b881a-2f20-439c-b0a1-e5424fff4b81"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[进度]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="397" y="35" width="11" height="17" backcolor="#000000" uuid="81d2889a-d1ad-442a-806a-6b97c49cb877"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[27]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="691" y="35" width="11" height="17" backcolor="#000000" uuid="112813c0-9094-4a01-8948-18780843e48a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[22]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="53" y="1" width="133" height="17" uuid="a7cd440f-60d0-45f2-b448-fb54d8631cc0"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="320" y="35" width="11" height="17" backcolor="#000000" uuid="ca7f168e-a7eb-485a-8751-c717af65e717"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[20]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="680" y="35" width="11" height="17" backcolor="#000000" uuid="07d1d190-995c-4339-a968-9de38940e700"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[21]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="713" y="35" width="11" height="17" backcolor="#000000" uuid="5e3a0d58-b101-44e1-946d-c3f7adc4a96c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="625" y="35" width="11" height="17" backcolor="#000000" uuid="e98d20c9-b4b4-40ed-9d67-5da36501899d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[16]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="243" y="35" width="11" height="17" backcolor="#000000" uuid="fe07d142-acc2-4dd8-a2e9-0d50959d0be3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[13]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="188" y="35" width="11" height="17" backcolor="#000000" uuid="cfeeb502-324d-4bf8-8d50-da14e0c47c59"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[8]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="636" y="35" width="11" height="17" backcolor="#000000" uuid="9bb38193-85be-4dc3-954e-db202c2678c6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[17]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="18" width="111" height="17" uuid="e5735285-3a31-47c7-8598-7e69158153e6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[月份]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="581" y="35" width="11" height="17" backcolor="#000000" uuid="a1fd2f21-42c6-43a0-ab76-8f17007265dc"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="735" y="35" width="11" height="17" backcolor="#000000" uuid="396f4e32-796f-4764-b1d2-5be498fb7e54"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[26]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="353" y="35" width="11" height="17" backcolor="#000000" uuid="08068973-4e9e-4663-affe-7c08ea7d4bd8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[23]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="111" y="35" width="11" height="17" backcolor="#000000" uuid="23054567-763a-4862-ad47-513f7481445b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[1]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="35" width="11" height="17" backcolor="#000000" uuid="5820f6c3-99c7-484f-b28c-6c9045dd5bae"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[2]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="603" y="35" width="11" height="17" backcolor="#000000" uuid="f7a3ac4e-b8b6-428c-a95f-ff267d54d798"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[14]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="746" y="35" width="11" height="17" backcolor="#000000" uuid="78f27986-ff5a-4516-bc72-f355f1fff167"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[27]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="354" y="0" width="66" height="17" uuid="0bc435f9-779f-492e-989b-d49019da63cc"/>
+				<box>
+					<bottomPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[开工时间：]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="493" y="35" width="11" height="17" backcolor="#000000" uuid="aa207b7c-20e1-439b-aad2-961ae021b44b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[4]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="724" y="35" width="11" height="17" backcolor="#000000" uuid="ef1bd323-31c8-4796-a90c-69ec19395394"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[25]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="364" y="35" width="11" height="17" backcolor="#000000" uuid="9a3d8bfd-bd6f-4f3b-b296-97a5f06848b4"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[24]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="232" y="35" width="11" height="17" backcolor="#000000" uuid="a1205da6-e789-480a-9c1e-ed1fb79e6513"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="757" y="35" width="11" height="17" backcolor="#000000" uuid="40ad6d13-ddc2-42c5-8f88-eae6bba45177"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[28]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="460" y="18" width="176" height="17" uuid="e82c99f0-5a29-41e2-9439-5c991452b30d">
+					<printWhenExpression><![CDATA[($F{minMouth}+1)%12!=0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[($F{minMouth}+1)%12]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement mode="Transparent" x="460" y="18" width="176" height="17" uuid="1fb015d4-d46d-485b-b91a-0ff13ff5d586">
+					<printWhenExpression><![CDATA[($F{minMouth}+1)%12==0]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[12]]></text>
+			</staticText>
+			<textField isBlankWhenNull="true">
+				<reportElement x="699" y="2" width="44" height="15" uuid="6365968c-444b-4f19-acb4-9d2a91b81397"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ConstructDay}]]></textFieldExpression>
+			</textField>
+			<textField pattern="yyyy-MM-dd" isBlankWhenNull="true">
+				<reportElement x="405" y="2" width="66" height="16" uuid="5872582a-fa13-4a5e-bdb3-a7f989136f7b"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{ConfirmBegin}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="441" y="35" width="11" height="17" uuid="4ec55181-bab7-47a7-8e48-ddde2ac449a4"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="441" y="35" width="11" height="17" forecolor="#000000" backcolor="#FFFFFF" uuid="93ec0983-8b81-4281-ad61-7e86a2962d1a">
+					<printWhenExpression><![CDATA[$F{minMouth}!=(11|2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<text><![CDATA[31]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="111" y="18" width="171" height="17" uuid="cea68a66-f09b-4666-8ca1-58d7f95cab46"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{minMouth}]]></textFieldExpression>
+			</textField>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="12" splitType="Stretch">
+			<staticText>
+				<reportElement mode="Transparent" x="460" y="0" width="11" height="12" backcolor="#000000" uuid="90f77182-72a1-4a5f-9847-f7c8ee3e5cf9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="122" y="0" width="11" height="12" backcolor="#000000" uuid="6ce40e6e-e5da-4eb4-83db-ed94b6d10402"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="265" y="0" width="11" height="12" backcolor="#000000" uuid="340a4f87-e893-4bf7-8084-20892dcd1532"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="309" y="0" width="11" height="12" backcolor="#000000" uuid="ecedfd50-08c4-458a-8c46-ea9850d5c591"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="199" y="0" width="11" height="12" backcolor="#000000" uuid="517a2252-eb66-46b1-8baa-32b3e1195345"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="298" y="0" width="11" height="12" backcolor="#000000" uuid="ffe3e2c9-afa1-4eaa-8e31-3c7791ef0aa0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="342" y="0" width="11" height="12" backcolor="#000000" uuid="5e919d7f-888a-4493-ac63-d2020c7c51a6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="353" y="0" width="11" height="12" backcolor="#000000" uuid="d00e3cff-ae1c-49b0-b7b0-c17355ffe104"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="243" y="0" width="11" height="12" backcolor="#000000" uuid="8521472e-8c5a-4c70-844d-9e6a30fc24f9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="221" y="0" width="11" height="12" backcolor="#000000" uuid="0bfdcbd0-d26d-4171-82ec-dba0f5527191"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="144" y="0" width="11" height="12" backcolor="#000000" uuid="9ec6d64e-103b-4c22-8b57-572b8ecefa9b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="408" y="0" width="11" height="12" backcolor="#000000" uuid="7feda49a-fe9c-4ffc-b4af-40e5ff6bea3f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="276" y="0" width="11" height="12" backcolor="#000000" uuid="892caf2a-cb66-4c30-9cb0-403117b60148"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="188" y="0" width="11" height="12" backcolor="#000000" uuid="9ec40016-3a36-479f-8863-3e39313b60c0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="364" y="0" width="11" height="12" backcolor="#000000" uuid="db3452d5-0dbb-4f35-a84e-89fb0f8d2f40"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="177" y="0" width="11" height="12" backcolor="#000000" uuid="686bdb60-223e-40c9-8ee2-59118c1e1b79"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="232" y="0" width="11" height="12" backcolor="#000000" uuid="e2d0a0f0-2625-4021-a74f-636a31679ee0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="254" y="0" width="11" height="12" backcolor="#000000" uuid="ee5d995e-1394-4b56-9a32-a5934668ebc7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="441" y="0" width="11" height="12" backcolor="#000000" uuid="8864ed18-3694-431b-994f-f69e234eaf15"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="375" y="0" width="11" height="12" backcolor="#000000" uuid="a34c79d0-9f89-4b87-bc41-f5c176a9d577"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="386" y="0" width="11" height="12" backcolor="#000000" uuid="4b4c4c1d-e66e-4c00-9b28-629e22145c36"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="320" y="0" width="11" height="12" backcolor="#000000" uuid="e5153bfb-293d-4c61-b03e-1408b7eae9eb"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="166" y="0" width="11" height="12" backcolor="#000000" uuid="a216d139-1a7c-4f9e-90b5-fbecc4b6c622"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="111" y="0" width="11" height="12" backcolor="#000000" uuid="25e31caa-8ea5-4d7b-a921-ae01eed90005"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="331" y="0" width="11" height="12" backcolor="#000000" uuid="1e79ad41-964c-446a-b31d-d775e440e75f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="133" y="0" width="11" height="12" backcolor="#000000" uuid="190ea4d7-167e-46f9-99a9-3e972e497ad3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="419" y="0" width="11" height="12" backcolor="#000000" uuid="99e897ec-bd4e-4634-a086-5b0f50ed15ad"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="155" y="0" width="11" height="12" backcolor="#000000" uuid="12a899f9-0672-405b-ac78-4d4307be8721"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="210" y="0" width="11" height="12" backcolor="#000000" uuid="2467040e-9c42-4462-995c-87e622780520"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="430" y="0" width="11" height="12" backcolor="#000000" uuid="a3888091-66f9-4a95-88c9-9ade18ee260d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="0" width="11" height="12" uuid="9573134a-8e76-4d06-8950-9494ed6e7a47"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="537" y="0" width="11" height="12" backcolor="#000000" uuid="13031c24-fb1a-4a15-9136-4cbfec612db1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="603" y="0" width="11" height="12" backcolor="#000000" uuid="f87d1bc5-07e2-4760-a70d-7dbfc4c3e242"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="636" y="0" width="11" height="12" backcolor="#000000" uuid="79f8dfdc-8f69-4ada-a2e8-5711894b248f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="548" y="0" width="11" height="12" backcolor="#000000" uuid="9b972213-e5f3-4574-9d90-072824eccd0f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="570" y="0" width="11" height="12" backcolor="#000000" uuid="5a4bb340-33cd-4745-88c4-a3fa40540a2b"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="790" y="0" width="11" height="12" uuid="c21cb17c-8e9a-4ef3-bffd-fef9f2413e3a"/>
+				<box>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="471" y="0" width="11" height="12" backcolor="#000000" uuid="cc0cd049-b94f-457e-b606-17748a58cfe6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="658" y="0" width="11" height="12" backcolor="#000000" uuid="651f6e45-c6fe-4cac-b172-b3fb7ca661b3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="691" y="0" width="11" height="12" backcolor="#000000" uuid="75206c62-7250-4462-b9e8-e2d22188bcc6"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="680" y="0" width="11" height="12" backcolor="#000000" uuid="82283d9f-82f0-4975-b3cf-9bbdb49837c7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="482" y="0" width="11" height="12" backcolor="#000000" uuid="bda9ae3f-bbc8-4a51-836a-3613b2b53708"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="592" y="0" width="11" height="12" backcolor="#000000" uuid="b563ff4b-6573-43b3-b3dd-be6aaac159f0"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="625" y="0" width="11" height="12" backcolor="#000000" uuid="ffd6ee6e-2eff-4c99-8509-573285594eae"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="746" y="0" width="11" height="12" backcolor="#000000" uuid="c35e94c2-8351-45c5-9af4-a254b2161dad"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="647" y="0" width="11" height="12" backcolor="#000000" uuid="d2350840-7800-4aa9-89d8-f211076e510c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="504" y="0" width="11" height="12" backcolor="#000000" uuid="b5a77f38-6093-421e-b4c3-cbf288af1b60"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="757" y="0" width="11" height="12" backcolor="#000000" uuid="e00ebb12-d945-4c9c-9f22-c5f3fd6a059c"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="581" y="0" width="11" height="12" backcolor="#000000" uuid="801e3365-4adc-41d1-8228-4ebf595046cb"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="493" y="0" width="11" height="12" backcolor="#000000" uuid="63d83ca7-0071-4c46-ac79-e2f6d4ff0211"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="559" y="0" width="11" height="12" backcolor="#000000" uuid="f70520d5-2eb9-41d1-88d0-370462d851f1"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="526" y="0" width="11" height="12" backcolor="#000000" uuid="7247b580-8cc3-4c02-9bef-5a01d1aba690"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="779" y="0" width="11" height="12" backcolor="#000000" uuid="c351dd16-0179-4316-ba42-36ce7707f3e3"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="614" y="0" width="11" height="12" backcolor="#000000" uuid="4a9c40b9-adfa-42ae-b726-e4d59f8df810"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="702" y="0" width="11" height="12" backcolor="#000000" uuid="a92c39fa-244f-480f-9dff-cdf89a9ea2bd"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="713" y="0" width="11" height="12" backcolor="#000000" uuid="6cb4386c-0314-47ea-9b58-704e8f27b77d"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="724" y="0" width="11" height="12" backcolor="#000000" uuid="8109a82d-7b40-464d-a77d-77f133fd4cc8"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="735" y="0" width="11" height="12" backcolor="#000000" uuid="a7d15ad0-3631-47bd-9bff-dd343ef8537a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="768" y="0" width="11" height="12" backcolor="#000000" uuid="0e5f98f6-0f36-44a9-bc7f-12ce7d955f6a"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="669" y="0" width="11" height="12" backcolor="#000000" uuid="86714d70-0256-4410-a213-abdc52e0288f"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="515" y="0" width="11" height="12" backcolor="#000000" uuid="bbb0e6af-9636-4f3b-b7e3-50e5188cd4e9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<staticText>
+				<reportElement mode="Transparent" x="287" y="0" width="11" height="12" backcolor="#000000" uuid="cd4a98b7-3e86-4978-b9b0-564b0ef41981"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="7"/>
+				</textElement>
+				<text><![CDATA[]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="0" y="0" width="111" height="12" uuid="89fc605c-2d2a-4841-9505-cd7354ed3b45"/>
+				<box>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+				</box>
+				<textElement>
+					<font fontName="宋体" size="9" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{prjitemdescr}]]></textFieldExpression>
+			</textField>
+			<frame>
+				<reportElement mode="Opaque" x="353" y="0" width="11" height="12" backcolor="#000000" uuid="b0fd1f97-bdcc-440c-aa91-8e09d3a84e7a">
+					<printWhenExpression><![CDATA[($F{bd}<=23&&$F{mouth}==1&&$F{ed}>=23)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=23 &&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=23&&$F{total}>=1
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="144" y="0" width="11" height="12" backcolor="#000000" uuid="0109f583-e842-4020-8f0b-a92d413ba1fd">
+					<printWhenExpression><![CDATA[($F{bd}<=4&&$F{ed}>=4&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=4&&$F{total}==0)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="331" y="0" width="11" height="12" backcolor="#000000" uuid="1c544e9f-43c7-4e8d-86df-058220567c68">
+					<printWhenExpression><![CDATA[($F{bd}<=21&&$F{mouth}==1&&$F{ed}>=21
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=21&&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=21&&$F{total}>=1
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="265" y="0" width="11" height="12" backcolor="#000000" uuid="3e1472bb-0570-40a7-967a-3b23180933a1">
+					<printWhenExpression><![CDATA[($F{ed}>=15&&$F{bd}<=15&&$F{mouth}==1
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=15&&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=15&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="122" y="0" width="11" height="12" backcolor="#000000" uuid="f4b78d7c-aed7-4633-b1ea-13e1fc288433">
+					<printWhenExpression><![CDATA[($F{bd}<=2&&$F{ed}>=2&&$F{mouth}==1&&$F{total}==0)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="111" y="0" width="11" height="12" backcolor="#000000" uuid="403e14dd-8f70-4f1d-8f2f-c6856db83322">
+					<printWhenExpression><![CDATA[($F{bd}<=1&&$F{ed}>=1&&$F{mouth}==1&&$F{total}==0)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="342" y="0" width="11" height="12" backcolor="#000000" uuid="de734076-4ffa-40ff-ae98-e76d84e3ba28">
+					<printWhenExpression><![CDATA[($F{bd}<=22&&$F{mouth}==1&&$F{ed}>=22
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=22&&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=22&&$F{total}>=1
+&&$F{PlanEnd}>=$F{PlanBegin}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="232" y="0" width="11" height="12" backcolor="#000000" uuid="4b9005ae-c0e5-4d8f-9742-174291e09c73">
+					<printWhenExpression><![CDATA[($F{bd}<=12&&$F{ed}>=12&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=12&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=12&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="364" y="0" width="11" height="12" backcolor="#000000" uuid="73be75d1-3fc1-44dc-b8e4-efef14c55c2e">
+					<printWhenExpression><![CDATA[($F{bd}<=24&&$F{mouth}==1&&$F{ed}>=24)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=24&&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=24&&$F{total}>=1
+||($F{total}==1&&$F{mouth}==1&&$F{bd}==24)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="243" y="0" width="11" height="12" backcolor="#000000" uuid="e1e3fd5b-c0a9-42e1-a720-d25e6a4e527a">
+					<printWhenExpression><![CDATA[($F{bd}<=13&&$F{mouth}==1&&$F{ed}>=13
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=13&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=13&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="177" y="0" width="11" height="12" backcolor="#000000" uuid="45e7dbad-7763-413c-b8ba-32f2856234e8">
+					<printWhenExpression><![CDATA[($F{bd}<=7&&$F{ed}>=7&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=7&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=7&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="276" y="0" width="11" height="12" backcolor="#000000" uuid="f4e8c697-ff26-4bb9-993d-fab9842b80c9">
+					<printWhenExpression><![CDATA[($F{mouth}==1&&$F{ed}>=16&&$F{bd}<=16
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=16 &&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=16&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="188" y="0" width="11" height="12" backcolor="#000000" uuid="2e20b980-91ae-4a74-b769-c1bdd716c4c0">
+					<printWhenExpression><![CDATA[($F{bd}<=8&&$F{ed}>=8&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=8&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=8&&$F{total}>=1)
+
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="199" y="0" width="11" height="12" backcolor="#000000" uuid="5ad68479-a0b0-43f8-85fc-a090669db327">
+					<printWhenExpression><![CDATA[($F{bd}<=9&&$F{ed}>=9&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=9&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=9&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="133" y="0" width="11" height="12" backcolor="#000000" uuid="4946d801-7715-4e26-ad89-0da3ddc32df2">
+					<printWhenExpression><![CDATA[($F{bd}<=3&&$F{mouth}==1&&$F{ed}>=3&&$F{total}==0)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="386" y="0" width="11" height="12" backcolor="#000000" uuid="1334461e-7308-4ce9-9ddd-6c94c63b7f41">
+					<printWhenExpression><![CDATA[($F{bd}<=26&&$F{mouth}==1&&$F{ed}>=26&&$F{total}==0
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=26&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=26&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="210" y="0" width="11" height="12" backcolor="#000000" uuid="f42483e8-7939-4d02-aa01-a35220d0d1af">
+					<printWhenExpression><![CDATA[($F{bd}<=10&&$F{ed}>=10&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=10&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=10&&$F{total}>=1)
+
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="408" y="0" width="11" height="12" backcolor="#000000" uuid="841b10c9-ac3f-457d-a82f-a5482a196c1b">
+					<printWhenExpression><![CDATA[($F{bd}>=$F{ed}&&$F{bd}<=28&&$F{mouth}==1&&$F{total}>=1
+||$F{bd}<=28&&$F{ed}>=28&&$F{mouth}==1&&$F{ed}>=$F{bd}
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=28&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="320" y="0" width="11" height="12" backcolor="#000000" uuid="afaadcf1-dd7f-4676-88a9-3196a770bc63">
+					<printWhenExpression><![CDATA[($F{bd}<=20&&$F{mouth}==1&&$F{ed}>=20
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=20&&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=20&&$F{total}>=1
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="155" y="0" width="11" height="12" backcolor="#000000" uuid="6a6ffed0-6502-49db-8ff9-7aa1e77938aa">
+					<printWhenExpression><![CDATA[($F{bd}<=5&&$F{ed}>=5&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=5&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="166" y="0" width="11" height="12" backcolor="#000000" uuid="e45695cf-dda9-4fe9-8f76-05ca6bf3d21c">
+					<printWhenExpression><![CDATA[($F{bd}<=6&&$F{ed}>=6&&$F{mouth}==1
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=6&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="221" y="0" width="11" height="12" backcolor="#000000" uuid="549f70fb-65cf-4467-8807-bc3c2b03bb44">
+					<printWhenExpression><![CDATA[(($F{bd}<=11&&$F{ed}>=11&&$F{mouth}==1)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=11&&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=11&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="397" y="0" width="11" height="12" backcolor="#000000" uuid="2b71f139-e73e-4823-a166-937aeb676df8">
+					<printWhenExpression><![CDATA[($F{bd}<=27&&$F{mouth}==1&&$F{ed}>=27&&$F{total}==0
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=27&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=27&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="254" y="0" width="11" height="12" backcolor="#000000" uuid="17f6a0b3-948c-4078-af16-677d53bdd135">
+					<printWhenExpression><![CDATA[($F{mouth}==1&&$F{ed}>=14&&$F{bd}<=14
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=14&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=14&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="441" y="0" width="11" height="12" backcolor="#000000" uuid="3ced1e5e-67a3-4458-8e9a-036c8c62f126">
+					<printWhenExpression><![CDATA[(($F{bd}>=$F{ed}&&$F{bd}<=31&&$F{mouth}==1&&$F{total}>=1
+||$F{bd}<=31&&$F{ed}>=31&&$F{mouth}==1&&$F{ed}>=$F{bd}&&$F{total}==0
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=31&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd})
+&&!(($F{month}==2||$F{month}==4||$F{month}==6||$F{month}==9||$F{month}==11))
+&&($F{beginmonth}!=2&&$F{beginmonth}!=4&&$F{beginmonth}!=6&&$F{beginmonth}!=9&&$F{beginmonth}!=11)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="375" y="0" width="11" height="12" backcolor="#000000" uuid="563b4e35-1e82-46d7-a867-c2aec0017910">
+					<printWhenExpression><![CDATA[($F{bd}<=25&&$F{mouth}==1&&$F{ed}>=25
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=25&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=25&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="419" y="0" width="11" height="12" backcolor="#000000" uuid="ecd78405-74c4-4f42-a43a-021cdb19c04d">
+					<printWhenExpression><![CDATA[($F{bd}>=$F{ed}&&$F{bd}<=29&&$F{mouth}==1&&$F{total}>=1
+||$F{bd}<=29&&$F{ed}>=29&&$F{mouth}==1&&$F{ed}>=$F{bd}
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=29&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}
+&&!(!(($F{year}% 4 == 0) && (($F{year} % 100 != 0) || ($F{year} % 400 == 0)))&&$F{beginmonth}==2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="625" y="0" width="11" height="12" backcolor="#000000" uuid="b019b2ad-3289-4e50-9cbc-a8ade51ab0bb">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=16&&$F{ed}>=16)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=16&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=16&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=16&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=16&&$F{ed}>=16)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=16)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="636" y="0" width="11" height="12" backcolor="#000000" uuid="6dd81f1c-e44c-421c-9974-eda050ebc45f">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=17&&$F{ed}>=17)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=17&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=17&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=17&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=17&&$F{ed}>=17)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=17)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="757" y="0" width="11" height="12" backcolor="#000000" uuid="fd4f4037-b594-4a46-9b07-fcda3c3fbfde">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=28&&$F{ed}>=28)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=28&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=28&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=28&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=28&&$F{ed}>=28)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=28)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="713" y="0" width="11" height="12" backcolor="#000000" uuid="cd6a5701-d24a-4477-b707-c3d30c957f64">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=24&&$F{ed}>=24)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=24&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=24&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=24&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=24&&$F{ed}>=24)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=24)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="658" y="0" width="11" height="12" backcolor="#000000" uuid="6b8f192c-c4be-4ed1-8c43-87bbfe5508a7">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=19&&$F{ed}>=19)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=19&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=19&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=19&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=19&&$F{ed}>=19)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=19)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="526" y="0" width="11" height="12" backcolor="#000000" uuid="1e380034-0bb7-48df-8a9e-ac0d4ce3d8d2">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=7&&$F{ed}>=7)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=7&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=7&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=7&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=7&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=6&&$F{ed}>=6)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=7)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="735" y="0" width="11" height="12" backcolor="#000000" uuid="51e64393-b1c7-4183-b2ae-b22bc32b94d7">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=26&&$F{ed}>=26)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=26&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=26&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=26&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=26&&$F{ed}>=26)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=26)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="537" y="0" width="11" height="12" backcolor="#000000" uuid="52e79d79-afae-4262-8d92-a48251a88c42">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=8&&$F{ed}>=8)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=8&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=8&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=8&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=8&&$F{ed}>=8)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=8)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="680" y="0" width="11" height="12" backcolor="#000000" uuid="1b78c589-d2c5-46d5-b434-a01ebf29b7b4">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=21&&$F{ed}>=21)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=21&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=21&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=21&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=21&&$F{ed}>=21)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=21)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="702" y="0" width="11" height="12" backcolor="#000000" uuid="232f97ef-4455-46d9-be8e-2b2beb41d889">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=23&&$F{ed}>=23)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=23&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=23&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=23&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=23&&$F{ed}>=23)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=23)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="779" y="0" width="11" height="12" backcolor="#000000" uuid="11bda0cf-3424-4d57-ab2a-3a59d04e5c39">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=30&&$F{ed}>=30)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=30&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=30&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=30&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=30&&$F{ed}>=30)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=30)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&(($F{beginmonth}+1)%12!=2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="790" y="0" width="11" height="12" backcolor="#000000" uuid="4e681cd3-440b-4d3e-9854-bcae58185d31">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=31&&$F{ed}>=31)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=31&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=31&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=31&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=31&&$F{ed}>=31)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=31)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&(($F{beginmonth}+1)%12!=2&&($F{beginmonth}+1)%12!=4&&($F{beginmonth}+1)%12!=6&&($F{beginmonth}+1)%12!=9&&($F{beginmonth}+1)%12!=11)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="691" y="0" width="11" height="12" backcolor="#000000" uuid="90c000f4-6643-45c9-8d82-c047e5f4520b">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=22&&$F{ed}>=22)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=22&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=22&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=22&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=22&&$F{ed}>=22)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=22)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="592" y="0" width="11" height="12" backcolor="#000000" uuid="5ffc68f3-0a41-4ff1-89b0-d405ee0fe049">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=13&&$F{ed}>=13)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=13&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=13&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=13&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=13&&$F{ed}>=13)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=13)
+
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="460" y="0" width="11" height="12" backcolor="#000000" uuid="77d45b2d-f473-449b-b6aa-ef2e47289d2b">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=1&&$F{ed}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=1&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=1&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2&&$F{bd}<=1&&$F{total}>=1 )
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=1&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=1&&$F{ed}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==-11&&$F{ed}>=1)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=1)
+)&&$F{PlanBegin}<=$F{PlanEnd}||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=1&&$F{total}>=1)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="768" y="0" width="11" height="12" backcolor="#000000" uuid="aff1648a-1fd0-4e1b-99d5-9907b0aa65b8">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=29&&$F{ed}>=29)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=29&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=29&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=29&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=29&&$F{ed}>=29)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=29)
+)&&$F{PlanBegin}<=$F{PlanEnd}
+&&!(!(($F{year}% 4 == 0) && (($F{year} % 100 != 0) || ($F{year} % 400 == 0)))&&($F{beginmonth}+1)%12==2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="515" y="0" width="11" height="12" backcolor="#000000" uuid="3a0c787c-8e26-48d9-8823-29aabbf23826">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=6&&$F{ed}>=6)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=6&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=6&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=6&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=6&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=6&&$F{ed}>=6)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=6)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="493" y="0" width="11" height="12" backcolor="#000000" uuid="8a37893f-1775-48b1-9705-14f74d1d9531">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=4&&$F{ed}>=4)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=4&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=4&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=4&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=4&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=4&&$F{ed}>=4)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=4)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="614" y="0" width="11" height="12" backcolor="#000000" uuid="9286c88c-ee14-47a1-b982-6d794c9a18c8">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=15&&$F{ed}>=15)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=15&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=15&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=15&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=15&&$F{ed}>=15)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=15)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="548" y="0" width="11" height="12" backcolor="#000000" uuid="56825ce2-7795-441b-966b-dd27e07168f8">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=9&&$F{ed}>=9)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=9&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=9&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=9&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=9&&$F{ed}>=9)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=9)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="559" y="0" width="11" height="12" backcolor="#000000" uuid="24a49334-4345-4608-b20d-48b6366ea1a4">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=10&&$F{ed}>=10)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=10&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=10&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=10&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=10&&$F{ed}>=10)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=10)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="724" y="0" width="11" height="12" backcolor="#000000" uuid="39e75693-e448-4ca4-9c03-62087b70dc65">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=25&&$F{ed}>=25)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=25&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=25&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=25&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=25&&$F{ed}>=25)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=25)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="504" y="0" width="11" height="12" backcolor="#000000" uuid="368489a8-c118-4bda-a33a-662dbe2bbf0c">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=5&&$F{ed}>=5)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=5&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=5&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=5&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=5&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=5&&$F{ed}>=5)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=5)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="581" y="0" width="11" height="12" backcolor="#000000" uuid="a00eb157-c297-48c9-87c8-bccd427eea58">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=12&&$F{ed}>=12)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=12&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=12&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=12&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=12&&$F{ed}>=12)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=12)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="471" y="0" width="11" height="12" backcolor="#000000" uuid="91163051-c0f4-4a0d-9e77-b7d7ca49ba58">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=2&&$F{ed}>=2)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=2&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=2&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=2&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=2&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=2&&$F{ed}>=2)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=2)
+
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="669" y="0" width="11" height="12" backcolor="#000000" uuid="c3120282-57c4-422a-804f-b77ebbf0d389">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=20&&$F{ed}>=20)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=20&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=20&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=20&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=20&&$F{ed}>=20)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=20)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="647" y="0" width="11" height="12" backcolor="#000000" uuid="fe5a4656-1376-411e-8874-a07deede14bb">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=18&&$F{ed}>=18)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=18&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=18&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=18&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=18&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=18&&$F{ed}>=18)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=18)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="603" y="0" width="11" height="12" backcolor="#000000" uuid="32050171-600d-4d42-863a-52c82cef5268">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=14&&$F{ed}>=14)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=14&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=14&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=14&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=14&&$F{ed}>=14)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=14)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="482" y="0" width="11" height="12" backcolor="#000000" uuid="e2250747-2483-46b6-93f5-af43a88b5677">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=3&&$F{ed}>=3)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=3&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=3&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=3&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=2&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=3&&$F{ed}>=3)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=3)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="746" y="0" width="11" height="12" backcolor="#000000" uuid="161a51c7-02c5-4322-8be0-5a05ddf51d36">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=27&&$F{ed}>=27)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=27&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=27&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=27&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=27&&$F{ed}>=27)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=27)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="570" y="0" width="11" height="12" backcolor="#000000" uuid="4c21a334-6eb1-4fb6-8d69-1c1a7a8326f5">
+					<printWhenExpression><![CDATA[(($F{bd}<=$F{ed}&&$F{mouth}==2&&$F{bd}<=11&&$F{ed}>=11)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==1&&$F{ed}>=11&&$F{total}>=1)
+||($F{bd}>=$F{ed}&&$F{mouth}==2 &&$F{bd}<=11&&$F{total}>=1)
+||($F{bd}<$F{ed}&&$F{mouth}==2 &&$F{bd}<=11&&$F{total}>=1)
+||($F{bd}<=$F{ed}&&$F{mouth}==-10&&$F{bd}<=11&&$F{ed}>=11)
+||($F{mouth}==-10&&$F{total}>=1&&$F{bd}<=11)
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="430" y="0" width="11" height="12" backcolor="#000000" uuid="dfe0e518-e4e9-4783-8b06-616ecb4a21aa">
+					<printWhenExpression><![CDATA[($F{bd}>=$F{ed}&&$F{bd}<=30&&$F{mouth}==1&&$F{total}>=1
+||$F{bd}<=30&&$F{ed}>=30&&$F{mouth}==1&&$F{ed}>=$F{bd}
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=30&&$F{total}>=1)
+&&$F{PlanBegin}<=$F{PlanEnd}
+&&($F{beginmonth}!=2)]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="298" y="0" width="11" height="12" backcolor="#000000" uuid="b73940a1-ad55-4aa9-8f0c-d060a39b29e1">
+					<printWhenExpression><![CDATA[($F{mouth}==1&&$F{ed}>=18&&$F{bd}<=18
+ ||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=18&&$F{total}>=1
+ ||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=18&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="287" y="0" width="11" height="12" backcolor="#000000" uuid="8d1280f6-ac48-42ba-a340-0ae5658cff18">
+					<printWhenExpression><![CDATA[($F{mouth}==1&&$F{ed}>=17&&$F{bd}<=17
+||$F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=17&&$F{total}>=1
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=17&&$F{total}>=1
+)&&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+			<frame>
+				<reportElement mode="Opaque" x="309" y="0" width="11" height="12" backcolor="#000000" uuid="9cda8fdc-5f99-473c-9fe7-ff04c001c776">
+					<printWhenExpression><![CDATA[(($F{mouth}==1&&$F{ed}>=19&&$F{bd}<=19)
+||($F{bd}>=$F{ed}&&$F{mouth}==1&&$F{bd}<=19&&$F{total}>=1)
+||$F{bd}<$F{ed}&&$F{mouth}==1&&$F{bd}<=19&&$F{total}>=1
+)
+
+ &&$F{PlanBegin}<=$F{PlanEnd}]]></printWhenExpression>
+				</reportElement>
+				<box>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+			</frame>
+		</band>
+	</detail>
+</jasperReport>

@@ -1,0 +1,102 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd"
+	default-lazy-init="true">
+
+	<description>Quartz的本地Cron式执行任务配置</description>
+	<!-- Quartz本地Schduler -->
+	<bean id="localQuartzScheduler" class="org.springframework.scheduling.quartz.SchedulerFactoryBean" lazy-init="false">
+		<!-- Triggers集成 -->
+		<property name="triggers">
+			<list>
+				<ref bean="sendMessageTrigger" />
+				<ref bean="sendTipTrigger" />
+				<ref bean="PrjProgPhotoTrigger" />
+				<ref bean="SendQrCodeToEmailTrigger"/>
+ 				<ref bean="resrCustPoolDispatchAndRecoverTrigger"/>
+			</list>
+		</property>
+		<!-- Quartz配置 -->
+		<property name="quartzProperties">
+			<props>
+				<prop key="org.quartz.threadPool.threadCount">5</prop>
+			</props>
+		</property>
+		<!-- 启动时延期5秒开始任务 -->
+		<property name="startupDelay" value="5" />
+	</bean>
+	<bean id="sendMessageQuartz" class="com.house.home.quartz.SendMessageQuartz" />
+	<bean id="sendTipQuartz" class="com.house.home.quartz.SendTipQuartz" />
+	<bean id="sendMessageTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="sendMessageDetail" />
+		<!-- 每天早上8点执行一次任务[秒] [分] [小时] [日] [月] [周] 
+		<property name="cronExpression" value="0 0 8 * * ?" /> -->
+		<!-- 每分钟执行一次 
+		<property name="cronExpression" value="0 0/1 * * * ?" /> -->
+		<!-- 每天早上8点开始晚上8点结束，每小时触发一次] 
+		<property name="cronExpression" value="0 0 8,9,10,11,12,13,14,15,16,17,18,19,20 * * ?" />-->
+		<!-- 每天早上8点开始晚上8点结束，每5分钟触发一次] -->
+		<property name="cronExpression" value="0 0/5 8-20 * * ?" />
+	</bean>
+		<bean id="sendTipTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="sendTipDetail" />
+		<property name="cronExpression" value="0 0 20 * * ?" /> 
+	</bean>
+	<bean id="sendMessageDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="sendMessageQuartz" />
+		<property name="targetMethod" value="execute" />
+		<!-- 同一任务在前一次执行未完成而Trigger时间又到时是否并发开始新的执行, 默认为true. -->
+		<property name="concurrent" value="false" />
+	</bean>
+	<bean id="sendTipDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="sendTipQuartz" />
+		<property name="targetMethod" value="execute" />
+		<!-- 同一任务在前一次执行未完成而Trigger时间又到时是否并发开始新的执行, 默认为true. -->
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<!-- 工地图片定时任务相关 -->
+	<bean id="PrjProgPhotoQuartz" class="com.house.home.quartz.PrjProgPhotoQuartz" />
+	<bean id="PrjProgPhotoTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="PrjProgPhotoDetail" />
+		<property name="cronExpression" value="0/10 * * * * ?" /> 
+	</bean>
+	<bean id="PrjProgPhotoDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="PrjProgPhotoQuartz" />
+		<property name="targetMethod" value="execute" />
+		<!-- 同一任务在前一次执行未完成而Trigger时间又到时是否并发开始新的执行, 默认为true. -->
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<!-- 发送二维码定时任务相关 -->
+	<bean id="SendQrCodeToEmailQuartz" class="com.house.home.quartz.SendQrCodeToEmailQuartz" />
+	<bean id="SendQrCodeToEmailTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="SendQrCodeToEmailDetail" />
+		<property name="cronExpression" value="0 0 17 * * ?" /> 
+	</bean>
+	<bean id="SendQrCodeToEmailDetail"
+		class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="SendQrCodeToEmailQuartz" />
+		<property name="targetMethod" value="execute" />
+		<!-- 同一任务在前一次执行未完成而Trigger时间又到时是否并发开始新的执行, 默认为true. -->
+		<property name="concurrent" value="false" />
+	</bean>
+	
+	<!-- 线索池回收派单定时任务相关 -->
+	<bean id="resrCustPoolDispatchAndRecoverQuartz" class="com.house.home.quartz.ResrCustPoolDispatchAndRecoverQuartz" />
+	<bean id="resrCustPoolDispatchAndRecoverTrigger" class="org.springframework.scheduling.quartz.CronTriggerBean">
+		<property name="jobDetail" ref="resrCustPoolDispatchAndRecoverDetail" />
+ 		<property name="cronExpression" value="0 0/5 9,10,11,14,15,16,17 * * ? " />
+	</bean>
+	<bean id="resrCustPoolDispatchAndRecoverDetail"
+		  class="org.springframework.scheduling.quartz.MethodInvokingJobDetailFactoryBean">
+		<property name="targetObject" ref="resrCustPoolDispatchAndRecoverQuartz" />
+		<property name="targetMethod" value="execute" />
+		<!-- 同一任务在前一次执行未完成而Trigger时间又到时是否并发开始新的执行, 默认为true. -->
+		<property name="concurrent" value="false" />
+	</bean>
+</beans>

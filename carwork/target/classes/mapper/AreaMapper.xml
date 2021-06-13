@@ -1,0 +1,89 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.mju.carwork.dao.AreaDao">
+
+   <insert id="addArea" parameterType="Area">
+      insert into tbl_residence 
+      values(#{areaNo},#{areaName},#{areaPic},#{areaAddress},#{areaTel},#{carNum})
+   </insert>
+   
+   <select id="loadArea" resultType="Area">
+      select *
+      from tbl_residence
+      order by area_no desc
+   </select>
+   
+   <select id="loadAreaByCondition" parameterType="edu.mju.carwork.service.AreaQueryHelper" resultMap="areaMap">
+      select *
+      from tbl_residence where 1=1 
+      <if test="qryAreaName != null">
+          and area_name like concat('%',#{qryAreaName},'%') 
+      </if>
+      <if test="qryAreaAddress != null and qryAreaAddress.length()>0">
+          and area_address like concat('%',#{qryAreaAddress} ,'%') 
+      </if>                         
+      order by area_no desc      
+   </select>
+   
+   <select id="getAreaByNo" parameterType="int" resultMap="areaMap">
+      select *
+      from tbl_residence
+      where area_no=#{areaNo}
+   </select>
+   
+   <select id="cntAreaByCondition" parameterType="edu.mju.carwork.service.AreaQueryHelper" resultType="long">
+      select count(*) total_cnt
+      from tbl_residence where 1=1 
+      <if test="qryAreaName != null">
+          and area_name like concat('%',#{qryAreaName},'%') 
+      </if>
+      <if test="qryAreaAddress != null and qryAreaAddress.length()>0">
+          and area_address like concat('%',#{qryAreaAddress} ,'%')  
+      </if>                            
+   </select>
+   
+   <select id="loadScopedAreaByCondition" resultMap="areaMap">
+      select *
+      from tbl_residence where 1=1 
+      <if test="helper.qryAreaName != null">
+          and area_name like concat('%',#{helper.qryAreaName},'%') 
+      </if>
+      <if test="helper.qryAreaAddress != null and helper.qryAreaAddress.length()>0">
+          and area_address like concat('%',#{helper.qryAreaAddress} ,'%')  
+      </if>                   
+      order by area_no desc  
+      limit #{begin},#{size}   
+   </select>
+   
+   <update id="updateArea" parameterType="Area">
+      update tbl_residence
+      set area_name=#{areaName},area_pic=#{areaPic},area_address=#{areaAddress},area_tel=#{areaTel},car_num = #{carNum}
+      where area_no=#{areaNo}
+   </update>
+   
+   <delete id="delArea" parameterType="int">
+      delete from tbl_residence
+      where area_no=#{areaNo}
+   </delete> 
+   
+   <select id="getAreaPicByNo" parameterType="int" resultMap="picMap">
+      select area_pic
+      from tbl_residence
+      where area_no=#{areaNo}
+   </select>
+   
+   <resultMap type="java.util.Map" id="picMap">
+      <id column="area_pic" property="imgBytes" typeHandler="org.apache.ibatis.type.BlobTypeHandler"/>
+   </resultMap>
+   
+   <resultMap type="Area" id="areaMap">
+        <id column="area_no" property="areaNo"/>
+        <result column="area_name" property="areaName"/>
+        <result column="area_address" property="areaAddress"/>
+        <result column="area_tel" property="areaTel"/>   
+        <result column="car_num" property="carNum"/>      
+   </resultMap>
+</mapper>

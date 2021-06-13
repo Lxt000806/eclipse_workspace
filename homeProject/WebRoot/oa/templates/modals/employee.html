@@ -1,0 +1,19 @@
+<<ion-modal-view>
+	<ion-header-bar class="bar-positive">
+		<button class="button button-icon icon ion-ios-arrow-back" ng-click="closeModal()"></button>
+		<h1 class="title">选择员工</h1>
+	</ion-header-bar>
+	<ion-content>
+		<ion-item class="item-input" style="padding-top: 0px;padding-bottom: 0px">
+			<input type="text" placeholder="员工名字" ng-model="data.nameChi" inputfocus>
+			<button class="button button-icon icon ion-ios-search" ng-click="search(data)"></button>
+		</ion-item>
+		<div class="list">
+			<ion-item ng-repeat="item in datas" ng-click="closeModal(item)">
+				{{item.nameChi}}
+			</ion-item>
+		</div>
+		<ion-list style="text-align: center" ng-if="netError">服务器未响应,请确认网络正常连接</ion-list>
+		<ion-infinite-scroll ng-if="hasNext && !netError" on-infinite="getDatas(data, true)" distance="1%" immediate-check="false"></ion-infinite-scroll>
+	</ion-content>
+</ion-modal-view>

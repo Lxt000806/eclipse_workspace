@@ -1,0 +1,245 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itemAppSend_main" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c093f1da-e447-4b0e-b6af-36d7cb2cb1bb">
+	<property name="ireport.zoom" value="1.2100000000000009"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\EfixSys\\iReport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoPath" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="No" class="java.lang.String">
+		<defaultValueExpression><![CDATA["'IA00112266','IA00112259','IA00112275'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select ia.No,c.DocumentNo,c.Address,c.Descr CustDescr,s1.Note TypeDescr,
+e1.NameChi DesignDescr,ia.ProjectMan,ia.Phone,s2.NOTE DelivTypeDescr,
+ia.Remarks+char(13)+char(10) Remarks,czy1.ZWXM AppCZYDescr,czy2.ZWXM ConfirmCZYDescr,ia.ItemType1,
+case when ItemType1='RZ' then 1 else 0 end IsRZ,
+(select top 1 in_emp.NameChi from tCustStakeholder in_cs left outer join tEmployee in_emp on in_cs.EmpCode=in_emp.Number
+where in_cs.CustCode=ia.CustCode and in_cs.Role='50') SoftDesignDescr,
+(select top 1 in_emp.Phone from tCustStakeholder in_cs left outer join tEmployee in_emp on in_cs.EmpCode=in_emp.Number
+where in_cs.CustCode=ia.CustCode and in_cs.Role='50') SoftDesignPhone,
+cp.Desc1 CmpnyDescr
+from tItemApp ia
+left join tCustomer c on ia.CustCode=c.Code
+left outer join tXTDM  s1 on ia.Type=s1.CBM and s1.ID='ITEMAPPTYPE'
+left outer join tXTDM  s2 on ia.DelivType=s2.CBM and s2.ID='DELIVTYPE'
+left outer join tEmployee e1 on c.DesignMan = e1.Number
+left outer join tCzybm czy1 on ia.AppCZY=czy1.CZYBH
+left outer join tCzybm czy2 on ia.ConfirmCZY=czy2.CZYBH
+left outer join tBuilder bd on c.BuilderCode=bd.Code
+left outer join tRegion cg on bd.RegionCode=cg.Code
+left outer join tCompany cp on cg.CmpCode=cp.Code
+where ia.No in ($P!{No})
+order by ia.LastUpdate desc]]>
+	</queryString>
+	<field name="No" class="java.lang.String"/>
+	<field name="DocumentNo" class="java.lang.String"/>
+	<field name="Address" class="java.lang.String"/>
+	<field name="CustDescr" class="java.lang.String"/>
+	<field name="TypeDescr" class="java.lang.String"/>
+	<field name="DesignDescr" class="java.lang.String"/>
+	<field name="ProjectMan" class="java.lang.String"/>
+	<field name="Phone" class="java.lang.String"/>
+	<field name="DelivTypeDescr" class="java.lang.String"/>
+	<field name="Remarks" class="java.lang.String"/>
+	<field name="AppCZYDescr" class="java.lang.String"/>
+	<field name="ConfirmCZYDescr" class="java.lang.String"/>
+	<field name="ItemType1" class="java.lang.String"/>
+	<field name="IsRZ" class="java.lang.Integer"/>
+	<field name="SoftDesignDescr" class="java.lang.String"/>
+	<field name="SoftDesignPhone" class="java.lang.String"/>
+	<field name="CmpnyDescr" class="java.lang.String"/>
+	<group name="Group1" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{No}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="88" splitType="Stretch">
+			<subreport runToBottom="false">
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="313" height="55" uuid="59a0047e-0d42-4ef9-af9c-d552f2824e73">
+					<printWhenExpression><![CDATA[$F{ItemType1}.trim() != "JZ"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SoftDesignPhone">
+					<subreportParameterExpression><![CDATA[$F{SoftDesignPhone}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DesignDescr">
+					<subreportParameterExpression><![CDATA[$F{DesignDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ConfirmCZYDescr">
+					<subreportParameterExpression><![CDATA[$F{ConfirmCZYDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Phone">
+					<subreportParameterExpression><![CDATA[$F{Phone}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Remarks">
+					<subreportParameterExpression><![CDATA[$F{Remarks}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CmpnyDescr">
+					<subreportParameterExpression><![CDATA[$F{CmpnyDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="IsSubReport">
+					<subreportParameterExpression><![CDATA[1]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="No">
+					<subreportParameterExpression><![CDATA[$F{No}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DelivTypeDescr">
+					<subreportParameterExpression><![CDATA[$F{DelivTypeDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + ($F{IsRZ}==1?"softlogo.jpg":"logo.jpg")]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ProjectMan">
+					<subreportParameterExpression><![CDATA[$F{ProjectMan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AppCZYDescr">
+					<subreportParameterExpression><![CDATA[$F{AppCZYDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TypeDescr">
+					<subreportParameterExpression><![CDATA[$F{TypeDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Address">
+					<subreportParameterExpression><![CDATA[$F{Address}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DocumentNo">
+					<subreportParameterExpression><![CDATA[$F{DocumentNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustDescr">
+					<subreportParameterExpression><![CDATA[$F{CustDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="IsRZ">
+					<subreportParameterExpression><![CDATA[$F{IsRZ}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SoftDesignDescr">
+					<subreportParameterExpression><![CDATA[$F{SoftDesignDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemAppSend.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement stretchType="RelativeToBandHeight" mode="Transparent" x="0" y="0" width="270" height="76" uuid="0552b83c-c3e8-4f52-971e-02e2b2794438">
+					<printWhenExpression><![CDATA[$F{ItemType1}.trim() == "JZ"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SoftDesignPhone">
+					<subreportParameterExpression><![CDATA[$F{SoftDesignPhone}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DesignDescr">
+					<subreportParameterExpression><![CDATA[$F{DesignDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ConfirmCZYDescr">
+					<subreportParameterExpression><![CDATA[$F{ConfirmCZYDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Phone">
+					<subreportParameterExpression><![CDATA[$F{Phone}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Remarks">
+					<subreportParameterExpression><![CDATA[$F{Remarks}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CmpnyDescr">
+					<subreportParameterExpression><![CDATA[$F{CmpnyDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="No">
+					<subreportParameterExpression><![CDATA[$F{No}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DelivTypeDescr">
+					<subreportParameterExpression><![CDATA[$F{DelivTypeDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ProjectMan">
+					<subreportParameterExpression><![CDATA[$F{ProjectMan}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="AppCZYDescr">
+					<subreportParameterExpression><![CDATA[$F{AppCZYDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="TypeDescr">
+					<subreportParameterExpression><![CDATA[$F{TypeDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Address">
+					<subreportParameterExpression><![CDATA[$F{Address}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="DocumentNo">
+					<subreportParameterExpression><![CDATA[$F{DocumentNo}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustDescr">
+					<subreportParameterExpression><![CDATA[$F{CustDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="IsRZ">
+					<subreportParameterExpression><![CDATA[$F{IsRZ}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="SoftDesignDescr">
+					<subreportParameterExpression><![CDATA[$F{SoftDesignDescr}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemAppSend_JZ.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25">
+			<staticText>
+				<reportElement x="353" y="2" width="16" height="20" uuid="49000fdc-928f-4cf4-807c-5bfc2b0fd133"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="2" width="16" height="20" uuid="37b7f222-2825-49ba-be22-ac081e62bee4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[共]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="Group1" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="323" y="2" width="30" height="20" uuid="a4626034-4016-4627-95c7-9c160c39c8c9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="277" y="2" width="30" height="20" uuid="dda06736-1d34-4fdd-a273-225919474345"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页，]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Page" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="241" y="2" width="36" height="20" uuid="90bb30e7-d323-4c83-a9ed-092b7dffa154"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="2" width="16" height="20" uuid="c56654d2-92d5-4b9f-b694-1eb3e953d4da"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

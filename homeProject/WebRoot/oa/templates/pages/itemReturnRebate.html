@@ -1,0 +1,46 @@
+<div ng-controller="itemReturnRebateCtrl">
+	<inputcustomer id="submitData.fp__tWfCust_ItemReturnRebate__0__CustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_ItemReturnRebate__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_ItemReturnRebate__0__CustDescr}}" 
+				   label="客户编号" placeholder="请选择客户编号" conditions="conditions"
+				   callback="customerCallback(data)"
+				   require="true"></inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>楼盘</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ItemReturnRebate__0__Address"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>业务员</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ItemReturnRebate__0__BusinessMan"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>设计师</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_ItemReturnRebate__0__DesignMan"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>材料类型</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_ItemReturnRebate__0__ItemType1"
+			ng-change="typeChange()" >
+			<option value="" >请选择</option>
+			<option value ="软装">软装</option>
+			<option value ="集成">集成</option>
+			<option value ="主材">主材</option>
+		</select>
+	</div>
+	<mulitselect conditions="options" callback="selectCallback(data)" 
+				label="材料品类" placeholder="选择材料品类"
+				id="submitData.fp__tWfCust_ItemReturnRebate__0__ItemType" 
+				showlabel="{{submitData.fp__tWfCust_ItemReturnRebate__0__ItemType}}" ></mulitselect>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>退项金额</span>
+		<input type="number" ng-model="submitData.fp__tWfCust_ItemReturnRebate__0__DisChgAmount"/>
+	</div>
+	<div class="item item-text-wrap" ng-if="submitData.fp__tWfCust_ItemReturnRebate__0__DisChgAmount && submitData.fp__tWfCust_ItemReturnRebate__0__DisChgAmount != 0" style="color:red">
+		<moneystr value="{{submitData.fp__tWfCust_ItemReturnRebate__0__DisChgAmount}}"></moneystr>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>退项说明</span>
+		<textarea ng-model="submitData.fp__tWfCust_ItemReturnRebate__0__Reason" style="width:65%"
+				textareaauto="submitData.fp__tWfCust_ItemReturnRebate__0__Reason" ></textarea>
+	</div>
+</div>

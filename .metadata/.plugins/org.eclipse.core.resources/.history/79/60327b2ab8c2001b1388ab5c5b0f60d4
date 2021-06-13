@@ -1,0 +1,33 @@
+/**
+ * 
+ */
+package demo.junit.cnt;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Map;
+import java.util.Scanner;
+
+/**
+ * @author HY
+ *
+ */
+public class CntCharNum {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		String str;
+        Scanner scanner = new Scanner(System.in);
+
+        System.out.print("ÇëÊäÈë×Ö·û´®£º");
+        str = scanner.nextLine();
+        String[] wordArray = str.split(" ");
+        Map<String,Integer> map = new HashMap<String, Integer>();
+
+
+
+	}
+}

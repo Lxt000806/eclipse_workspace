@@ -1,0 +1,115 @@
+<ion-view>
+	<ion-header-bar class="bar-positive">
+		<button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()">返回</button>
+		<h1 class="title">{{title}}</h1>
+		<button class="button button-clear" ng-click="submit()" ng-if="m_umState == 'A'">确定</button>
+	</ion-header-bar>
+	<ion-content class="contentBackground">
+		<div class="item item-input item-select" style="padding: 0px;padding-right:10px" ng-if="deptList && deptList.length > 1">
+			<span class="input-label">选择部门</span>
+			<select style="padding-right: 0px;width: 100%" ng-model="department" ng-options="item.Department as item.desc1 for item in deptList"></select>
+		</div>
+		<div id="html"></div>
+		
+		<ion-item class="progress" ng-if="type && type != '' && !(type == '3' && !showReset)">
+			<ion-item class="item-divider progressTitle">
+				审批记录
+			</ion-item>
+			<ion-item ng-repeat="item in checkList" class="progressItemDiv">
+				<div class="progressItemDescr">
+					{{item.wfprocdescr}}
+				</div>
+				<div class="progressItemCZYDiv">
+					<div class="progressItemCZY">
+						{{item.namechidescr}}(<span ng-style="{color: item.statusdescr && item.statusdescr != '' && item.statusdescr != '未读' ? 'green' : 'red'}">
+						{{item.statusdescr && item.statusdescr != "" ? item.statusdescr : (item.wfprocdescr == "抄送" ? "未读" : "待审批")}}
+						</span>)
+					</div>
+				</div>
+				<div class="progressItemCZYDiv" ng-if="item.statusdescr && item.statusdescr != '' && item.statusdescr != '未读'">
+					<div class="progressItemCZY">
+						说明：{{item.remarks}}
+					</div>
+				</div>
+			</ion-item>
+		</ion-item>
+		
+		<ion-item class="progress" ng-if="m_umState == 'A' || (type == '3' && !showReset)">
+			<ion-item class="item-divider progressTitle">
+				审批人
+			</ion-item>
+			<ion-item ng-repeat="item in operators" class="progressItemDiv">
+				<div class="progressItemDescr">
+					{{item.groupDescr}}
+				</div>
+				<div class="progressItemCZYDiv">
+					<div class="progressItemCZY">
+						{{item.namechidescr}}
+					</div>
+					<div class="progressItemAddBtn">
+						<button class="button" ng-if="item.selectBtn == 'true'" ng-click="openModal(item.orderby, item.taskKey, $index)">选择</button>
+					</div>
+				</div>
+			</ion-item>
+		</ion-item>
+		<ion-item ng-if="type == '1' || type == '3'" style="height: 100px;border:0px;"></ion-item>
+	</ion-content>
+		
+	<ion-footer-bar ng-if="type == '1' || type == '3'">
+	    <div class="button-bar"  ng-if="type == '1'">
+	    	<button class="button" ng-click="doPass()">同意</button>
+	      	<button class="button" ng-click="doReject()">拒绝</button>
+	    </div>
+	    <div class="button-bar"  ng-if="type == '3' && showReset">
+      		<button class="button" ng-click="doReset()">重新发起</button>
+      		<button class="button" ng-click="doCancel()" ng-if="isEnd == '0'">撤销</button>
+	    </div>
+	    <div class="button-bar"  ng-if="type == '3' && !showReset">
+      		<button class="button" ng-click="submit()">确定</button>
+      		<button class="button" ng-click="doCancelReset()">取消</button>
+	    </div>
+	</ion-footer-bar>
+</ion-view>
+<style>
+	.progress {
+		margin-top: 10px;
+	}
+	.progressTitle {
+		background: white;
+		border: 0px;
+		padding: 0px;
+	}
+	.progressItemDiv {
+		padding: 8px;
+		margin-top: 10px;
+		border-top: 0px;
+		border-left: 0px;
+		border-right: 0px;
+	}
+	.progressItemDescr {
+		width: 100%;
+		text-align: left;
+		padding: 5px;
+	}
+	.progressItemCZYDiv {
+		display: flex;
+		width: 100%;
+	}
+	.progressItemCZY {
+		flex: 5;
+		text-align: left;
+		padding: 5px;
+	}
+	.progressItemAddBtn {
+		padding: 5px;
+	}
+	.progressItemAddBtn > button {
+	    background: #387ef5;
+	    color: white;
+		min-height: 22px;
+	    height: 22px;
+	    max-height: 22px;
+	    line-height: 22px;
+	    border-color: #387ef5;
+	}
+</style>

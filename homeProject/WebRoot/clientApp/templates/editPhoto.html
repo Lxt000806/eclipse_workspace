@@ -1,0 +1,25 @@
+<ion-modal-view>
+    <ion-header-bar class="bar-dark">
+        <button class="button button-icon icon ion-arrow-left-c" ng-click="closeModal()"></button>
+        <button class="button button-icon icon ion-trash-a" ng-click="showActionsheet(index)" ng-if="photo.length>0" ng-hide="hide"></button>
+    </ion-header-bar>
+    <ion-content style="background-color: #010101" >
+      <ion-slide-box on-slide-changed="slideHasChanged($index)"   active-slide="index"  ng-if="photo.length%2==0">
+        <ion-slide ng-repeat="item in photo">
+          <div class="box">
+            <img class="img-responsive"
+                 src="{{item.src}}" zoom />
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+      <ion-slide-box on-slide-changed="slideHasChanged($index)"   active-slide="index"  ng-if="photo.length%2==1">
+        <ion-slide ng-repeat="item in photo">
+          <div class="box">
+            <img class="img-responsive"
+                 src="{{item.src}}" zoom />
+          </div>
+        </ion-slide>
+      </ion-slide-box>
+        <!--<ion-list style="text-align: center" ng-if="url==undefined">没有图片</ion-list>-->
+    </ion-content>
+</ion-modal-view>

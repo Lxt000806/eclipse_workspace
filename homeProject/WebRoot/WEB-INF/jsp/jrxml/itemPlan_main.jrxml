@@ -1,0 +1,223 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="itemPlan_main" language="groovy" pageWidth="595" pageHeight="842" columnWidth="581" leftMargin="7" rightMargin="7" topMargin="7" bottomMargin="7" uuid="009f84cd-b7a9-4b20-9dd6-fb56d1900ebd">
+	<property name="ireport.zoom" value="0.8264462809917354"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:\\EfixSys\\work\\0-预算管理\\ireport\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="code" class="java.lang.String">
+		<defaultValueExpression><![CDATA[]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoPath" class="java.lang.String"/>
+	<parameter name="pk" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[SELECT a.pk,a.name,b.CustType,CONVERT(varchar(100), b.CrtDate, 112) CrtDate,b.address
+                FROM  tIreport a
+                LEFT JOIN dbo.tCustomer b ON b.Code=$P{code}
+                WHERE  a.pk in ($P!{pk})]]>
+	</queryString>
+	<field name="pk" class="java.lang.Integer"/>
+	<field name="name" class="java.lang.String"/>
+	<field name="CustType" class="java.lang.String"/>
+	<field name="CrtDate" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<group name="group1" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$F{pk}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="100" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="578" height="100" isRemoveLineWhenBlank="true" uuid="c9dcd498-0a28-4d5e-82ca-06309fad6802">
+					<printWhenExpression><![CDATA[$F{name}=="itemPlan_JC"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="code">
+					<subreportParameterExpression><![CDATA[$P{code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemPlan_JC.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="578" height="100" isRemoveLineWhenBlank="true" uuid="eaa220a2-b29e-495a-8be8-8b25f277dffd">
+					<printWhenExpression><![CDATA[$F{name}=="itemPlan_JZ"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="code">
+					<subreportParameterExpression><![CDATA[$P{code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemPlan_JZ.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="578" height="100" isRemoveLineWhenBlank="true" uuid="c0c7c342-51b7-493c-9ed3-7fe31d129ba3">
+					<printWhenExpression><![CDATA[$F{name}=="itemPlan_JZ_baseItemTypeGroup_main"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="code">
+					<subreportParameterExpression><![CDATA[$P{code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoPath">
+					<subreportParameterExpression><![CDATA[$P{LogoPath}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemPlan_JZ_baseItemTypeGroup_main.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="578" height="100" isRemoveLineWhenBlank="true" uuid="11a4b29a-8804-4dad-b37c-96a031fbe171">
+					<printWhenExpression><![CDATA[$F{name}=="itemPlan_JZ_man"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="code">
+					<subreportParameterExpression><![CDATA[$P{code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemPlan_JZ_man.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="578" height="100" isRemoveLineWhenBlank="true" uuid="2782c555-77da-4e48-8840-db9d20d410df">
+					<printWhenExpression><![CDATA[$F{name}=="itemPlan_JZ_material"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="code">
+					<subreportParameterExpression><![CDATA[$P{code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemPlan_JZ_material.jasper"]]></subreportExpression>
+			</subreport>
+			<subreport>
+				<reportElement x="0" y="0" width="578" height="100" isRemoveLineWhenBlank="true" uuid="ecd3de1d-a2c0-471f-8b21-0725a13023b5">
+					<printWhenExpression><![CDATA[$F{name}=="itemPlan_JZ_union"]]></printWhenExpression>
+				</reportElement>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="code">
+					<subreportParameterExpression><![CDATA[$P{code}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CountPage">
+					<subreportParameterExpression><![CDATA["0"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoPath} + "logo.jpg"]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "itemPlan_JZ_union.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="25" splitType="Stretch">
+			<printWhenExpression><![CDATA[$V{PAGE_NUMBER}!=1]]></printWhenExpression>
+			<staticText>
+				<reportElement x="324" y="0" width="16" height="20" uuid="867a1c99-17d8-453a-bf04-51f8a937b107"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[共]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="242" y="0" width="16" height="20" uuid="0f7997d7-82ab-45b3-8976-ea5b1f0ada43"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="258" y="0" width="36" height="20" uuid="05ff7291-aeab-4dd7-a543-a50dd715d138"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}-1]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="370" y="0" width="16" height="20" uuid="6b4d6f38-19f1-41c4-8883-8726031d80b1"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="294" y="0" width="30" height="20" uuid="495c4de9-c215-4992-a37e-b32eb14f7af7"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页，]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="group1" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="340" y="0" width="30" height="20" uuid="5c3a0c50-ae87-4050-a4f1-309078b623a7"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}-1]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="453" y="2" width="100" height="20" uuid="94e17fbd-674c-4154-ae20-f75f4a00533d">
+					<printWhenExpression><![CDATA[$F{pk}==8]]></printWhenExpression>
+				</reportElement>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

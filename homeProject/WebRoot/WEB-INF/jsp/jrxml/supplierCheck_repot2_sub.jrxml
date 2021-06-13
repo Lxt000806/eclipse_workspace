@@ -1,0 +1,418 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="supplierCheck_repot1_sub" language="groovy" pageWidth="802" pageHeight="555" orientation="Landscape" whenNoDataType="AllSectionsNoDetail" columnWidth="802" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bef8ce22-40fa-43e9-b52a-d5df8943467b">
+	<property name="ireport.zoom" value="1.3310000000000006"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="no" class="java.lang.String"/>
+	<parameter name="titles" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.IsCheckOut,rtrim(a.No) No,d.Address Address,d.DocumentNo,a.Supplier,b.Descr SupplierDescr,c.NOTE TypeDescr,
+                a.Date,rtrim(e.No) AppNo,g.desc1 WareHousedesc ,
+                case when a.Type='S' then a.Amount else -a.Amount end Amount,a.OtherCost,a.OtherCostAdj,
+                case when a.Type='S' then a.Amount else -a.Amount end +a.OtherCost+a.OtherCostAdj SumAmount,
+                a.FirstAmount,a.SecondAmount,
+                round(case when a.Type='S' then a.Amount else -a.Amount end +a.OtherCost+a.OtherCostAdj-a.FirstAmount-a.SecondAmount,2) RemainAmount,
+                isnull(case when a.Type='S' then f.sumSaleAmount else f.sumSaleAmount*-1 end,0) sumSaleAmount,e.IsService,x1.NOTE IsServiceDescr,
+                a.Remarks,a.PayRemark,
+                case when a.Type='S' then a.xmjljsj else -a.xmjljsj end xmjljsj,a.ProjectOtherCost,
+                round(case when a.Type='S' then a.xmjljsj else -a.xmjljsj end + a.OtherCost+a.OtherCostAdj+a.ProjectOtherCost,0) xmjljszj,
+                a.OverCost chaochue,e.IsSetItem,x2.NOTE IsSetItemDescr,
+                a.SplAmount,case when a.Type = 'S' then a.Amount-a.SplAmount else -a.Amount-a.SplAmount end DiffAmount,isnull(f.ProcessCost,0) ProcessCost,
+                isnull(h.SumAmount,0) IntInstallFee,a.CustCode,ArriveStatus,ArriveRemark
+                from (
+                    select a.PayRemark,a.OtherCost,a.OtherCostAdj,a.ProjectOtherCost,a.No,a.Status,a.Date,a.Type,a.WHCode,
+                    a.Supplier,a.Amount,a.Remarks,a.IsCheckOut,a.CheckOutNo,a.CustCode,a.CheckSeq,ProjectAmount xmjljsj,a.ItemType1,a.OverCost,
+                    a.FirstAmount,a.SecondAmount,
+                    round(case when a.Type='S' then a.Amount else -a.Amount end +a.OtherCost+a.OtherCostAdj-a.FirstAmount-a.SecondAmount,0) RemainAmount,
+                    a.SplAmount,a.ArriveStatus,a.ArriveRemark
+                    from tPurchase a
+                    where a.CheckOutNo=$P{no}
+                ) a
+                left outer join tSupplier b on b.Code=a.Supplier
+                left outer join tXTDM c on c.CBM=a.Type and c.ID='PURCHTYPE'
+                left outer join tCustomer d on d.Code=a.CustCode
+                left outer join tItemApp e on a.No=e.PUNo
+                left outer join tXTDM x1 on x1.IBM=e.IsService and x1.id='YESNO'
+                left outer join tXTDM x2 on x2.CBM=e.IsSetItem and x2.id='YESNO'
+                left outer join tWareHouse g on g.code=a.WHcode
+                left outer join (
+                    select iad.no,sum(
+                        case when ir.qty <> 0 then Round(iad.qty*ir.UnitPrice * ir.Markup/100 + ir.ProcessCost*iad.qty/ir.qty,0)
+                        else Round(iad.qty*ir.UnitPrice * ir.Markup/100,0) end
+                    ) sumSaleAmount, sum(
+                        case when d.ItemType2 in $P!{titles} and ir.Qty<>0 then round(ir.ProcessCost*iad.Qty/ir.Qty,2)
+                        else ir.ProcessCost end
+                    ) ProcessCost
+                    from (
+                        select a.PayRemark,a.OtherCost,a.OtherCostAdj,a.ProjectOtherCost,a.No,a.Status,a.Date,a.Type,a.WHCode,
+                        a.Supplier,a.Amount,a.Remarks,a.IsCheckOut,a.CheckOutNo,a.CustCode,a.CheckSeq,ProjectAmount xmjljsj,a.ItemType1,a.OverCost,
+                        a.FirstAmount,a.SecondAmount,
+                        round(case when a.Type='S' then a.Amount else -a.Amount end +a.OtherCost+a.OtherCostAdj-a.FirstAmount-a.SecondAmount,0) RemainAmount,
+                        a.SplAmount,a.ArriveStatus,a.ArriveRemark
+                        from tPurchase a
+                        where a.CheckOutNo=$P{no}
+                    ) a
+                    inner join tItemApp b on a.no=b.PUNo
+                    inner join tItemappDetail iad on b.no=iad.No
+                    inner join tItemreq ir on iad.ReqPK=ir.pk
+                    inner join tItem d on iad.ItemCode=d.Code
+                    group by iad.no
+                ) f on f.no=e.no
+                left outer join (
+                    select lfd.CustCode,sum(Amount) SumAmount from tLaborFee lf
+                    inner join tLaborFeeDetail lfd on lfd.No=lf.No
+                    where lf.Status='4' and lfd.FeeType='19' group by lfd.CustCode
+                ) h on h.CustCode=a.CustCode
+                Order by a.CheckSeq]]>
+	</queryString>
+	<field name="no" class="java.lang.String"/>
+	<field name="address" class="java.lang.String"/>
+	<field name="documentNo" class="java.lang.String"/>
+	<field name="wareHousedesc" class="java.lang.String"/>
+	<field name="amount" class="java.math.BigDecimal"/>
+	<field name="otherCost" class="java.math.BigDecimal"/>
+	<field name="otherCostAdj" class="java.math.BigDecimal"/>
+	<field name="firstAmount" class="java.math.BigDecimal"/>
+	<field name="remainAmount" class="java.math.BigDecimal"/>
+	<field name="sumAmount" class="java.math.BigDecimal"/>
+	<field name="remarks" class="java.lang.String"/>
+	<variable name="sum_amount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{amount}]]></variableExpression>
+	</variable>
+	<variable name="sum_otherCost" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{otherCost}]]></variableExpression>
+	</variable>
+	<variable name="sum_otherCostAdj" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{otherCostAdj}]]></variableExpression>
+	</variable>
+	<variable name="sum_firstAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{firstAmount}]]></variableExpression>
+	</variable>
+	<variable name="sum_remainAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{remainAmount}]]></variableExpression>
+	</variable>
+	<variable name="sum_sumAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{sumAmount}]]></variableExpression>
+	</variable>
+	<variable name="COLUMN_INDEX" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{COLUMN_INDEX}.valueOf(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[1!=1]]></printWhenExpression>
+			<staticText>
+				<reportElement x="621" y="0" width="39" height="20" uuid="7b842563-6c04-4a60-b661-d9a6785a6411"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="8" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[其他费用调整]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="91" y="0" width="306" height="20" uuid="212e1d57-2d1d-403b-9b38-6be3fdf299ec"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[楼盘]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="397" y="0" width="71" height="20" uuid="a121f674-0cc5-4d4d-afa7-757fd2275b13"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[档案号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="1" y="0" width="30" height="20" uuid="80787caa-362c-45ba-a273-2dcacc7a9b33"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[序号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="531" y="0" width="45" height="20" uuid="63bc8c92-261a-4851-b93d-c6b9804ae083"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[材料金额]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="576" y="0" width="45" height="20" uuid="badc1799-1212-460f-894d-f9818f5c7075"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[其他费用]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="0" width="63" height="20" uuid="33b256c0-9976-4e6c-80d8-0f68fb1f85b9"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[仓库]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="31" y="0" width="60" height="20" uuid="78dc6e25-11dc-423d-84ad-dc1ccfc77680"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[采购单号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="705" y="0" width="45" height="20" uuid="62ff1d22-e2f7-4595-8192-5368effc9729"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[应付余额]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="660" y="0" width="45" height="20" uuid="157943da-79f5-4c2a-8c50-4283fc7d25bb"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[已付定金]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="750" y="0" width="52" height="20" uuid="1ff3b284-cfdb-4363-9349-802a597b031e"/>
+				<box topPadding="0" leftPadding="0" bottomPadding="0" rightPadding="0">
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Top">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[总金额]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="31" y="0" width="60" height="20" isPrintWhenDetailOverflows="true" uuid="617b96b6-e190-499b-b027-dbc12e4bc2c1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{no}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="91" y="0" width="306" height="20" isPrintWhenDetailOverflows="true" uuid="408147d6-541c-4d5d-8ca9-7c09974ff9c4"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{address}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="397" y="0" width="71" height="20" isPrintWhenDetailOverflows="true" uuid="016206dd-2a59-4a2e-bde0-84a7d0f7a6b1"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{documentNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="468" y="0" width="63" height="20" isPrintWhenDetailOverflows="true" uuid="bd1a6637-3d5e-4a08-aeba-f5f43560c675"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{wareHousedesc}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="531" y="0" width="45" height="20" isPrintWhenDetailOverflows="true" uuid="638d3978-d64a-450b-ac92-33b7ef5476f7"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{amount}.doubleValue()-$F{amount}.intValue()==0?String.valueOf($F{amount}.intValue()):String.valueOf($F{amount}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="576" y="0" width="45" height="20" isPrintWhenDetailOverflows="true" uuid="d419f22d-892f-43cc-a70d-7f2eaec9f89f"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{otherCost}.doubleValue()-$F{otherCost}.intValue()==0?String.valueOf($F{otherCost}.intValue()):String.valueOf($F{otherCost}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="621" y="0" width="39" height="20" isPrintWhenDetailOverflows="true" uuid="19887fa8-96d6-4785-8b8f-e43388427d50"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{otherCostAdj}.doubleValue()-$F{otherCostAdj}.intValue()==0?String.valueOf($F{otherCostAdj}.intValue()):String.valueOf($F{otherCostAdj}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="660" y="0" width="45" height="20" isPrintWhenDetailOverflows="true" uuid="2ef7d683-be4b-4d3d-89c0-faf1ecc990cf"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{firstAmount}.doubleValue()-$F{firstAmount}.intValue()==0?String.valueOf($F{firstAmount}.intValue()):String.valueOf($F{firstAmount}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="705" y="0" width="45" height="20" isPrintWhenDetailOverflows="true" uuid="4aee2e5b-5a54-483b-833a-1fa2b0f3dea6"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{remainAmount}.doubleValue()-$F{remainAmount}.intValue()==0?String.valueOf($F{remainAmount}.intValue()):String.valueOf($F{remainAmount}.doubleValue())]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="31" height="20" isPrintWhenDetailOverflows="true" uuid="94cf255b-3617-4bce-a00f-68f2f78ed5af"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_INDEX}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="750" y="0" width="52" height="20" isPrintWhenDetailOverflows="true" uuid="aa257453-5d48-47d1-81ae-a5699beda93a"/>
+				<box>
+					<pen lineWidth="1.0"/>
+					<topPen lineWidth="1.0"/>
+					<leftPen lineWidth="1.0"/>
+					<bottomPen lineWidth="1.0"/>
+					<rightPen lineWidth="1.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{sumAmount}.doubleValue()-$F{sumAmount}.intValue()==0?String.valueOf($F{sumAmount}.intValue()):String.valueOf($F{sumAmount}.doubleValue())]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

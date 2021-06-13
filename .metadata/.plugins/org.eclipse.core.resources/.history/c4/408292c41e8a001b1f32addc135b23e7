@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package xunke.demo20210321_1;
+
+import java.io.File;
+
+/**
+ * @author HY
+ *
+ */
+public class FileWork {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		File flie = new File("d:\\records.txt");
+		
+		System.out.println(file.length());
+		System.out.println(file.isFile());
+		
+
+	}
+
+}

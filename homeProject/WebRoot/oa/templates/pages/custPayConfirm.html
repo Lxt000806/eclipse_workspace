@@ -1,0 +1,85 @@
+<!-- 业主转账确认-->
+<div ng-controller="custPayConfirmCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>申请人</span>
+		<input type="text"  value ="{{submitData.fp__tWfCust_CustPayConfirm__0__EmpCode +'|'+submitData.fp__tWfCust_CustPayConfirm__0__EmpName}}"
+		 style="background-color: white" readonly="true"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>手机号</span>				
+		<input type="text" ng-model ="submitData.fp__tWfCust_CustPayConfirm__0__Phone" ng-readonly="submitData.tWfCust_CustPayConfirm_Phone_Edit =='0'"/>
+	</div>
+	
+	<inputcustomer id="submitData.fp__tWfCust_CustPayConfirm__0__CustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_CustPayConfirm__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_CustPayConfirm__0__CustDescr}}" 
+				   label="客户编号" placeholder="请选择客户编号" conditions="conditions"
+				   callback="customerCallback(data)" require="true">
+	</inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>楼盘</span>
+		<input type="text"  ng-model ="submitData.fp__tWfCust_CustPayConfirm__0__Address" readonly="true"/>
+	</div>
+			   
+	<ionic-datepicker input-obj="datepickerObject" disabled="true">
+		<ion-item class="item-input">
+			<div class="input-label defWidth"><span style="color:red">*</span>到账日期:</div>
+			<div>{{submitData.fp__tWfCust_CustPayConfirm__0__PayDate}}</div>
+				<i class="icon icon ion-ios-calendar-outline" 
+					style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+		</ion-item>
+	</ionic-datepicker>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>到账时间</span>
+		<input type="text" ng-click="openTime()" placeholder = "选择时间" ng-readonly="true" style="background-color: white"
+			ng-model ="submitData.fp__tWfCust_CustPayConfirm__0__PayTime" />
+	</div>
+
+	<div class="item item-input">
+       <label class="input-label defWidth">
+         	<span style="color:red">*</span>收账户名
+       </label>
+       <input type="text" ng-model="submitData.fp__tWfCust_CustPayConfirm__0__ReceiveActName" ng-change="doCheckPayInfo()" style="background-color: white" readonly="true"/>
+       <input type="text" ng-model="submitData.fp__tWfCust_CustPayConfirm__0__RcvActCode" ng-change="doCheckPayInfo()" style="background-color: white" ng-hide="true"/>
+       <div class="item-button-right">
+         <button class="button " ng-click="openRcvActModal(0)" ng-show="submitData.tWfCust_CustPayConfirm_ReceiveActName_Edit =='1'"><p>选择</p></button>
+       </div>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>付款户名</span>
+		<input type="text"  ng-model ="submitData.fp__tWfCust_CustPayConfirm__0__PayActName" ng-change="doCheckPayInfo()" ng-readonly="submitData.tWfCust_CustPayConfirm_PayActName_Edit =='0'"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>转账金额</span>
+		<input type="text"  ng-model ="submitData.fp__tWfCust_CustPayConfirm__0__PayAmount" ng-readonly="submitData.tWfCust_CustPayConfirm_PayAmount_Edit =='0'"ng-change="doCheckPayInfo()"/>
+	</div>	 
+	
+	<div class="item item-input item-select " style="padding: 0px;padding-right:10px">
+		<span class="input-label defWidth" style="width:110px"><span style="color:red">*</span>转账内容</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_CustPayConfirm__0__PayDetail" 
+			ng-disabled="submitData.tWfCust_CustPayConfirm_PayDetail_Edit =='0'" ng-change="detailChanged()">
+			<option value ="工程款" >工程款</option>
+			<option value ="设计定金">设计定金</option>
+		</select>
+	</div>
+	
+	<div class="item item-input item-select " style="padding: 0px;padding-right:10px">
+		<span class="input-label defWidth" style="width:110px"><span style="color:red" ng-show="submitData.fp__tWfCust_CustPayConfirm__0__PayDetail=='工程款'">*</span>装修贷款卡</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_CustPayConfirm__0__LoansCard" ng-disabled="submitData.tWfCust_CustPayConfirm_LoansCard_Edit =='0'">
+			<option value ="" >请选择...</option>
+			<option value ="是">是</option>
+			<option value ="否">否</option>
+		</select>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth" >备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_CustPayConfirm__0__Remarks" style="width:65%" ng-readonly="submitData.tWfCust_CustPayConfirm_Remarks_Edit =='0'"
+				textareaauto="submitData.fp__tWfCust_CustPayConfirm__0__Remarks" ></textarea>
+	</div>
+	<span style="color:red;margin-left:25px" ng-show="flag == 'true'">存在相同记录，注意核对是否重复查账。</span>
+	
+</div>

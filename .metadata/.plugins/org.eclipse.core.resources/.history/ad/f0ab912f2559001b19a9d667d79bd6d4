@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+  PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+  "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+  
+<mapper namespace="edu.mju.carwork.dao.CarDao">
+
+   <insert id="addCar" parameterType="Car">
+      insert into tbl_car 
+      values(#{carNo},#{carType},#{carBrand},#{carColor},#{carValue},#{carFeature},#{carStatus},#{areaName})
+   </insert>
+   
+   <select id="loadCar" resultType="Car">
+      select *
+      from tbl_car
+      order by car_no desc
+   </select>
+   
+   <select id="loadCarByCondition" parameterType="edu.mju.carwork.service.CarQueryHelper" resultMap="Car">
+      select *
+      from tbl_car where 1=1 
+      <if test="qryAreaName != null and qryAreaName.length()>0">
+          and area_name = #{qryAreaName} 
+      </if>
+      <if test="qryCarType != null and qryCarType.length()>0">
+          and car_type = #{qryCarType} 
+      </if>
+      <if test="qryCarStatus != null and qryCarStatus.length()>0">
+          and car_status = #{qryCarStatus} 
+      </if>                          
+      order by stu_no desc      
+   </select>
+   
+   <select id="getCarByNo" parameterType="String" resultMap="Car">
+      select *
+      from tbl_car
+      where car_no=#{carNo}
+   </select>
+   
+   <select id="cntCarByCondition" parameterType="edu.mju.carwork.service.CarQueryHelper" resultType="long">
+      select count(*) total_cnt
+      from tbl_student where 1=1 
+      <if test="qryAreaName != null and qryAreaName.length()!=0">
+          and area_name = #{qryAreaName} 
+      </if>
+      <if test="qryCarType != null and qryCarType.length()!=0">
+          and car_type = #{qryCarType} 
+      </if>
+      <if test="qryCarStatus != null and qryCarStatus.length()!=0">
+          and car_status = #{qryCarStatus} 
+      </if>                           
+   </select>
+   
+   <update id="updateCar" parameterType="Car">
+      update tbl_car
+      set car_type=#{carType},car_brand=#{carBrand},car_color=#{carColor},car_value=#{carValue}
+          ,car_feature=#{carFeature},car_status = #{carStatus},area_name = #{areaName}
+      where car_no=#{carNo}
+   </update>
+   
+   <delete id="delCar" parameterType="String">
+      delete from tbl_car
+      where car_no=#{carNo}
+   </delete> 
+
+</mapper>

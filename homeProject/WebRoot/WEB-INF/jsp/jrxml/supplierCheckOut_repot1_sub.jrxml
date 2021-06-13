@@ -1,0 +1,262 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="supplierCheck_repot1_sub" language="groovy" pageWidth="555" pageHeight="842" whenNoDataType="AllSectionsNoDetail" columnWidth="555" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="bef8ce22-40fa-43e9-b52a-d5df8943467b">
+	<property name="ireport.zoom" value="1.6105100000000008"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="no" class="java.lang.String"/>
+	<parameter name="titles" class="java.lang.String"/>
+	<queryString>
+		<![CDATA[select a.IsCheckOut,rtrim(a.No) No,d.Address Address,d.DocumentNo,a.Supplier,b.Descr SupplierDescr,c.NOTE TypeDescr,
+                a.Date,rtrim(e.No) AppNo,g.desc1 WareHousedesc ,
+                case when a.Type='S' then a.Amount else -a.Amount end Amount,a.OtherCost,a.OtherCostAdj,
+                case when a.Type='S' then a.Amount else -a.Amount end +a.OtherCost+a.OtherCostAdj SumAmount,
+                a.FirstAmount,a.SecondAmount,
+                a.RemainAmount,
+                isnull(case when a.Type='S' then f.sumSaleAmount else f.sumSaleAmount*-1 end,0) sumSaleAmount,e.IsService,x1.NOTE IsServiceDescr,
+                a.Remarks,a.PayRemark,
+                case when a.Type='S' then a.xmjljsj else -a.xmjljsj end xmjljsj,a.ProjectOtherCost,
+                round(case when a.Type='S' then a.xmjljsj else -a.xmjljsj end + a.OtherCost+a.OtherCostAdj+a.ProjectOtherCost,2) xmjljszj,
+                a.OverCost chaochue,e.IsSetItem,x2.NOTE IsSetItemDescr,
+                a.SplAmount,case when a.Type = 'S' then a.Amount-a.SplAmount else -a.Amount-a.SplAmount end DiffAmount,
+                isnull(h.SumAmount,0) IntInstallFee,a.CustCode,ArriveStatus,ArriveRemark, ct.Desc1 CustTypeDescr
+                from (
+                    select a.PayRemark,a.OtherCost,a.OtherCostAdj,a.ProjectOtherCost,a.No,a.Status,a.Date,a.Type,a.WHCode,
+                    a.Supplier,a.Amount,a.Remarks,a.IsCheckOut,a.CheckOutNo,a.CustCode,a.CheckSeq,ProjectAmount xmjljsj,a.ItemType1,a.OverCost,
+                    a.FirstAmount,a.SecondAmount,
+                    a.RemainAmount,
+                    a.SplAmount,a.ArriveStatus,a.ArriveRemark
+                    from tPurchase a
+                    where a.CheckOutNo=$P{no}
+                ) a
+                left outer join tSupplier b on b.Code=a.Supplier
+                left outer join tXTDM c on c.CBM=a.Type and c.ID='PURCHTYPE'
+                left outer join tCustomer d on d.Code=a.CustCode
+	    left outer join tCusttype ct on d.CustType = ct.Code
+                left outer join tItemApp e on a.No=e.PUNo
+                left outer join tXTDM x1 on x1.IBM=e.IsService and x1.id='YESNO'
+                left outer join tXTDM x2 on x2.CBM=e.IsSetItem and x2.id='YESNO'
+                left outer join tWareHouse g on g.code=a.WHcode
+                left outer join (
+                    select iad.no,sum(
+                        case when ir.qty <> 0 then Round(iad.qty*ir.UnitPrice * ir.Markup/100 + ir.ProcessCost*iad.qty/ir.qty,0)
+                        else Round(iad.qty*ir.UnitPrice * ir.Markup/100,0) end
+                    ) sumSaleAmount
+                    from (
+                        select a.PayRemark,a.OtherCost,a.OtherCostAdj,a.ProjectOtherCost,a.No,a.Status,a.Date,a.Type,a.WHCode,
+                        a.Supplier,a.Amount,a.Remarks,a.IsCheckOut,a.CheckOutNo,a.CustCode,a.CheckSeq,ProjectAmount xmjljsj,a.ItemType1,a.OverCost,
+                        a.FirstAmount,a.SecondAmount,
+                        round(case when a.Type='S' then a.Amount else -a.Amount end +a.OtherCost+a.OtherCostAdj-a.FirstAmount-a.SecondAmount,0) RemainAmount,
+                        a.SplAmount,a.ArriveStatus,a.ArriveRemark
+                        from tPurchase a
+                        where a.CheckOutNo=$P{no}
+                    ) a
+                    inner join tItemApp b on a.no=b.PUNo
+                    inner join tItemappDetail iad on b.no=iad.No
+                    inner join tItemreq ir on iad.ReqPK=ir.pk
+                    inner join tItem d on iad.ItemCode=d.Code
+                    group by iad.no
+                ) f on f.no=e.no
+                left outer join (
+                    select lfd.CustCode,sum(Amount) SumAmount from tLaborFee lf
+                    inner join tLaborFeeDetail lfd on lfd.No=lf.No
+                    where lf.Status='4' and lfd.FeeType='19' group by lfd.CustCode
+                ) h on h.CustCode=a.CustCode
+                Order by a.CheckSeq]]>
+	</queryString>
+	<field name="IsCheckOut" class="java.lang.String"/>
+	<field name="No" class="java.lang.String"/>
+	<field name="Address" class="java.lang.String"/>
+	<field name="DocumentNo" class="java.lang.String"/>
+	<field name="Supplier" class="java.lang.String"/>
+	<field name="SupplierDescr" class="java.lang.String"/>
+	<field name="TypeDescr" class="java.lang.String"/>
+	<field name="Date" class="java.sql.Timestamp"/>
+	<field name="AppNo" class="java.lang.String"/>
+	<field name="WareHousedesc" class="java.lang.String"/>
+	<field name="Amount" class="java.math.BigDecimal"/>
+	<field name="OtherCost" class="java.math.BigDecimal"/>
+	<field name="OtherCostAdj" class="java.math.BigDecimal"/>
+	<field name="SumAmount" class="java.math.BigDecimal"/>
+	<field name="FirstAmount" class="java.math.BigDecimal"/>
+	<field name="SecondAmount" class="java.math.BigDecimal"/>
+	<field name="RemainAmount" class="java.math.BigDecimal"/>
+	<field name="sumSaleAmount" class="java.math.BigDecimal"/>
+	<field name="IsService" class="java.lang.Integer"/>
+	<field name="IsServiceDescr" class="java.lang.String"/>
+	<field name="Remarks" class="java.lang.String"/>
+	<field name="PayRemark" class="java.lang.String"/>
+	<field name="xmjljsj" class="java.math.BigDecimal"/>
+	<field name="ProjectOtherCost" class="java.math.BigDecimal"/>
+	<field name="xmjljszj" class="java.math.BigDecimal"/>
+	<field name="chaochue" class="java.math.BigDecimal"/>
+	<field name="IsSetItem" class="java.lang.String"/>
+	<field name="IsSetItemDescr" class="java.lang.String"/>
+	<field name="SplAmount" class="java.math.BigDecimal"/>
+	<field name="DiffAmount" class="java.math.BigDecimal"/>
+	<field name="IntInstallFee" class="java.math.BigDecimal"/>
+	<field name="CustCode" class="java.lang.String"/>
+	<field name="ArriveStatus" class="java.lang.String"/>
+	<field name="ArriveRemark" class="java.lang.String"/>
+	<field name="CustTypeDescr" class="java.lang.String"/>
+	<variable name="sum_projectOtherCost" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{ProjectOtherCost}]]></variableExpression>
+	</variable>
+	<variable name="sum_xmjljszj" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{xmjljszj}]]></variableExpression>
+	</variable>
+	<variable name="sum_otherCost" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{OtherCost}]]></variableExpression>
+	</variable>
+	<variable name="sum_otherCostAdj" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{OtherCostAdj}]]></variableExpression>
+	</variable>
+	<variable name="sum_remainAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{RemainAmount}]]></variableExpression>
+	</variable>
+	<variable name="COLUMN_INDEX" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{COLUMN_INDEX}.valueOf(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<variable name="sum_SplAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[$F{SplAmount}]]></variableExpression>
+	</variable>
+	<columnHeader>
+		<band height="20" splitType="Stretch">
+			<printWhenExpression><![CDATA[1!=1]]></printWhenExpression>
+			<staticText>
+				<reportElement x="130" y="0" width="100" height="20" uuid="d9a40570-5882-452b-8b64-e91a311d4d77"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[客户类型]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="0" y="0" width="49" height="20" uuid="d247286e-9900-467d-81b6-51bcb5186a22"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[序号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="49" y="0" width="81" height="20" uuid="7465f34a-cd02-457f-a547-929108dc6716"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[领料单号]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="468" y="0" width="87" height="20" uuid="9175c637-b3a3-4a7c-8957-1e03e0baa897"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[金额]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="230" y="0" width="238" height="20" uuid="2075017d-d784-477e-91a4-286d13d0ae31"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="10" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[楼盘]]></text>
+			</staticText>
+		</band>
+	</columnHeader>
+	<detail>
+		<band height="20" splitType="Prevent">
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="49" y="0" width="81" height="20" isPrintWhenDetailOverflows="true" uuid="617b96b6-e190-499b-b027-dbc12e4bc2c1"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{AppNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="130" y="0" width="100" height="20" isPrintWhenDetailOverflows="true" uuid="408147d6-541c-4d5d-8ca9-7c09974ff9c4"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CustTypeDescr}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="0" y="0" width="49" height="20" isPrintWhenDetailOverflows="true" uuid="94cf255b-3617-4bce-a00f-68f2f78ed5af"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{COLUMN_INDEX}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="###0.00" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="468" y="0" width="87" height="20" isPrintWhenDetailOverflows="true" uuid="1ba6db0b-dae0-4845-9feb-f52da9a185a5"/>
+				<box rightPadding="2">
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Right" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{RemainAmount}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToBandHeight" x="230" y="0" width="238" height="20" isPrintWhenDetailOverflows="true" uuid="9fb22c5b-8f92-4978-83fb-63e2512204f6"/>
+				<box>
+					<topPen lineWidth="0.5"/>
+					<leftPen lineWidth="0.5"/>
+					<bottomPen lineWidth="0.5"/>
+					<rightPen lineWidth="0.5"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Address}]]></textFieldExpression>
+			</textField>
+		</band>
+	</detail>
+</jasperReport>

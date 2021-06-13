@@ -1,0 +1,30 @@
+/**
+ * 
+ */
+package xunke.demo20210321_1;
+
+import java.io.File;
+import java.util.Date;
+
+/**
+ * @author HY
+ *
+ */
+public class FileWork {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		File file = new File("d:\\records.txt");
+		
+		System.out.println(file.length()); //文件的长度
+		System.out.println(file.isFile()); //是否为文件类型
+		System.out.println(file.isDirectory()); //是否为目录
+		System.out.println(new Date(file.lastModified()).toLocaleString()); //最后一次修改文件的日期
+		
+
+	}
+
+}

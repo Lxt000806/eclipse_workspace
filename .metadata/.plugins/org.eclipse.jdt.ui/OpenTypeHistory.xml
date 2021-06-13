@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<typeInfoHistroy>
+<typeInfo handle="=DemoPrj-20201212/src&lt;xunke.demo20210307{USBService.java[USBService" modifiers="513" timestamp="1615103192840"/>
+<typeInfo handle="=DemoPrj-20201212/C:\/Program Files\/Java\/jdk1.8.0_271\/jre\/lib\/rt.jar&lt;java.awt(Shape.class[Shape" modifiers="1537" timestamp="1607429280540"/>
+<typeInfo handle="=DemoPrj-20201212/src&lt;xunke.demo20210227_1{Shape.java[Shape" modifiers="513" timestamp="1615469302760"/>
+<typeInfo handle="=DemoPrj-20201212/src&lt;xunke.demo20210227{Student.java[Student" modifiers="513" timestamp="1615546993968"/>
+<typeInfo handle="=DemoPrj-20201212/src&lt;xunke.demo20210307_1{ChessBoard.java[ChessBoard" modifiers="1" timestamp="1615551497265"/>
+<typeInfo handle="=hrmis/src&lt;com.mju.hrmis.ui{BaseUI.java[BaseUI" modifiers="513" timestamp="1617621803497"/>
+<typeInfo handle="=hrmis/src&lt;com.mju.hrmis.exception{HRMISException.java[HRMISException" modifiers="1" timestamp="1617678035284"/>
+<typeInfo handle="=hrmis2/src&lt;com.abc.hrmis.exception{HRMISException.java[HRMISException" modifiers="1" timestamp="1617973485510"/>
+<typeInfo handle="=DemoPrj-20201212/C:\/Program Files\/Java\/jdk1.8.0_271\/jre\/lib\/rt.jar&lt;java.util.concurrent(Callable.class[Callable" modifiers="1537" timestamp="1607429280540"/>
+<typeInfo handle="=DemoPrj-20201212/src&lt;xunke.demo20210410_1{Callable.java[Callable" modifiers="513" timestamp="1618051534899"/>
+<typeInfo handle="=DemoPrj-20201212/C:\/Program Files\/Java\/jdk1.8.0_271\/jre\/lib\/rt.jar&lt;java.lang(RuntimeException.class[RuntimeException" modifiers="33" timestamp="1607429280540"/>
+<typeInfo handle="=hrmis2/src&lt;com.abc.hrmis.dao{EmployeeDao.java[EmployeeDao" modifiers="513" timestamp="1620695752499"/>
+<typeInfo handle="=hrmis2/src&lt;com.abc.hrmis.dao{UserDao.java[UserDao" modifiers="513" timestamp="1620655963442"/>
+<typeInfo handle="=hrmis2/src&lt;com.abc.hrmis.ui{BaseUI.java[BaseUI" modifiers="513" timestamp="1617971625634"/>
+<typeInfo handle="=DemoPrj-20201212/src&lt;xunke.demo20210418{Workable.java[Workable" modifiers="513" timestamp="1618726546188"/>
+<typeInfo handle="=JDBCDemo/src&lt;com.abc.dao{StudentDao.java[StudentDao" modifiers="513" timestamp="1622717102769"/>
+</typeInfoHistroy>

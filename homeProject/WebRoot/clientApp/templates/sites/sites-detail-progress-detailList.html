@@ -1,0 +1,44 @@
+
+  <ion-header-bar class="bar-positive">
+    <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+    <h1 class="title">{{items[0].address}}</h1>
+  </ion-header-bar>
+  <style type="text/css">
+    h2.top_title{border-bottom:none;background:none;text-align:center;line-height:32px; font-size:20px}
+    h2.top_title span{font-size:12px; color:#666;font-weight:500}
+  </style>
+  <style>
+    .class1{
+      background: #75ce66;
+    }
+    .class2{
+      background:#FCB23C;
+    }
+    .class3{
+      background:#B3B3B3;
+    }
+  </style>
+  <ion-content>
+    <!--<div data-ng-init="getPrjProgDate()" style="display: none" ></div>-->
+    <div data-ng-init="getProgressDetailList()" style="display: none" ></div>
+    <!--<div class="item item-divider">-->
+      <!--<div style="width: 50%;text-align: left;float: left;">当前延误 {{delay}}天</div>-->
+      <!--<div  style="text-align: left;float: right;" >工期剩余 {{remainDate}}天</div>-->
+    <!--</div>-->
+    <section id="cd-timeline" class="cd-container" style="margin-top: 0px" ng-if="items.length>0">
+      <div class="cd-timeline-block"  ng-repeat="item in items"  >
+        <div class="cd-timeline-img cd-picture" ng-class="item.status=='未开始' ? 'class3':(item.status== '施工中' ? 'class2' : 'class1')"  >
+          <!--<img src="img/baidu.png" alt="picture">-->
+        </div>
+        <div class="cd-timeline-content light item-icon-right" ng-class="item.status=='未开始' ? 'class3':(item.status== '施工中' ? 'class2' : 'class1')"  ng-click="goProgressDetailUi(item.pk,item.custCode)">
+          <b>{{item.prjItemDescr}}</b><br/>
+          <span ng-if="item.status=='未开始'">{{item.planBegin|limitTo:10|date:'MM-dd'}}---{{item.planEnd|limitTo:10|date:'MM-dd'}}</span><span ng-if="item.status=='施工中'">{{item.beginDate|limitTo:10|date:'MM-dd'}}---{{item.planEnd|limitTo:10|date:'MM-dd'}}</span>
+          <span ng-if="item.status=='已完工'">{{item.beginDate|limitTo:10|date:'MM-dd'}}---{{item.endDate|limitTo:10|date:'MM-dd'}}</span><span ng-if="item.status=='已验收'">{{item.beginDate|limitTo:10|date:'MM-dd'}}---{{item.endDate|limitTo:10|date:'MM-dd'}}</span>
+          <span style="margin-left: 8px">{{item.status}}{{item.progress}}</span>
+          <i class="icon ion-ios-arrow-right"></i>
+        </div>
+      </div>
+    </section>
+    <ion-list style="text-align: center" ng-if="items==''">当前无工程进度</ion-list>
+  </ion-content>
+

@@ -1,0 +1,30 @@
+/**
+ * 
+ */
+package xunke.demo20210321_1;
+
+import java.io.File;
+import java.util.Date;
+
+/**
+ * @author HY
+ *
+ */
+public class FileWork {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		
+		
+		File file = new File("d:\\records.txt");
+		System.out.println(file.length());
+		System.out.println(file.isFile());
+		System.out.println(file.isDirectory());
+		System.out.println(new Date(file.lastModified()).toLocaleString());
+		
+
+	}
+
+}

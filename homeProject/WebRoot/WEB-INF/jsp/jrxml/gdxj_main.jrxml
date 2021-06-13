@@ -1,0 +1,118 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gdxj_main" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c093f1da-e447-4b0e-b6af-36d7cb2cb1bb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\lenovo\\Desktop\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoFile" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:/logo.jpg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CustCode" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["CT000208"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ItemType1" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["'ZC','RZ','JC'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select distinct CustCode,ItemType1
+from tItemReq where CustCode=$P{CustCode}
+and ItemType1 in ($P!{ItemType1})]]>
+	</queryString>
+	<field name="CustCode" class="java.lang.String"/>
+	<field name="ItemType1" class="java.lang.String"/>
+	<group name="Group1" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$P{CustCode}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="88" splitType="Stretch">
+			<subreport runToBottom="false">
+				<reportElement mode="Transparent" x="0" y="0" width="313" height="55" uuid="59a0047e-0d42-4ef9-af9c-d552f2824e73"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="Title">
+					<subreportParameterExpression><![CDATA[$F{ItemType1}.trim()=="ZC"?
+"有家装饰主材巡检表":$F{ItemType1}.trim()=="RZ"?
+"有家装饰软装巡检表":"有家装饰集成巡检表"]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="ItemType1">
+					<subreportParameterExpression><![CDATA[$F{ItemType1}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoFile}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "gdxj.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="50">
+			<staticText>
+				<reportElement x="353" y="2" width="16" height="20" uuid="49000fdc-928f-4cf4-807c-5bfc2b0fd133"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="307" y="2" width="16" height="20" uuid="37b7f222-2825-49ba-be22-ac081e62bee4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[共]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="Group1" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="323" y="2" width="30" height="20" uuid="a4626034-4016-4627-95c7-9c160c39c8c9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="277" y="2" width="30" height="20" uuid="dda06736-1d34-4fdd-a273-225919474345"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页，]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Page" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="241" y="2" width="36" height="20" uuid="90bb30e7-d323-4c83-a9ed-092b7dffa154"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="225" y="2" width="16" height="20" uuid="c56654d2-92d5-4b9f-b694-1eb3e953d4da"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

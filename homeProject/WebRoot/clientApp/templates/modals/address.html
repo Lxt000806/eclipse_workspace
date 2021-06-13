@@ -1,0 +1,32 @@
+<<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <button class="button button-icon icon ion-ios-arrow-back" ng-click="closeModal()"></button>
+    <h1 class="title">工地</h1>
+  </ion-header-bar>
+  <ion-content>
+    <div data-ng-init="searchAddresses(data.searchName)" style="display: none"></div>
+    <ion-item class="item-input" style="padding-top: 0px;padding-bottom: 0px">
+      <input type="text" placeholder="搜索工地" ng-model="data.searchName">
+      <button class="button button-icon icon ion-ios-search" ng-click="searchAddresses(data.searchName)"></button>
+    </ion-item>
+    <div class="list">
+      <label class="item item-radio" ng-repeat="item in addresses"
+             ng-click="closeModal(item.address,item.code)">
+        <input type="radio" name="house">
+
+        <div class="item-content">
+          <span>{{item.address}}</span>
+        </div>
+        <i class="radio-icon ion-checkmark positive"></i>
+      </label>
+    </div>
+    <ion-list style="text-align: center" ng-if="netError">服务器未响应,请确认网络正常连接</ion-list>
+    <ion-infinite-scroll
+      ng-if="moreDataCanBeLoaded()&&!netError"
+      on-infinite="getAllCustomerList(data.searchName)"
+      distance="1%"
+      immediate-check="false"
+      >
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-modal-view>

@@ -1,0 +1,32 @@
+
+    <ion-content>
+        <div class="list" >
+            <label class="item item-image">
+                <div>
+                    <img src="img/yjlogo.jpg" style="width: 200px;height:200px"></div>
+            </label>
+            <label class="item item-input item-select "  ng-if="data.city==null"  style="padding: 0px">　
+                <select ng-change="change(data.city)" ng-model="data.city" ng-click="hideDefault()" ng-options="item.code as item.desr for item in CityList" style="font-size: 14px">
+                    <option value="" id="city">请选择城市</option>
+                </select>
+            </label>
+            <label class="item item-input item-select " ng-if="data.city!=null" style="padding: 0px" >　
+                <select ng-change="change(data.city)" ng-model="data.city" ng-options="item.code as item.desr for item in CityList" style="font-size: 14px" >
+                </select>
+            </label>
+            <label class="item item-input">
+                <input type="text" placeholder="手机号" ng-model="data.username">
+            </label>
+            <label class="item item-input">
+                <input type="password" placeholder="密码" ng-model="data.password">
+            </label>
+          <div style="padding: 0px 15px 0px 15px">
+            <button class="button button-block positive-bg light" ng-click="login()">
+              登录
+            </button>
+          </div>
+          　<a ui-sref="registerUser" style="font-size: 13px">新用户注册</a>
+          <a ui-sref="resetPassword" style="position: absolute;right: 15px;font-size: 13px">忘记密码</a>
+        </div>
+    </ion-content>
+

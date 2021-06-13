@@ -1,0 +1,22 @@
+<div ng-controller="erpAccountCtrl">
+	<inputemployee id="submitData.fp__tWfCust_ErpAccount__0__EmpCode" idvar="number" 
+				   showvalue="{{submitData.fp__tWfCust_ErpAccount__0__EmpCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_ErpAccount__0__EmpName}}" 
+				   label="员工编号" placeholder="请选择员工编号" 
+				   callback="employeeCallback(data)"
+				   require="true"
+				   conditions="conditions"></inputemployee>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label"><span style="color:red">*</span>服务类型</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_ErpAccount__0__Type" ng-change="typeChange()">
+			<option value ="Erp权限申请">Erp权限申请</option>
+			<option value ="Erp密码重置">Erp密码重置</option>
+		</select>
+	</div>
+	<div class="item item-input">
+		<span class="input-label">备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_ErpAccount__0__Reason" style="width:65%"
+				textareaauto="submitData.fp__tWfCust_ErpAccount__0__Reason" ></textarea>
+	</div>
+	<div style="padding: 10px;">备注：易居通APP与ERP密码相同。</div>
+</div>

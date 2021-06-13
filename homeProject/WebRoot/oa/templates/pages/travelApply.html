@@ -1,0 +1,82 @@
+<!-- 费用报销流程 -->
+<div ng-controller="travelApplyCtrl">
+
+	<div class="item item-input" ng-show="false">
+		<span class="input-label defWidth">员工</span>	
+		<input type="text" readonly="true" ng-model="submitData.fp__tWfCust_TravelApply__0__EmpCode"
+				value="{{submitData.fp__tWfCust_TravelApply__0__EmpCode}}"/>
+	</div>
+	
+	<div class="item item-input" hidden="false">
+		<span class="input-label defWidth">员工姓名</span>
+		<input type="text" readonly="true" ng-model="submitData.fp__tWfCust_TravelApply__0__EmpName"
+			value ="{{submitData.fp__tWfCust_TravelApply__0__EmpName}}"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">员工</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_TravelApply__0__EmpCode +'|'+submitData.fp__tWfCust_TravelApply__0__EmpName}}"/>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth">分公司</span>
+		<select style="padding-right: 0px;width: 100%" ng-change="chgCompany()"
+					ng-model="submitData.fp__tWfCust_TravelApply__0__CompanyCode">
+			<option value ="01">福州有家</option>
+			<option value ="07">美第家居</option>
+		</select>
+	</div>
+				   
+	<div class="item item-input" ng-show="false" >
+		<span class="input-label defWidth">部门编号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelApply__0__DeptCode" readonly="true"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">部门</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelApply__0__DeptDescr" readonly="true" />
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth">岗位</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelApply__0__Position" readonly="true"/>
+	</div>
+	
+	<ionic-datepicker input-obj="datepickerObject">
+		<ion-item class="item-input" ng-click="changeDate('applyDate')">
+			<div class="input-label defWidth"><span style="color:red">*</span>申请时间:</div>
+			<div>{{submitData.fp__tWfCust_TravelApply__0__ApplyDate}}</div>
+				<i class="icon icon ion-ios-calendar-outline" 
+					style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+		</ion-item>
+	</ionic-datepicker>
+	
+	<ionic-datepicker input-obj="datepickerObject">
+		<ion-item class="item-input" ng-click="changeDate('beginDate')">
+			<div class="input-label defWidth"><span style="color:red">*</span>出发时间:</div>
+			<div>{{submitData.fp__tWfCust_TravelApply__0__BeginDate}}</div>
+				<i class="icon icon ion-ios-calendar-outline" 
+					style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+		</ion-item>
+	</ionic-datepicker>
+	
+	<ionic-datepicker input-obj="datepickerObject">
+		<ion-item class="item-input" ng-click="changeDate('endDate')">
+			<div class="input-label defWidth"><span style="color:red">*</span>回程时间</div>
+			<div>{{submitData.fp__tWfCust_TravelApply__0__EndDate}}</div>
+				<i class="icon icon ion-ios-calendar-outline" 
+					style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+		</ion-item>
+	</ionic-datepicker>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>出发地点</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelApply__0__Address" />
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>出差事由</span>
+		<textarea ng-model="submitData.fp__tWfCust_TravelApply__0__Reason" style="width:65%"
+			textareaauto="submitData.fp__tWfCust_TravelApply__0__Reason" ></textarea>
+	</div>
+</div>

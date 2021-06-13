@@ -1,0 +1,22 @@
+<ion-header-bar class="bar-positive">
+  <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <h1 class="title">成本支出信息</h1>
+</ion-header-bar>
+
+  <ion-content>
+    <ion-list>
+      <div class="item item-divider">
+        <div style="width: 75%;float: left;">成本总支出</div>
+        <div  style="width: 25%;float: left;text-align: right;padding-right: 10px">{{costAllAmountJs}}</div>
+      </div>
+      <ion-item ng-repeat="item in costInfoItems">
+        <div>
+          <div style="width: 75%;float: left;">{{item.workType1Name}}.{{item.workType2Name}}</div>
+          <div style="width: 25%;float: left;text-align: right;padding-right: 10px">{{item.materialCostJs==0?item.workCost:item.materialCostJs}}</div>
+        </div>
+      </ion-item>
+    </ion-list>
+    <div ng-include="'templates/common/content-footer.html'" onload="getCustomerDetailCostInfo()"></div>
+
+  </ion-content>
+</ion-view>

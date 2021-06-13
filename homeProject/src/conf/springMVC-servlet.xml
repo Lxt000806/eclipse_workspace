@@ -1,0 +1,158 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:p="http://www.springframework.org/schema/p"
+	xmlns:mvc="http://www.springframework.org/schema/mvc" xmlns:context="http://www.springframework.org/schema/context"
+	xmlns:tx="http://www.springframework.org/schema/tx" xmlns:aop="http://www.springframework.org/schema/aop"
+	xmlns:util="http://www.springframework.org/schema/util"
+	xsi:schemaLocation="
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans-3.0.xsd
+		http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-3.0.xsd	
+		http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-3.0.xsd
+		http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-3.0.xsd
+		http://www.springframework.org/schema/util http://www.springframework.org/schema/util/spring-util-3.0.xsd ">
+
+	<!-- 只搜索@Controller 标注的类 不搜索其他标注的类 -->
+	<context:component-scan base-package="com.house.framework.web,com.house"
+		use-default-filters="false">
+		<context:include-filter type="annotation"
+			expression="org.springframework.stereotype.Controller" />
+	</context:component-scan>
+
+	<!-- 对某些静态资源，如css,图片等进行过滤 ,有引用 "/resources/**" 的路径引用转到相应映射配置目录取资源 -->
+	<bean id="rpe" class="com.house.framework.web.servlet.ResourcePathExposer"
+		init-method="init" />
+	<mvc:resources mapping="#{rpe.resourceRoot}/**" location="/commons/" />
+	<mvc:resources mapping="#{rpe.resourceWebRoot}/**"
+		location="/" />
+	<mvc:default-servlet-handler />
+	<mvc:annotation-driven validator="springValidator"
+		conversion-service="conversionService" />
+
+	<!-- 格式化和转化器 -->
+	<bean id="conversionService"
+		class="org.springframework.format.support.FormattingConversionServiceFactoryBean">
+		<property name="converters">
+			<list>
+				<bean
+					class="com.house.framework.commons.converters.String2DateTimeConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- 全局默认生成校验对像, 用于controller引用 -->
+	<bean id="springValidator"
+		class="org.springframework.validation.beanvalidation.LocalValidatorFactoryBean" />
+
+
+	<!-- 支持JSON 需要加入 jackson-all-1.9.5.jar -->
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.DefaultAnnotationHandlerMapping" />
+	<bean
+		class="org.springframework.web.servlet.mvc.annotation.AnnotationMethodHandlerAdapter">
+		<property name="messageConverters">
+			<util:list id="beanList">
+				<ref bean="mappingJacksonHttpMessageConverter" />
+			</util:list>
+		</property>
+	</bean>
+	<bean id="jsonMapper"
+		class="com.house.framework.commons.converters.JsonMapper">
+	</bean>
+	<bean id="mappingJacksonHttpMessageConverter"
+		class="org.springframework.http.converter.json.MappingJacksonHttpMessageConverter">
+		<property name="supportedMediaTypes">
+			<list>
+				<value>text/html;charset=UTF-8</value>
+			</list>
+		</property>
+		<property name="objectMapper" ref="jsonMapper"></property>
+	</bean>
+
+	<!-- jsp视图解析器 -->
+	<bean
+		class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+		<property name="viewClass"
+			value="org.springframework.web.servlet.view.JstlView" />
+		<property name="prefix" value="/WEB-INF/jsp/" />
+		<property name="suffix" value=".jsp" />
+	</bean>
+
+	<!-- 按bean 名称找view视图解析器, 优先级排序10 -->
+	<bean class="org.springframework.web.servlet.view.BeanNameViewResolver"
+		p:order="10" />
+
+	<!-- 解析multipart Request 请求, 限制最大上传文件在小为100M, 请求编码格式UTF-8(默认ISO-8859-1) -->
+	<!-- <bean id="multipartResolver"
+		class="org.springframework.web.multipart.commons.CommonsMultipartResolver"
+		p:defaultEncoding="UTF-8" p:maxUploadSize="104857600" p:uploadTempDir="uploadRoot/temp" /> -->
+
+	<bean id="stringHttpMessageConverter"
+		class="org.springframework.http.converter.StringHttpMessageConverter" />
+	<bean id="formHttpMessageConverter"
+		class="org.springframework.http.converter.FormHttpMessageConverter" />
+
+	<!-- web client mock request -->
+	<bean id="restTemplate" class="org.springframework.web.client.RestTemplate">
+		<property name="messageConverters">
+			<list>
+				<ref bean="stringHttpMessageConverter" />
+				<ref bean="formHttpMessageConverter" />
+			</list>
+		</property>
+	</bean>
+
+	<!-- excel VIEW视图 -->
+	<bean id="userListExcelView" class="com.house.framework.commons.excel.UserListExcelView" />
+
+
+	<!-- 针对类、方法级别的权限拦截器 -->
+	<mvc:interceptors>
+		<!-- <mvc:interceptor> <mvc:mapping path="/fileupload" /> <mvc:mapping 
+			path="/main*" /> <mvc:mapping path="/header*" /> <mvc:mapping path="/welcome*" 
+			/> <mvc:mapping path="/treeMenu*" /> <mvc:mapping path="/role**/**" /> <mvc:mapping 
+			path="/user**/**" /> <mvc:mapping path="/module**/**" /> <mvc:mapping path="/field**/**" 
+			/> <bean class="com.house"></bean> </mvc:interceptor> -->
+
+		<!-- 配置token拦截器 -->
+		<mvc:interceptor>
+			<mvc:mapping path="/**/do**" />
+			<mvc:mapping path="/login" /> <!-- 验证用户登陆的token -->
+			<bean
+				class="com.house.framework.web.token.DenyDuplicateFormSubmitInterceptor" />
+		</mvc:interceptor>
+
+		<mvc:interceptor>
+			<!-- <mvc:mapping path="/admin/*" /> -->
+			<mvc:mapping path="/admin/**" />
+			<bean class="com.house.framework.web.login.ForbidVisitInterceptor" />
+		</mvc:interceptor>
+		
+		<mvc:interceptor>
+			<mvc:mapping path="/admin/**" />
+			<mvc:mapping path="/system/**" />
+			<bean class="com.house.framework.web.interceptor.LogInterceptor" />
+		</mvc:interceptor>
+	</mvc:interceptors>
+
+
+	<!-- 错误解析器 发生错误默认会跳转到/web-inf/views/timeout.jsp -->
+	<bean id="exceptionResolver"
+		class="org.springframework.web.servlet.handler.SimpleMappingExceptionResolver">
+		<property name="defaultErrorView" value="error/exception" />
+		<property name="exceptionMappings">
+			<props>
+				<prop key="com.house.framework.exceptions.DuplicateFormSubmitException">error/duplicateFormSubmitException</prop>
+				<prop key="com.house.framework.exceptions.ForbidVisitException">error/ForbidVisitException</prop>
+				<prop key="com.house.framework.exceptions.NotLoginException">error/NotLoginException</prop>
+				<prop key="java.sql.SQLException">error/exception</prop>
+				<prop key="org.springframework.transaction.TransactionException">error/exception</prop>
+				<prop key="org.springframework.dao.DataAccessException">error/exception</prop>
+				<prop key="java.lang.RuntimeException">error/exception</prop>
+			</props>
+		</property>
+	</bean>
+
+	<aop:aspectj-autoproxy proxy-target-class="true" />
+	<context:property-placeholder location="/WEB-INF/classes/conf/*.properties" ignore-unresolvable="true" />
+</beans>

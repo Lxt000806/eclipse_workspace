@@ -1,0 +1,28 @@
+<div ng-controller="initSignReturnCtrl">
+	<inputcustomer id="submitData.fp__tWfCust_InitSignReturn__0__CustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_InitSignReturn__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_InitSignReturn__0__CustDescr}}" 
+				   label="客户编号" placeholder="请选择客户编号" 
+				   callback="customerCallback(data)" conditions="conditions"
+				   require="true"></inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>楼盘</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_InitSignReturn__0__Address"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px">　
+		<span class="input-label defWidth"><span style="color:red">*</span>类型</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_InitSignReturn__0__Type" ng-change="typeChange()"
+			ng-disabled="true">
+			<option value ="草签">草签</option>
+			<option value ="重签">重签</option>
+		</select>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label">备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_InitSignReturn__0__Remarks"
+				textareaauto="submitData.fp__tWfCust_InitSignReturn__0__Remarks" ></textarea>
+	</div>
+	<span style="color:red;margin-left:25px" ng-if="notify != ''">{{notify}}</span>
+	
+</div>

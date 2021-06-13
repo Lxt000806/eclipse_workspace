@@ -1,0 +1,182 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="gdxj_main" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="842" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="c093f1da-e447-4b0e-b6af-36d7cb2cb1bb">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<style name="style1">
+		<conditionalStyle>
+			<style/>
+		</conditionalStyle>
+	</style>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["C:\\Users\\lenovo\\Desktop\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="LogoFile" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:/logo.jpg"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CustCode" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["CT021724"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ItemType1" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["'JS','JZ','ZC','RZ','JC'"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select code CustCode from tCustomer
+where code=$P{CustCode}]]>
+	</queryString>
+	<field name="CustCode" class="java.lang.String"/>
+	<group name="Group1" isStartNewPage="true" isResetPageNumber="true">
+		<groupExpression><![CDATA[$P{CustCode}]]></groupExpression>
+		<groupHeader>
+			<band/>
+		</groupHeader>
+		<groupFooter>
+			<band/>
+		</groupFooter>
+	</group>
+	<detail>
+		<band height="56" splitType="Stretch">
+			<printWhenExpression><![CDATA[$P{ItemType1}.indexOf("JS")>=0]]></printWhenExpression>
+			<subreport runToBottom="false">
+				<reportElement mode="Transparent" x="135" y="0" width="313" height="55" uuid="59a0047e-0d42-4ef9-af9c-d552f2824e73"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoFile}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "gcwg_jsd.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="56">
+			<printWhenExpression><![CDATA[$P{ItemType1}.indexOf("JZ")>=0]]></printWhenExpression>
+			<subreport runToBottom="false">
+				<reportElement mode="Transparent" x="135" y="0" width="313" height="55" uuid="a663d405-17b1-4d1f-994c-ff8e170f2bcf"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoFile}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "gcwg_jzxq.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="55">
+			<printWhenExpression><![CDATA[$P{ItemType1}.indexOf("ZC")>=0]]></printWhenExpression>
+			<subreport runToBottom="false">
+				<reportElement mode="Transparent" x="0" y="0" width="313" height="55" uuid="b8bf390f-5f06-481f-97e1-dc4eb1d56c31"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoFile}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "gcwg_zcxq.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="57">
+			<printWhenExpression><![CDATA[$P{ItemType1}.indexOf("RZ")>=0]]></printWhenExpression>
+			<subreport runToBottom="false">
+				<reportElement mode="Transparent" x="0" y="0" width="313" height="55" uuid="97f659e8-d7bf-48ce-99bf-c7482530f61d"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoFile}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "gcwg_rzxq.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+		<band height="57">
+			<printWhenExpression><![CDATA[$P{ItemType1}.indexOf("JC")>=0]]></printWhenExpression>
+			<subreport runToBottom="false">
+				<reportElement mode="Transparent" x="136" y="0" width="313" height="55" uuid="6487a022-c164-497e-bd2c-7c84f0aad781"/>
+				<subreportParameter name="SUBREPORT_DIR">
+					<subreportParameterExpression><![CDATA[$P{SUBREPORT_DIR}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$F{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile">
+					<subreportParameterExpression><![CDATA[$P{LogoFile}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "gcwg_jcxq.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="30">
+			<staticText>
+				<reportElement x="478" y="0" width="16" height="20" uuid="49000fdc-928f-4cf4-807c-5bfc2b0fd133"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="432" y="0" width="16" height="20" uuid="37b7f222-2825-49ba-be22-ac081e62bee4"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[共]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Group" evaluationGroup="Group1" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" mode="Transparent" x="448" y="0" width="30" height="20" uuid="a4626034-4016-4627-95c7-9c160c39c8c9"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="402" y="0" width="30" height="20" uuid="dda06736-1d34-4fdd-a273-225919474345"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页，]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" evaluationTime="Page" isBlankWhenNull="true">
+				<reportElement stretchType="RelativeToTallestObject" x="366" y="0" width="36" height="20" uuid="90bb30e7-d323-4c83-a9ed-092b7dffa154"/>
+				<box>
+					<topPen lineWidth="0.0"/>
+					<leftPen lineWidth="0.0"/>
+					<bottomPen lineWidth="0.0"/>
+					<rightPen lineWidth="0.0"/>
+				</box>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="350" y="0" width="16" height="20" uuid="c56654d2-92d5-4b9f-b694-1eb3e953d4da"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+		</band>
+	</pageFooter>
+</jasperReport>

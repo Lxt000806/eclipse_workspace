@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans"
+	xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+	xmlns:mvc="http://www.springframework.org/schema/mvc"
+	xmlns:context="http://www.springframework.org/schema/context"
+	xsi:schemaLocation="http://www.springframework.org/schema/mvc http://www.springframework.org/schema/mvc/spring-mvc-4.3.xsd
+		http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+		http://www.springframework.org/schema/context http://www.springframework.org/schema/context/spring-context-4.3.xsd">
+
+    <!-- 告诉springmvc ,控制器的声明支持使用注解来完成 -->
+    <mvc:annotation-driven></mvc:annotation-driven> 
+    
+    <!-- 控制器部件扫描  （springmvc中servlet已经被controller这个概念封装掉了)
+         我们必须让springmvc知道其控制器所在的位置，以便加载控制器
+         包含基本包下头的子包
+    -->
+    <context:component-scan base-package="edu.mju.stuwork.controller"></context:component-scan>
+    
+    <!-- 该视图解析器能够获取controller方法返回的视图信息，形成一个完整的页面路径 -->
+    <bean id="viewResolver" class="org.springframework.web.servlet.view.InternalResourceViewResolver">
+      <property name="prefix" value="/WEB-INF/views/"></property>
+      <property name="suffix" value=".jsp"></property>
+    </bean>	
+    
+    <!-- 遇到多段提交数据，一律使用这个解析器去处理，其会调用commons-fileupload去解决问题 -->
+    <bean id="multipartResolver"
+	      class="org.springframework.web.multipart.commons.CommonsMultipartResolver">
+		<!--上传文件的最大大小，单位为字节 --> 
+		<property name="maxUploadSize" value="17367648787"></property>		 
+		<!-- 上传文件的编码 -->
+		<property name="defaultEncoding" value="UTF-8"></property>
+    </bean>   
+    
+    <!-- 
+    
+        在springmvc的超级servlet眼中，所有的路径都是控制器路径，其会把所有的请求当做控制器路径来理解，去适配。
+        所以我们必须告诉springmvc哪些路径是可以豁免的，不要去强行解析。
+  
+         静态资源 
+         
+    -->
+    <mvc:resources location="/resources/" mapping="/resources/**"></mvc:resources> 
+    
+         <!-- 多个拦截器，将依次运行
+           1. /**  拦截所有层次深度的目录
+           2. /*   只拦截一级目录，比如 /stuinfo3/rooms
+           3. /*/* 可以拦截二级目录，比如/stuinfo3/rooms/1
+           4. /rooms/* ，一级目录得到固定，比如/stuinfo3/rooms/1       
+         -->
+         
+    <mvc:interceptors> 
+       <mvc:interceptor>
+          <!-- 匹配多级目录 -->
+          <mvc:mapping path="/**"/>
+          <!-- 登录权限拦截器 -->
+          <bean class="edu.mju.stuwork.interceptor.LoginInterceptor"></bean>
+       </mvc:interceptor>   
+    </mvc:interceptors>
+      				
+</beans>

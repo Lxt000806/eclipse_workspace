@@ -1,0 +1,32 @@
+<<ion-modal-view>
+  <ion-header-bar class="bar-positive">
+    <button class="button button-icon icon ion-ios-arrow-back" ng-click="closeModal()"></button>
+    <h1 class="title">工地查询</h1>
+    <button class="button button-clear" ng-click="sitesSearch(sitesInfo.address,sitesInfo.stakeholder,sitesInfo.haveGd)">确认</button>
+  </ion-header-bar>
+  <ion-content>
+    <ion-list>
+      <ion-item class="item-input">
+        <label class="input-label">
+          楼盘：
+        </label>
+        <input type="text"  ng-model="sitesInfo.address" placeholder="请录入楼盘地址">
+      </ion-item>
+      <ion-item class="item-input">
+        <label class="input-label">
+         干系人：
+        </label>
+        <input type="text"  ng-model="sitesInfo.stakeholder" placeholder="请录入干系人姓名">
+      </ion-item>
+      <ion-item class="item-input item-select" >
+        <label class="input-label">
+          包含完工客户：
+        </label>
+        <select class="xzs" ng-model="sitesInfo.haveGd">
+          <option value="0">否</option>
+          <option value="1" >是</option>
+        </select>
+    </ion-item>
+    </ion-list>
+  </ion-content>
+</ion-modal-view>

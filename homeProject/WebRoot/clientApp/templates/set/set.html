@@ -1,0 +1,22 @@
+
+    <ion-header-bar class="bar-positive">
+        <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+        <h1 class="title">设置</h1>
+    </ion-header-bar>
+    <ion-content>
+     <ion-list>
+       <ion-item class="item-icon-left">
+         <i class="icon ion-ios-person" ></i>{{user}}
+       </ion-item>
+         <ion-item ng-click="checkUpdate()" ng-hide="isIos">
+             检查更新
+         </ion-item>
+         <ion-item href="#/more/set/updatePassword">
+             密码
+         </ion-item>
+         <ion-item ng-controller="AccountCtrl" ng-click="logout()">
+             退出
+         </ion-item>
+     </ion-list>
+    </ion-content>
+

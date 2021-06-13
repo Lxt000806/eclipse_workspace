@@ -1,0 +1,22 @@
+<!-- 更改协议楼盘 -->
+<div ng-controller="designAddrAdjustCtrl">
+	   	<div class="item item-input">
+			<span class="input-label group-input-label"><span style="color:red">*</span>原协议楼盘</span>
+			<div style="width: 65%">
+				<input type="text" ng-model="submitData.fp__tWfCust_DesignAddrAdjust__0__DesignAddress"/>
+			</div>
+		</div>
+		<inputcustomer id="submitData.fp__tWfCust_DesignAddrAdjust__0__CustCode" idvar="code" 
+			showvalue="{{submitData.fp__tWfCust_DesignAddrAdjust__0__CustCode}}" 
+			showlabel="{{submitData.fp__tWfCust_DesignAddrAdjust__0__CustDescr}}" 
+			label="变更后楼盘" placeholder="请选择变更后楼盘" callback="designAddrAdjustCallback(data)"
+			conditions="conditions" require="true">
+		</inputcustomer>
+		<div class="item item-input">
+			<div style="width: 35%"></div>
+			<div style="width: 65%">
+				<input type="text" ng-model="submitData.fp__tWfCust_DesignAddrAdjust__0__Address"
+					disabled />
+			</div>
+		</div>
+</div>

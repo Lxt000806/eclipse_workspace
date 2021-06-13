@@ -1,0 +1,242 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="custPayTran" language="groovy" pageWidth="198" pageHeight="311" columnWidth="158" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="f591a4b6-11a1-4dba-b8ab-c2569c46597e">
+	<property name="ireport.zoom" value="2.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="96"/>
+	<parameter name="pk" class="java.lang.String"/>
+	<parameter name="LogoFile" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["D:/logo.jpg"]]></defaultValueExpression>
+	</parameter>
+	<queryString>
+		<![CDATA[select a.PK, a.CustCode, c.Address, a.Status, x1.NOTE StatusDescr, a.Type, x2.NOTE TypeDescr, convert(varchar(100), a.Date, 20) Date, a.TranAmount,
+a.PayAmount, d.CardID RcvAct, a.PosCode, a.ProcedureFee, a.AddDate, a.PayNo, left(a.CardID,6)+'*********'+ right(a.CardID,4) CardID, a.BankCode, a.BankName, a.TraceNo, a.ReferNo,
+a.PrintCZY, a.PrintDate, a.PrintTimes, a.CustPayPK, a.LastUpdate, a.LastUpdatedBy, a.Expired, a.ActionLog,
+b.CompCode, b.CompName,  b.PosID,b.Descr PosDescr,a.AppCzy, a.ExceptionRemarks,x3.NOTE IsSignDescr,
+case when tc.CmpnyName is null or tc.CmpnyName='' then '有家装饰' else rtrim(tc.CmpnyName) end+'缴款单' CmpnyName
+from tCustPayTran a
+left join tBankPos b on b.Code=a.PosCode
+left join tCustomer c on a.CustCode=c.Code
+left join tRcvAct d on a.RcvAct=d.Code
+left join tXTDM x1 on x1.ID='CPTRANSTAT' and a.Status=x1.CBM
+left join tXTDM x2 on x2.ID='CPTRANTYPE' and a.Type=x2.CBM
+left join tXTDM x3 on x3.ID='YESNO' and a.IsSign=x3.CBM
+left join tCusttype tc on tc.code=c.custType
+where pk=$P{pk}]]>
+	</queryString>
+	<field name="PK" class="java.lang.Integer"/>
+	<field name="CustCode" class="java.lang.String"/>
+	<field name="Address" class="java.lang.String"/>
+	<field name="Status" class="java.lang.String"/>
+	<field name="StatusDescr" class="java.lang.String"/>
+	<field name="Type" class="java.lang.String"/>
+	<field name="TypeDescr" class="java.lang.String"/>
+	<field name="Date" class="java.lang.String"/>
+	<field name="TranAmount" class="java.math.BigDecimal"/>
+	<field name="PayAmount" class="java.math.BigDecimal"/>
+	<field name="RcvAct" class="java.lang.String"/>
+	<field name="PosCode" class="java.lang.String"/>
+	<field name="ProcedureFee" class="java.math.BigDecimal"/>
+	<field name="AddDate" class="java.sql.Timestamp"/>
+	<field name="PayNo" class="java.lang.String"/>
+	<field name="CardID" class="java.lang.String"/>
+	<field name="BankCode" class="java.lang.String"/>
+	<field name="BankName" class="java.lang.String"/>
+	<field name="TraceNo" class="java.lang.String"/>
+	<field name="ReferNo" class="java.lang.String"/>
+	<field name="PrintCZY" class="java.lang.String"/>
+	<field name="PrintDate" class="java.sql.Timestamp"/>
+	<field name="PrintTimes" class="java.lang.Integer"/>
+	<field name="CustPayPK" class="java.lang.Integer"/>
+	<field name="LastUpdate" class="java.sql.Timestamp"/>
+	<field name="LastUpdatedBy" class="java.lang.String"/>
+	<field name="Expired" class="java.lang.String"/>
+	<field name="ActionLog" class="java.lang.String"/>
+	<field name="CompCode" class="java.lang.String"/>
+	<field name="CompName" class="java.lang.String"/>
+	<field name="PosID" class="java.lang.String"/>
+	<field name="PosDescr" class="java.lang.String"/>
+	<field name="AppCzy" class="java.lang.String"/>
+	<field name="ExceptionRemarks" class="java.lang.String"/>
+	<field name="IsSignDescr" class="java.lang.String"/>
+	<field name="CmpnyName" class="java.lang.String"/>
+	<variable name="COLUMN_INDEX" class="java.lang.Integer" calculation="Sum">
+		<variableExpression><![CDATA[$V{COLUMN_INDEX}.valueOf(1)]]></variableExpression>
+		<initialValueExpression><![CDATA[1]]></initialValueExpression>
+	</variable>
+	<variable name="sumAppAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sumConfirmAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sumQualityFee" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+	</variable>
+	<variable name="sumRealAmount" class="java.math.BigDecimal" calculation="Sum">
+		<variableExpression><![CDATA[]]></variableExpression>
+		<initialValueExpression><![CDATA[]]></initialValueExpression>
+	</variable>
+	<title>
+		<band height="246" splitType="Stretch">
+			<textField>
+				<reportElement x="0" y="19" width="158" height="12" uuid="76925928-85bd-4a2d-b22c-e04711097faf"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["收据编号："+$F{PayNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" isBlankWhenNull="true">
+				<reportElement isPrintRepeatedValues="false" x="0" y="31" width="158" height="13" uuid="cedda7e2-ef0e-4c75-8178-6419e9c5fa10"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["缴款单位："+$F{Address}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="44" width="158" height="12" uuid="0652d7eb-72c5-49be-ab7e-6cf0ff5bb836"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["款项内容："+$F{TypeDescr}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="56" width="58" height="12" uuid="3e3b8d21-aedc-46bf-ba28-af833b01c88b"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["金额RMB："]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="66" width="159" height="12" uuid="fcf0ae20-e7a6-48ce-9480-2df5e442a4c7"/>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[====================================]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="78" width="158" height="12" uuid="28f64276-820e-4e58-b1c3-c1891b3ed38e"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["商户名称："+$F{CompName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="88" width="158" height="12" uuid="eaa0b369-8eb2-4c7b-9040-28eecba0e5cf"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["商户编码："+$F{CompCode}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="99" width="158" height="12" uuid="b87b6531-e97a-4c3e-8f51-542e2bace6d1"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["终  端  号 ："+$F{PosID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="110" width="158" height="12" uuid="3c90a08c-09c2-409d-a918-b3622f0ee864"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["发  卡  行 ："+$F{BankName}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="121" width="158" height="12" uuid="576f3719-c3d2-4235-968e-dd36ff113475"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["卡         号 ："+$F{CardID}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="132" width="158" height="12" uuid="f49c37bb-a8e8-455a-a761-f07672306dc5"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["凭  证  号 ："+$F{TraceNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="142" width="158" height="12" uuid="9d347b27-ae30-4b97-b5f3-11a074bce79d"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["参  考  号 ："+$F{ReferNo}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd HH:mm:ss">
+				<reportElement positionType="Float" x="0" y="153" width="58" height="11" uuid="b34c2f6a-d9de-4216-8072-992f47720c30"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["日期时间："]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="0" y="164" width="58" height="11" uuid="8947bcec-0650-4cca-b65a-aba79300d7ce"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA["金额RMB："]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="175" width="159" height="13" uuid="6fb7235c-8386-4d02-8277-fef53238b184"/>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[====================================]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="213" width="159" height="11" uuid="39d9cf3d-2303-42bc-95a8-bde9fa105f65"/>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[感谢您对我们的支持，祝您生活愉快！
+]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="-1" y="189" width="159" height="11" uuid="b29ef87f-a959-4fa6-a7da-e13d68776169"/>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[*************重打小票*************]]></text>
+			</staticText>
+			<staticText>
+				<reportElement positionType="Float" x="0" y="201" width="159" height="11" uuid="2727a786-1262-46ba-8b60-6846b6ed3743"/>
+				<textElement textAlignment="Center">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[====================================]]></text>
+			</staticText>
+			<textField isStretchWithOverflow="true" pattern="yyyy-MM-dd HH:mm:ss">
+				<reportElement positionType="Float" x="46" y="154" width="109" height="10" uuid="c3bec641-b7a0-4da9-b548-be53904c3189"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{Date}]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="46" y="164" width="112" height="11" uuid="f00d849b-a4ad-424e-ab77-3666972c1740"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{PayAmount}.doubleValue()-$F{PayAmount}.intValue()==0?
+String.valueOf($F{PayAmount}.intValue()):
+String.valueOf($F{PayAmount}.doubleValue())+"元"]]></textFieldExpression>
+			</textField>
+			<textField isStretchWithOverflow="true">
+				<reportElement positionType="Float" x="46" y="56" width="112" height="12" uuid="c9292098-fad2-4ec0-abd0-42ec158542fc"/>
+				<textElement textAlignment="Left" markup="none">
+					<font fontName="宋体" size="9" isBold="false" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{TranAmount}.doubleValue()-$F{TranAmount}.intValue()==0?
+String.valueOf($F{TranAmount}.intValue()):
+String.valueOf($F{TranAmount}.doubleValue())+"元"]]></textFieldExpression>
+			</textField>
+			<textField>
+				<reportElement x="1" y="0" width="157" height="19" uuid="844189c8-9465-4326-bd24-4952fe1d68f4"/>
+				<textElement textAlignment="Center" markup="none">
+					<font fontName="宋体" size="12" isBold="true" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$F{CmpnyName}]]></textFieldExpression>
+			</textField>
+		</band>
+	</title>
+</jasperReport>

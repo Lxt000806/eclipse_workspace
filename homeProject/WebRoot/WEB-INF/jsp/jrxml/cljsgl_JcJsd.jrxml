@@ -1,0 +1,90 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="cljsgl_JcJsd" language="groovy" pageWidth="595" pageHeight="842" columnWidth="595" leftMargin="0" rightMargin="0" topMargin="0" bottomMargin="0" uuid="3bcbca26-cb5f-4eb2-ba12-92ec07519b38">
+	<property name="ireport.zoom" value="1.0"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String">
+		<defaultValueExpression><![CDATA["C:\\Users\\lenovo-1011\\Desktop\\新建文件夹\\cljsgl\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="ItemType1" class="java.lang.String"/>
+	<parameter name="CustCode" class="java.lang.String"/>
+	<parameter name="page" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select  1]]>
+	</queryString>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+	<detail>
+		<band height="118" splitType="Stretch">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="102" uuid="731de04c-bcfb-4cd0-b301-2e16abfa1128"/>
+				<subreportParameter name="SUBREPORT_DIR"/>
+				<subreportParameter name="ItemType1">
+					<subreportParameterExpression><![CDATA['JC']]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="LogoFile"/>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cljsgl_jsd.jasper"]]></subreportExpression>
+			</subreport>
+			<break>
+				<reportElement x="0" y="107" width="100" height="1" uuid="b7bcc7aa-8d8f-4fd5-bc5b-a7c969de08f1"/>
+			</break>
+		</band>
+		<band height="100">
+			<subreport>
+				<reportElement x="0" y="0" width="200" height="100" uuid="d4787b86-919d-4fd3-8256-c5817975b330"/>
+				<subreportParameter name="page">
+					<subreportParameterExpression><![CDATA[$P{page}]]></subreportParameterExpression>
+				</subreportParameter>
+				<subreportParameter name="CustCode">
+					<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+				</subreportParameter>
+				<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+				<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "cljsgl_JC.jasper"]]></subreportExpression>
+			</subreport>
+		</band>
+	</detail>
+	<pageFooter>
+		<band height="19">
+			<staticText>
+				<reportElement x="352" y="0" width="38" height="19" uuid="32aa6a9a-36d9-4252-b9a9-0439f640f2e3"/>
+				<textElement verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页]]></text>
+			</staticText>
+			<staticText>
+				<reportElement x="287" y="0" width="39" height="19" uuid="0fe6fdca-5ae8-4568-8675-269459534700"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[页，共]]></text>
+			</staticText>
+			<textField>
+				<reportElement x="262" y="0" width="26" height="19" uuid="0ec0a1c8-155c-415c-a826-8ecc35bb5ea1"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+			<staticText>
+				<reportElement x="242" y="0" width="20" height="19" uuid="24c6b850-0f7d-4466-8428-c4098da95252"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<text><![CDATA[第]]></text>
+			</staticText>
+			<textField evaluationTime="Report">
+				<reportElement x="326" y="0" width="26" height="19" uuid="bd9659f1-ca85-40ad-8808-c51bfa2c73d4"/>
+				<textElement textAlignment="Center" verticalAlignment="Middle">
+					<font fontName="宋体" size="12" pdfFontName="STSong-Light" pdfEncoding="UniGB-UCS2-H" isPdfEmbedded="true"/>
+				</textElement>
+				<textFieldExpression><![CDATA[$V{PAGE_NUMBER}]]></textFieldExpression>
+			</textField>
+		</band>
+	</pageFooter>
+</jasperReport>

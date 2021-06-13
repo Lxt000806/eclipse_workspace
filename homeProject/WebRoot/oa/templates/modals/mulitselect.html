@@ -1,0 +1,14 @@
+<ion-modal-view>
+	<ion-header-bar class="bar-positive">
+		<button class="button button-icon icon ion-ios-arrow-back" ng-click="closeModal()"></button>
+		<h1 class="title">{{placeholder}}</h1>
+		    <button class="button button-clear" ng-click="closeModal(conditions)" ng-disabled="confirmAddBtnFlag" >完成</button>
+	</ion-header-bar>
+	<ion-content>
+		<ion-checkbox ng-repeat="item in conditions"
+	                  ng-model="item.checked" 
+	                  ng-checked="item.checked" >
+	      {{ item.text }}
+	    </ion-checkbox>
+	</ion-content>
+</ion-modal-view>

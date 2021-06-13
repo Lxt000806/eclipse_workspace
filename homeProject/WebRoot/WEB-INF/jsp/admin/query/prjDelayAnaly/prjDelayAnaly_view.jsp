@@ -1,0 +1,586 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ taglib prefix="house" uri="http://www.housenet.com/Framework/tags" %>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>工地进度拖延分析——查看</title>
+	<META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8" />
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache" />
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+	<META HTTP-EQUIV="expires" CONTENT="0" />
+	<META HTTP-EQUIV="X-UA-Compatible" CONTENT="IE=edge" />
+	<%@ include file="/commons/jsp/common.jsp" %>
+	<script src="${resourceRoot}/pub/component_supplier.js?v=${v}"></script>
+	<script type="text/javascript"> 
+		var x=-1;//施工
+		var y=123;//巡检
+		var z=-1;//验收
+		$(function(){
+				 $("#add").css("color","gray");
+				 $("#fastAdd").css("color","gray");
+				 $("#copy").css("color","gray");
+				 $("#update").css("color","gray");
+				 $("#del").css("color","gray");
+				 //$("#addView").css("color","gray");
+				
+				//查看
+				$("#addView").on("click",function(){
+					var ret= selectDataTableRow('dataTable');
+					if(ret==null){
+						art.dialog({
+							 content:"请先检索出数据",
+						});
+						return false;
+					}
+		           	Global.Dialog.showDialog("copy",{ 
+		           	  title:"查看",
+		           	  url:"${ctx}/admin/prjProg/goViewView",
+		           	  postData:{pk:ret.PK,
+		           	  			prjItem:ret.PrjItem,
+		           	  			planBegin:ret.PlanBegin,
+		           	  			beginDate:ret.BeginDate,
+		           	  			planEnd:ret.PlanEnd,
+		           	  			endDate:ret.EndDate},
+		           	  height: 450,
+		           	  width:650,
+		           	  returnFun:goto_query
+		            });
+				});
+				
+				$("#viewConsPhoto").on("click",function(){
+					var ret= selectDataTableRow('dataTable');
+					if(ret==null){
+						art.dialog({
+							 content:"请先检索出数据",
+						});
+						return false;
+					}
+		           	Global.Dialog.showDialog("viewConsPhoto",{ 
+		           	  title:"查看施工图片",
+		           	  url:"${ctx}/admin/prjProg/goViewConsPhoto",
+		           	  postData:{prjItem:ret.PrjItem,custCode:ret.CustCode},
+		           	  height: 650,
+		           	  width:750,
+		           	  returnFun:goto_query
+		            });
+				});
+				
+				$("#viewCheckPhoto").on("click",function(){
+					var ret= selectDataTableRow('dataTable_check');
+					if(ret==null){
+						art.dialog({
+							 content:"请选择一条数据",
+						});
+						return false;
+					}
+		           	Global.Dialog.showDialog("viewConsPhoto",{ 
+		           	  title:"查看巡检图片",
+		           	  url:"${ctx}/admin/prjProg/goViewCheckPhoto",
+		           	  postData:{refNo:ret.no,custCode:"${customer.code}",prjItem:ret.prjitem},
+		           	  height: 650,
+		           	  width:750,
+		           	  returnFun:goto_query
+		            });
+				});
+				
+				$("#viewConfPhoto").on("click",function(){
+					var ret= selectDataTableRow('dataTable_confirm');
+					if(ret==null){
+						art.dialog({
+							 content:"请选择一条数据",
+						});
+						return false;
+					}
+		           	Global.Dialog.showDialog("viewConsPhoto",{ 
+		           	  title:"查看验收图片",
+		           	  url:"${ctx}/admin/prjProg/goViewConfPhoto",
+		           	  postData:{prjItem:ret.prjitem,custCode:ret.custcode},
+		           	  height: 650,
+		           	  width:750,
+		           	  returnFun:goto_query
+		            });
+				});
+				
+				$("#viewSignPhoto").on("click",function(){
+					var ret= selectDataTableRow('dataTable_signDetail');
+					if(ret==null){
+						art.dialog({
+							 content:"请选择一条数据",
+						});
+						return false;
+					}
+		           	Global.Dialog.showDialog("viewSignPhoto",{ 
+		           	  title:"图片审核",
+	            	  url:"${ctx}/admin/custWorker/goViewAllPic",
+	            	  postData:{no:ret.no,custCode:ret.custcode},
+	            	  height: 800,
+	            	  width:1200,
+	            	  returnFun:goto_query
+		            });
+				});
+				
+			//查看巡检图片
+			$("#viewPicture_xj").on("click",function(){
+				y=0;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_xj","photoname");
+						arry = prjphoto.fieldJson.split(",");
+					if(arry[y]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[y],readonly:'3'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#xjPhotoPath').val(obj.xjPhotoPath);
+								document.getElementById("conXjPicture").src = obj.xjPhotoPath;	
+								$('#allNoXj').val(arry.length);
+								if(arry.length>0){
+									$('#nowNoXj').val('1');
+								}else{
+									$('#nowNoXj').val('0');
+								}
+							}
+						});
+					}else{
+					y--;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}	
+			});	
+			
+			//查看施工图片
+			$("#viewPicture").on("click",function(){
+				x=0;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_GCJD","photoname");
+						arry = prjphoto.fieldJson.split(",");
+					if(arry[x]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[x],readonly:'1'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#photoPath').val(obj.photoPath);
+								document.getElementById("conPicture").src = obj.photoPath;
+								$('#allNoGc').val(arry.length);
+								if(arry.length>0){
+									$('#nowNoGc').val('1');
+								}else{
+									$('#nowNoGc').val('0');
+								}
+							}
+						});
+					}else{
+					x--;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}
+			});	
+			
+			//查看验收图片
+			$("#viewPicture_ys").on("click",function(){
+				z=0;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_ys","photoname");
+						arry = prjphoto.fieldJson.split(",");
+					if(arry[z]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[z],readonly:'2'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#ysPhotoPath').val(obj.ysPhotoPath);
+								document.getElementById("conYsPicture").src = obj.ysPhotoPath;	
+								$('#allNoYs').val(arry.length);
+								if(arry.length>0){
+									$('#nowNoYs').val('1');
+								}else{
+									$('#nowNoYs').val('0');
+								}
+							}
+						});
+					}else{
+					z--;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}	
+			});	
+			
+			//下一张
+			$("#next").on("click",function(){
+					x++;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_GCJD","photoname");
+					var type = Global.JqGrid.allToJson("dataTable_GCJD","type");
+						arry = prjphoto.fieldJson.split(",");
+						arryy = type.fieldJson.split(",");
+					if(arry[x]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[x],readonly:'1'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#photoPath').val(obj.photoPath);
+								document.getElementById("conPicture").src = obj.photoPath;	
+								$('#nowNoGc').val(x+1);
+								$('#allNoGc').val(arry.length);
+								
+							}
+						});
+					}else{
+					x--;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}
+			});	
+			
+			//上一张
+			$("#pre").on("click",function(){
+					x--;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_GCJD","photoname");
+						arry = prjphoto.fieldJson.split(",");
+					if(arry[x]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[x],readonly:'1'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#photoPath').val(obj.photoPath);
+								document.getElementById("conPicture").src = obj.photoPath;	
+								$('#nowNoGc').val(x+1);
+								
+							}
+						});
+					}else{
+					x++;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}
+			});	
+			
+			//下一张 巡检
+			$("#nextXJ").on("click",function(){
+					y++;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_xj","photoname");
+					var type = Global.JqGrid.allToJson("dataTable_xj","type");
+						arry = prjphoto.fieldJson.split(",");
+						arryy = type.fieldJson.split(",");
+					if(arry[y]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[y],readonly:'3'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#xjPhotoPath').val(obj.xjPhotoPath);
+								document.getElementById("conXjPicture").src = obj.xjPhotoPath;
+								$('#nowNoXj').val(y+1);
+								$('#allNoXj').val(arry.length);
+							}
+						});
+					}else{
+						y--;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}
+			});	
+			
+			//上一张 巡检
+			$("#preXJ").on("click",function(){
+					y--;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_xj","photoname");
+						arry = prjphoto.fieldJson.split(",");
+					if(arry[y]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[y],readonly:'3'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#xjPhotoPath').val(obj.xjPhotoPath);
+								document.getElementById("conXjPicture").src = obj.xjPhotoPath;	
+								$('#nowNoXj').val(y+1);
+							}
+						});
+					}else{
+					y++;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}
+			});	
+			
+			//下一张  验收
+			$("#nextYS").on("click",function(){
+					z++;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_ys","photoname");
+					var type = Global.JqGrid.allToJson("dataTable_ys","type");
+						arry = prjphoto.fieldJson.split(",");
+						arryy = type.fieldJson.split(",");
+					if(arry[z]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[z],readonly:'2'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#ysPhotoPath').val(obj.ysPhotoPath);
+								document.getElementById("conYsPicture").src = obj.ysPhotoPath;	
+								$('#nowNoYs').val(z+1);
+								$('#allNoYs').val(arry.length);
+									
+							}
+						});
+					}else{
+					z--;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}
+			});	
+			
+			//上一张 验收
+			$("#preYS").on("click",function(){
+					z--;
+					var prjphoto = Global.JqGrid.allToJson("dataTable_ys","photoname");
+						arry = prjphoto.fieldJson.split(",");
+					if(arry[z]){
+						$.ajax({
+							url:"${ctx}/admin/prjProg/ajaxGetPicture",
+							type:'post',
+							data:{photoName:arry[z],readonly:'2'},
+							dataType:'json',
+							cache:false,
+							error:function(obj){
+								showAjaxHtml({"hidden": false, "msg": '获取数据出错~'});
+							},
+							success:function(obj){
+								$('#ysPhotoPath').val(obj.ysPhotoPath);
+								document.getElementById("conYsPicture").src = obj.ysPhotoPath;	
+								$('#nowNoYs').val(z+1);	
+							}
+						});
+					}else{
+					z++;
+						art.dialog({
+							content:'已经是最后一张',
+						});
+					}
+			});	
+		});
+		function go_tab(tabId){
+			$("#"+tabId).load("${ctx}/admin/prjDelayAnaly/go_tab?id=${customer.code}&tabId="+tabId);
+		}
+	</script>
+</head>
+<body >
+	<div class="body-box-form" >
+		<div class="content-form">
+			<!--panelBar-->
+			<div class="panel panel-system" >
+				<div class="panel-body" >
+					<div class="btn-group-xs" >
+						<button type="button" class="btn btn-system " id="closeBut" onclick="closeWin(false)">
+							<span>关闭</span>
+						</button>
+					</div>
+				</div>
+			</div>
+			<div class="infoBox" id="infoBoxDiv"></div>
+			<div class="panel panel-info" style="margin-bottom: 10px;">  
+				<div class="panel-body">
+					<form role="form" class="form-search" id="dataForm"  action="" method="post" target="targetFrame" >
+						<house:token></house:token>
+						<input type="hidden" name="m_umState" id="m_umState" value="M"/>
+						<ul class="ul-form">
+							<li>
+								<label>楼盘</label>
+								<input type="text" id="address" name="address" style="width:160px;"  value="${customer.address}" />
+							</li>
+							<li>
+								<label>客户类型</label>
+								<input type="text" id="custTypeDescr" name="custTypeDescr" style="width:160px;"  value="${custTypeDescr}" />
+							</li>
+							<li>
+								<label>面积</label>
+								<input type="text" id="area" name="area" style="width:160px;"  value="${customer.area}" />
+							</li>
+							<li>
+								<label>施工工期</label>
+								<input type="text" id="constructDay" name="constructDay" style="width:160px;"  value="${customer.constructDay}" />
+							</li>
+							<li>
+								<label>开工时间</label>
+								<input type="text" id="confirmBegin" name="confirmBegin" style="width:160px;"  value="${customer.confirmBegin}" />
+							</li>
+							<li>
+								<label>计划完工时间</label>
+								<input type="text" id="planEnd" name="planEnd" style="width:160px;"  value="${planEnd}" />
+							</li>
+							<li>
+								<label>总拖期</label>
+								<input type="text" id="delayDays" name="delayDays" style="width:160px;"  value="${delayDays}" />
+							</li>
+							<li>
+								<label>模板名称</label>
+								<input type="text" id="prjProgTempNoDescr" name="prjProgTempNoDescr" style="width:160px;"  value="${customer.prjProgTempNoDescr}" />
+							</li>
+							<li>
+								<label>工地状态</label>
+								<input type="text" id="buildStatusDescr" name="buildStatusDescr" style="width:160px;"  value="${buildStatusDescr}" />
+							</li>
+	            			<li class="form-validate">
+								<label class="control-textarea">工地备注</label>
+								<textarea id="prgRemark" name="prgRemark" readonly>${customer.prgRemark }</textarea>
+							</li>
+							<li hidden="true">
+								<label>actionLog</label>
+								<input type="text" id="actionLog" name="actionLog" style="width:160px;"  value="${customer.actionLog}" />
+							</li>
+						</ul>	
+					</form>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid" >  
+			<ul class="nav nav-tabs" > 
+				<li class="active">
+					<a href="#tab_prjProg" data-toggle="tab">工程进度</a>
+				</li>
+				<li class="">
+					<a href="#tab_prjJD" data-toggle="tab">工种施工进度</a>
+				</li>
+				<!-- <li class="">
+					<a href="#tab_constructionPicture" data-toggle="tab">施工图片</a>
+				</li> -->
+				<li class="">
+					<a href="#tab_prjLog" data-toggle="tab">施工日志</a>
+				</li>
+				<li class="">
+					<a href="#tab_prjProblem" data-toggle="tab">工地问题</a>
+				</li>
+				<li class="">
+					<a href="#tab_itemSetDate" data-toggle="tab">材料选定时间</a>
+				</li>
+				<li class="">
+					<a href="#tab_lld" data-toggle="tab" onclick="go_tab('tab_lld')">领料单</a>
+				</li>
+				<li class="">
+					<a href="#tab_custPayDate" data-toggle="tab">客户付款时间</a>
+				</li>
+				
+				<li class="">
+					<a href="#tab_PictureXJ" data-toggle="tab">工地巡检</a>
+				</li>
+				<li class="">
+					<a href="#tab_PictureYS" data-toggle="tab">工地验收</a>
+				</li>
+				<li class="">
+					<a href="#tab_signDetail" data-toggle="tab">签到明细</a>
+				</li>
+				<li class="">
+					<a href="#tab_prjBuilderRep" data-toggle="tab">工地报备</a>
+				</li>
+				<li class="">
+					<a href="#tab_CustComplaint" data-toggle="tab">客户投诉</a>
+				</li>
+				<li class="">
+					<a href="#tab_AppNoArrange" data-toggle="tab">工人申请记录</a>
+				</li>
+				<li class="">
+					<a href="#tab_intProg" data-toggle="tab">集成进度</a>
+				</li>
+			</ul> 
+			<div class="tab-content">  
+				<div id="tab_prjProg" class="tab-pane fade in active"> 
+					<jsp:include page="tab_prjProg.jsp"></jsp:include>
+				</div> 
+				<div id="tab_prjJD" class="tab-pane fade "> 
+					<jsp:include page="tab_prjJD.jsp"></jsp:include>
+				</div> 
+				<div id="tab_prjLog" class="tab-pane fade">
+					<jsp:include page="tab_prjLog.jsp"></jsp:include>
+				</div>
+				<div id="tab_prjProblem" class="tab-pane fade">
+					<jsp:include page="tab_prjProblem.jsp"></jsp:include>
+				</div>
+				<div id="tab_itemSetDate" class="tab-pane fade "> 
+		        	<jsp:include page="tab_itemSetDate.jsp"></jsp:include>
+		        </div> 
+		        <%-- <div id="tab_constructionPicture" class="tab-pane fade "> 
+		        	<jsp:include page="tab_constructionPicture.jsp"></jsp:include>
+		        </div> --%>
+		        <div id="tab_lld" class="tab-pane fade"> 
+	        	</div>
+		        <div id="tab_custPayDate" class="tab-pane fade "> 
+		        	<jsp:include page="tab_custPayDate.jsp"></jsp:include>
+		        </div>
+		        <div id="tab_PictureXJ" class="tab-pane fade "> 
+		        	<jsp:include page="tab_prjCheck.jsp"></jsp:include>
+		        </div> 
+		        <div id="tab_PictureYS" class="tab-pane fade "> 
+		        	<jsp:include page="tab_prjConfirm.jsp"></jsp:include>
+		        </div> 
+		        <div id="tab_signDetail" class="tab-pane fade "> 
+		        	<jsp:include page="tab_signDetail.jsp"></jsp:include>
+		        </div>
+		        <div id="tab_prjBuilderRep" class="tab-pane fade "> 
+		        	<jsp:include page="tab_prjBuilderRep.jsp"></jsp:include>
+		        </div> 
+		        <div id="tab_CustComplaint" class="tab-pane fade "> 
+		        	<jsp:include page="tab_CustComplaint.jsp"></jsp:include>
+		        </div> 
+		        <div id="tab_AppNoArrange" class="tab-pane fade "> 
+		        	<jsp:include page="tab_AppNoArrange.jsp"></jsp:include>
+		        </div>
+		        <div id="tab_intProg" class="tab-pane fade "> 
+		        	<jsp:include page="tab_intProg.jsp"></jsp:include>
+		        </div>
+		    </div>  
+		</div>
+	</div>
+	<form action="" method="post" id="page_form_excel" >
+		<input type="hidden" name="jsonString" value="" />
+	</form>
+</body>
+</html>

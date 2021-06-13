@@ -1,0 +1,27 @@
+/**
+ * 
+ */
+package xunke.demo20210321_1;
+
+/**
+ * @author HY
+ *
+ */
+public class IOTester {
+
+	/**
+	 * 
+	 */
+	public IOTester() {
+		// TODO Auto-generated constructor stub
+	}
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

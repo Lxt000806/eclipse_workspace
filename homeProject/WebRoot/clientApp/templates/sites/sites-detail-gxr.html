@@ -1,0 +1,22 @@
+<ion-header-bar class="bar-positive">
+  <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <h1 class="title">干系人信息</h1>
+</ion-header-bar>
+
+  <ion-content>
+    <ion-list>
+      <ion-item ng-repeat="item in gxrItems">
+          <div style="width: 50%;float: left;">{{item.empName}}</div>
+          <div style="width: 50%;cursor: pointer;float: left;" ng-click="callPhone(item.phone)">
+            <a style="text-decoration: none;color: black">
+              {{item.phone}}
+              <i class="icon ion-ios-telephone-outline"></i>
+            </a>
+          </div>
+          <div style="width: 100%;float: left;">{{item.roleDescr}}</div>
+      </ion-item>
+    </ion-list>
+    <div ng-include="'templates/common/content-footer.html'" onload="getGxrList()"></div>
+
+  </ion-content>
+</ion-view>

@@ -1,0 +1,689 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml">
+<head>
+
+	<META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8" />
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache" />
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+	<META HTTP-EQUIV="expires" CONTENT="0" />
+	<title></title>
+	<link href="../css/iss.core.css" rel="stylesheet">
+	<script language="javascript" src="../js/jquery.js"></script>
+	
+	<script language="javascript" src="../js/iss.core.js"></script>
+	<!---->
+	<script language="javascript" src="../js/iss.cssTable.js"></script>
+	
+	<script language="javascript" src="../js/iss.panelBar.js"></script>
+	
+	<script language="javascript" src="../js/iss.pageBar.js"></script>
+	
+
+
+<script language="javascript">
+
+/**初始化表格*/
+$(function(){
+	$document = $(document);
+
+	$('div.content-list>table', $document).cssTable();
+	$('div.panelBar', $document).panelBar();
+	$('div.pagebar', $document).pageBar();
+	
+});
+
+
+function more_query(flag){
+	//显示查询层
+	if(flag == "open"){
+		document.getElementById("open-query-more").style.display = "none";
+		document.getElementById("close-query-more").style.display = "inline";
+	}
+	else{
+		document.getElementById("open-query-more").style.display = "inline";
+		document.getElementById("close-query-more").style.display = "none";
+	}
+}
+
+/**复选框单点选择**/
+function check_all(){
+	var ck_flag = $("#ck_all").attr("checked");
+
+	$("div.content-list").find("table>tbody").find("input[type='checkbox']").each(function(){
+		this.checked = ck_flag;
+	})
+}
+
+function add(){
+	$.showModalDialogFix_min("formDemo.html", window);
+}
+
+
+</script>
+</head>
+    
+<body>
+	<div class="body-box-list" >
+		<div class="query-form">
+			<form action="" method="post" enctype="multipart/form-data">
+				<table cellpadding="2" cellspacing="1" width="100%">
+						<col  width="62"><!--8个汉字-->
+						<col  width="194">
+						<col  width="62">
+						<col  width="194">
+						<col  width="62">
+						<col  width="194">
+					<tbody>
+						<tr>
+							<td class="td-label">标题</td>
+							<td class="td-value"><input type="text" style="width:160px;"></td>
+							<td class="td-label">内容状态</td>
+							<td class="td-value"><select style="width:165px;"><option>--全部--</option></select></td>
+							<td class="td-label">所属区域</td>
+							<td class="td-value"><select style="width:165px;"><option>--请选择--</option></select></td>
+						</tr>
+						<tr>
+							<td class="td-label" >所属栏目</td>
+							<td class="td-value"><input type="text" style="width:160px;" class="i-date"></td>
+							<td class="td-label">添加时间</td>
+							<td class="td-value" colspan="3"><input type="text" style="width:160px;" class="i-date">&nbsp;至&nbsp;<input type="text" style="width:160px;" class="i-date"></td>
+
+						</tr>
+						<tr>
+							<td colspan="6" class="td-btn">
+								<div class="sch_qk_con"> 
+									<input onclick="goto_submit();"  class="i-btn-s" type="button"  value="检索"/>
+									<input onclick="clearForm();"  class="i-btn-s" type="button"  value="清空"/>
+									<a href="#" onclick="more_query('open');return false;" id="open-query-more" class="open">展开</a>
+									<a href="#" onclick="more_query('close');return false;" id="close-query-more" class="close" style="display:none;">关闭</a>
+								</div>
+						  	</td>
+						</tr>
+					</tbody>
+				</table>
+			</form>
+		</div><!--query-form-->
+		<div class="pageContent">
+			<!--panelBar-->
+			<div class="panelBar">
+            	<ul>
+                	<li>
+                    	<a href="#" class="a1" onclick="add(); return false;">
+					       <span>新增(手工录入)</span>
+						</a>	
+                    </li>
+                	<li>
+						<a href="#" class="a2">
+							<span>批量删除</span>
+						</a>
+					</li>
+                    <li>
+                		<a href="#" class="a3">
+							<span>批量送审</span>
+						</a>
+					</li>
+                    <li>
+                		<a href="#" class="a4">
+					 	 	<span>文件导入</span>
+						</a>
+                    </li>
+                    <li>
+						<a href="#" class="a5">
+							<span>刷新</span>
+						</a>
+                    </li>
+                    <li class="line"></li>
+                </ul>
+				<div class="clear_float"> </div>
+			</div><!--panelBar end-->
+
+			<div class="content-list">
+				<table cellpadding="0" cellspacing="0" style="width:130%;">
+					<col width="30px">
+					<col width="30px">
+					<col width="100px">
+					<col >
+					<col >
+					<col >
+					<col >
+					<col >
+					<col >
+					<col >
+					<col >
+					<col >
+					<col >
+					<col >
+					<thead>
+						<tr>
+							<th>
+								序号
+							</th>
+							<th>
+								<input type="checkbox" id="ck_all" onclick="check_all()">
+							</th>
+							<th>
+								操作
+							</th>
+
+							<th>
+								标题
+							</th>
+							<th>
+								内容状态
+							</th>
+							<th>
+								作者
+							</th>
+							<th>
+								所属区域
+							</th>
+							<th>
+								信息来源
+							</th>
+							<th>
+								优先级
+							</th>
+							<th>
+								所属栏目
+							</th>
+							<th>
+								添加者
+							</th>
+							<th>
+								添加时间
+							</th>
+							<th>
+								有效期
+							</th>
+							<th>
+								是否重复
+							</th>
+						</tr>
+					</thead>
+					<tbody>
+						<tr >
+							<td class="td-seq">
+								1
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑 
+								</a>
+								<a href="#">
+									删除 
+								</a>
+							</td>
+
+							<td >
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td >
+								福州 泉州 莆田 三明 宁德
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-seq">
+								2
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑
+								</a>
+							</td>
+
+							<td >
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td >
+								福州 泉州 莆田 三明 宁德
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-seq">
+								3
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑
+								</a>
+							</td>
+
+							<td >
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td >
+								福州 泉州 莆田 三明 宁德...
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-seq">
+								4
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑
+								</a>
+							</td>
+
+							<td >
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td>
+								福州 泉州 莆田 三明 宁德...
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-seq">
+								5
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑
+								</a>
+							</td>
+
+							<td >
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td>
+								福州 泉州 莆田 三明 宁德...
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-seq">
+								6
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑
+								</a>
+							</td>
+
+							<td >
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td >
+								福州 泉州 莆田 三明 宁德...
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-seq">
+								7
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑
+								</a>
+							</td>
+
+							<td >
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td>
+								福州 泉州 莆田 三明 宁德
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+						<tr>
+							<td class="td-seq">
+								8
+							</td>
+							<td class="td-center">
+								<input type="checkbox">
+							</td>
+							<td class="td-center">
+								<a href="#">
+									编辑
+								</a>
+							</td>
+
+							<td title="闽台车辆有望经海峡号互通 厦金航线开通夜航">
+								<a href="#">
+									闽台车辆有望经海峡号互通 厦金航线开通夜航
+								</a>
+							</td>
+							<td>
+								待送审
+							</td>
+							<td>
+							</td>
+							<td >
+								福州 泉州 莆田 三明 宁德
+							</td>
+							<td>
+								<a href="#">
+									网络爬虫
+								</a>
+							</td>
+							<td>
+								<span>
+									高级
+								</span>
+							</td>
+							<td >
+								海西风采(web)(资讯栏目) 海西风采(web)(资讯栏目) 海
+							</td>
+							<td>
+								admin
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+								2012-02-21 14:18:21
+							</td>
+							<td>
+							</td>
+						</tr>
+					</tbody>
+				</table>
+			</div><!--content-list end-->
+
+			<div class="pagebar">
+				<div class="pages">
+					<span>
+						每页<input type="text" value="20"  id="pageSize" name="page.pageSize" class="pageSzie" />
+						条&nbsp;&nbsp;共12355条&nbsp;&nbsp;1236页 
+					</span>
+				</div>
+				<div class="pagination">
+					<ul>
+						<li class="j-first disabled">
+							<a class="first" style="display:none;">
+								<span>
+									首页
+								</span>
+							</a>
+							<a class="first">
+								<span>
+									首页
+								</span>
+							</a>
+						</li>
+						<li class="j-prev disabled">
+							<a class="previous" style="display:none;">
+								<span>
+									上一页
+								</span>
+							</a>
+							<a class="previous">
+								<span>
+									上一页
+								</span>
+							</a>
+						</li>
+						<li class="j-next">
+							<a class="next">
+								<span>
+									下一页
+								</span>
+							</a>
+							<a class="next" style="display: none;">
+								<span>
+									下一页
+								</span>
+							</a>
+						</li>
+						<li class="j-last">
+							<a class="last">
+								<span>
+									末页
+								</span>
+							</a>
+							<a class="last" style="display: none;">
+								<span>
+									末页
+								</span>
+							</a>
+						</li>
+						<li class="jumpto">
+							<input class="textInput" type="text" value="1"  />
+							<input class="goto" type="button" value="确定" />
+						</li>
+					</ul>
+
+				</div><!--pagination end-->
+			</div><!--pagebar end-->
+
+		</div> <!--pageContent end-->
+	</div><!--body-box end-->
+</body>
+
+</html>

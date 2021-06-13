@@ -1,0 +1,131 @@
+<%@ page language="java" import="java.util.*" pageEncoding="UTF-8"%>
+<!DOCTYPE html>
+<html>
+<head>
+	<title>主材选定预约</title>
+	<META HTTP-EQUIV="Content-Type" content="text/html; charset=utf-8" />
+	<META HTTP-EQUIV="pragma" CONTENT="no-cache" />
+	<META HTTP-EQUIV="Cache-Control" CONTENT="no-cache, must-revalidate" />
+	<META HTTP-EQUIV="expires" CONTENT="0" />
+	<META HTTP-EQUIV="X-UA-Compatible" CONTENT="IE=edge" />
+	<%@ include file="/commons/jsp/common.jsp" %>
+<style type="text/css">
+	.commiColor{
+		background-color: yellow;
+	}
+</style>
+<script type="text/javascript">
+function doOrder(){
+		//验证
+	$("#dataForm").bootstrapValidator('validate');
+	if(!$("#dataForm").data('bootstrapValidator').isValid()) return;
+	//验证
+	var datas = $("#dataForm").serialize();
+	$.ajax({
+		url:'${ctx}/admin/custItemConfirm/doOrder',
+		type: 'post',
+		data: datas,
+		dataType: 'json',
+		cache: false,
+		error: function(obj){
+			showAjaxHtml({"hidden": false, "msg": '保存数据出错~'});
+	    },
+	    success: function(obj){
+	    	if(obj.rs){
+	    		art.dialog({
+					content: obj.msg,
+					time: 1000,
+					beforeunload: function () {
+	    				closeWin();
+				    }
+				});
+	    	}else{
+				$("#_form_token_uniq_id").val(obj.token.token);
+				art.dialog({
+					content: obj.msg,
+					width: 200
+				});
+	    	}
+	    }
+	 });
+}
+$(function(){
+		  $("#dataForm").bootstrapValidator({
+            message : 'This value is not valid',
+            feedbackIcons : {/*input状态样式图片*/
+             
+                validating : 'glyphicon glyphicon-refresh'
+            },
+            submitButtons : 'input[type="submit"]'/*bootstrap validator 会在form 寻找input标签 类型是submit的，然后绑定事件*/
+        });
+
+})
+
+</script>
+</head> 
+<div class="body-box-form" >
+	     <div class="panel panel-system">
+		    <div class="panel-body" >
+		      <div class="btn-group-xs" >
+		         <button type="button" class="btn btn-system " onclick="doOrder()">保存</button>
+		      <button type="button" class="btn btn-system "  onclick="closeWin()">关闭</button>
+		      </div>
+		   </div>
+			</div>
+	 <div class="panel panel-info">  
+                <div class="panel-body">
+                    <form role="form" class="form-search" id="dataForm"  action="" method="post" target="targetFrame">
+				<house:token></house:token>
+				<input type="hidden" id="custCode" name="custCode" 	value="${itemConfirmInform.custCode}" />
+				<input type="hidden" id="itemTimeCode" name="itemTimeCode" 	value="${itemConfirmInform.itemTimeCode}" />
+				<ul class="ul-form">
+						<div class="validate-group row" >
+							<div class="col-sm-6" >
+							<li >
+								<label>楼盘</label>
+								 <input type="text" id="address"
+								name="address"  readonly="readonly"	value="${itemConfirmInform.address}" />
+							</li>
+							</div>
+							<div class="col-sm-6">
+								<li class="form-validate " >
+								<label>预约日期</label>
+								 <input type="text" id="informDate"
+								name="informDate" class="i-date" 
+								onFocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"
+								required data-bv-notempty-message="预约日期不能为空"
+								value="<fmt:formatDate value='${itemConfirmInform.informDate}' pattern='yyyy-MM-dd'/>" />
+							</li>
+						</div>
+							</div>
+						<div class="validate-group row">
+						<div class="col-sm-12" >
+								<li class="form-validate" >
+								<label>到司时间</label>
+								<input type="text" id="planComeDate"
+								name="planComeDate" class="i-date"
+								onFocus="WdatePicker({skin:'whyGreen',dateFmt:'yyyy-MM-dd'})"
+								required data-bv-notempty-message="到司时间不能为空"
+								value="<fmt:formatDate value='${itemConfirmInform.planComeDate}' pattern='yyyy-MM-dd'/>" />
+							</li>
+							</div>
+						</div>
+						<div class="validate-group row">
+						<div class="col-sm-12" >
+							<li>
+							<label class="control-textarea">预约说明 </label>
+								<textarea style="width: 800px"  id="informRemark" name="informRemark"  ></textarea>
+							</li>
+						</div>
+						</div>
+						
+			</ul>
+			</form>
+		</div>
+		</div>
+		
+	</div>
+</body>
+</html>
+
+

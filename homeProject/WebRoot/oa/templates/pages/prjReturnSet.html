@@ -1,0 +1,122 @@
+<!-- 工程退定申请 -->
+<div ng-controller="prjReturnSetCtrl">
+	<inputcustomer id="submitData.fp__tWfCust_PrjReturnSet__0__CustCode" idvar="code" 
+				   showvalue="{{submitData.fp__tWfCust_PrjReturnSet__0__CustCode}}" 
+				   showlabel="{{submitData.fp__tWfCust_PrjReturnSet__0__CustDescr}}" 
+				   label="客户编号" placeholder="请选择客户编号" 
+				   callback="customerCallback(data)" conditions="conditions"
+				   require="true"></inputcustomer>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>工程名称</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSet__0__Address"
+					ng-readonly="submitData.tWfCust_PrjReturnSet_Address_Edit != '1'"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>业主电话</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSet__0__Phone"
+					ng-readonly="submitData.tWfCust_PrjReturnSet_Phone_Edit != '1'"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>分公司</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSet__0__CompanyDescr" readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>业务员</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSet__0__BusinessMan" readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>设计师</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSet__0__DesignMan" readonly="true"/>
+	</div>
+	<ionic-datepicker input-obj="datepickerObject">
+		<ion-item class="item-input">
+			<div class="input-label defWidth"><span style="color:red">*</span>下定时间:</div>
+			<div>{{submitData.fp__tWfCust_PrjReturnSet__0__SetDate}}</div>
+			<i class="icon icon ion-ios-calendar-outline" 
+				style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+		</ion-item>
+	</ionic-datepicker>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>退单原因</span>
+		<div style="width: 65%;">
+			<textarea ng-model="submitData.fp__tWfCust_PrjReturnSet__0__Reason" style="border: 0"
+				textareaauto="submitData.fp__tWfCust_PrjReturnSet__0__Reason" ></textarea>
+		</div>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth">合计退款</span>
+		<input type="number" ng-model="submitData.fp__tWfCust_PrjReturnSet__0__ReturnAmount"
+		 placeholder="自动计算"
+		 readonly="true"/>
+	</div>
+	<mulitselect conditions="options" callback="selectCallback(data)" 
+		label="退单收回资料" placeholder="选择收回资料"
+		id="submitData.fp__tWfCust_PrjReturnSet__0__TakeBackDateList" 
+		showlabel="{{submitData.fp__tWfCust_PrjReturnSet__0__TakeBackDateList}}" 
+		ng-model="submitData.fp__tWfCust_PrjReturnSet__0__TakeBackDateList"
+		require="true">
+	</mulitselect>
+	<div class="item item-input">
+		<span class="input-label defWidth">备注</span>
+		<div style="width: 65%;">
+			<textarea ng-model="submitData.fp__tWfCust_PrjReturnSet__0__Remarks" style="border: 0" 
+				textareaauto="submitData.fp__tWfCust_PrjReturnSet__0__Remarks" ></textarea>
+		</div>
+	</div>
+	<div class="item item-input" ng-if="submitData.tWfCust_PrjReturnSet_DocumentNo_Show == '1'">
+		<span class="input-label defWidth">凭证号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSet__0__DocumentNo"
+			ng-readonly="submitData.tWfCust_PrjReturnSet_DocumentNo_Edit != '1'"/>
+		
+	</div>
+	<div style="padding: 10px;" ng-bind-html="remarks"></div>
+	<group scope="self" label="工程退定明细" addcallback="gctdAddCallback(index)" 
+		   delcallback="gctdDelCallback(index)" delall="gctdDelAll" indexs="gctdIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="gctdAfterDetailNum()">
+		<div class="item item-input">
+			<span class="input-label defWidth"><span style="color:red">*</span>账户名</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSetDtl__?__ActName"
+					ng-readonly="submitData.tWfCust_PrjReturnSetDtl_ActName_Edit != '1'"/>
+		</div>
+		<div class="item item-input">
+			<span class="input-label defWidth"><span style="color:red">*</span>账号</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSetDtl__?__CardId"
+					ng-readonly="submitData.tWfCust_PrjReturnSetDtl_CardId_Edit != '1'"/>
+		</div>
+		<div class="item item-input">
+			<span class="input-label defWidth"><span style="color:red">*</span>开户行</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSetDtl__?__Bank"
+					ng-readonly="submitData.tWfCust_PrjReturnSetDtl_Bank_Edit != '1'"/>
+		</div>
+		<div class="item item-input">
+			<span class="input-label defWidth">支行</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSetDtl__?__SubBranch"
+					ng-readonly="submitData.tWfCust_PrjReturnSetDtl_SubBranch_Edit != '1'"/>
+		</div>
+		<div class="item item-input">
+			<span class="input-label defWidth">退款额</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSetDtl__?__ReturnAmount"
+					ng-readonly="submitData.tWfCust_PrjReturnSetDtl_ReturnAmount_Edit != '1'"
+			ng-keyup="chgMainAmount()"/>
+		</div>
+		<div class="item item-input" ng-if="submitData.tWfCust_PrjReturnSetDtl_ConfirmAmount_Show == '1'">
+			<span class="input-label defWidth"><span style="color:red">*</span>审核金额</span>
+			<input type="text" ng-model="submitData.fp__tWfCust_PrjReturnSetDtl__?__ConfirmAmount"
+					ng-change="checkConfirmAmount(?)"
+					ng-readonly="submitData.tWfCust_PrjReturnSetDtl_ConfirmAmount_Edit != '1'"/>
+		</div>
+	</group>
+	
+	<div style="border: none;background-color:rgb(245,245,245);height:36px">
+		<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event,submitData.taskDefKey != 'startevent' && submitData.taskDefKey != 'applyman')" ></ion-gallery>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package xunke.demo20210321_1;
+
+/**
+ * @author HY
+ *
+ */
+public class FileWork2 {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

@@ -1,0 +1,20 @@
+/**
+ * 
+ */
+package demo.junit.cnt;
+
+/**
+ * @author HY
+ *
+ */
+public class CntCharNum {
+
+	/**
+	 * @param args
+	 */
+	public static void main(String[] args) {
+		// TODO Auto-generated method stub
+
+	}
+
+}

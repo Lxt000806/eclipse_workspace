@@ -1,0 +1,53 @@
+<ion-view view-title="领料单详情">
+  <ion-nav-buttons>
+    <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+  </ion-nav-buttons>
+
+  <ion-content>
+    <div data-ng-init="goQuery(1)" style="display: none"></div>
+    <ion-list>
+      <div class="item">
+        <div  >
+          <div style="width: 60%;float: left;">
+            <span  >{{itemAppDetailItems[0].no}}</span>
+          </div>
+          <div style="position: absolute;right: 10px">
+            <span>{{itemAppDetailItems[0].status}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="item">
+        <div  >
+          <div style="width: 60%;float: left;">
+            <span  >{{itemAppDetailItems[0].address}}</span>
+          </div>
+          <div style="position: absolute;right: 10px">
+            <span>{{itemAppDetailItems[0].date|limitTo:10}}</span>
+          </div>
+        </div>
+      </div>
+      <div class="item item-text-wrap">
+        备注：{{itemAppDetailItems[0].remarks}}
+      </div>
+      <ion-item class="item-divider" style="border-bottom-width: 0px;"></ion-item>
+    </ion-list>
+    <ion-refresher on-refresh="goSearch()"
+                   pulling-text="刷新...">
+    </ion-refresher>
+
+    <ion-list>
+      <ion-item ng-repeat="item in itemAppDetailItems">
+        <h2 class="item-text-wrap padding-bottom">{{item.itemCodeDescr}}</h2>
+        <div style="width: 50%;float: left;" class="padding-bottom">数量：{{item.qty}}&nbsp;{{item.uom}}</div>
+        <div style="width: 50%;float: left;" class="padding-bottom">发货数量：{{item.sendQty}}&nbsp;{{item.uom}}</div>
+      </ion-item>
+    </ion-list>
+    <div ng-include="'templates/common/content-footer.html'" onload="footerData=itemAppDetailItems"></div>
+
+    <ion-infinite-scroll
+      ng-if="itemAppDetailFlag"
+      on-infinite="goQuery()"
+      distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

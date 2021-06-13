@@ -1,0 +1,250 @@
+<!-- 差旅费报销流程 -->
+<div ng-controller="travelExpenseClaimCtrl">
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>报销人</span>
+		<input type="text" readonly="true" value ="{{submitData.fp__tWfCust_TravelExpenseClaim__0__EmpCode +'|'+submitData.fp__tWfCust_TravelExpenseClaim__0__EmpName}}"/>
+	</div>
+			
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px"
+		ng-if="submitData.tWfCust_TravelExpenseClaim__0__Company_Show !='0'">　
+		<span class="input-label defWidth"><span style="color:red">*</span>分公司</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__Company"
+			ng-disabled="submitData.fp__tWfCust_TravelExpenseClaim__0__Company_Edit =='0'" ng-change="chgCompany()">
+			<option value ="福州有家" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家' || cmpCode == '长乐有家'">福州有家</option>
+			<option value ="福清有家" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家' || cmpCode == '长乐有家'">福清有家</option>
+			<option value ="长乐有家" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家' || cmpCode == '长乐有家'">长乐有家</option>
+			<option value ="厦门有家" ng-if="cmpCode == '厦门有家'">厦门有家</option>
+			<option value ="漳州有家" ng-if="cmpCode == '厦门有家' || cmpCode == '漳州有家'">漳州有家</option>
+			<option value ="美第家居" ng-if="cmpCode == '福州有家'||cmpCode == '美第'|| cmpCode == '福清有家' || cmpCode == '厦门有家' ||cmpCode == '漳州有家'">美第家居</option>
+			<option value ="郑州有家" ng-if="cmpCode == '郑州有家' || cmpCode == '郑州有家'">郑州有家</option>
+			<option value ="美第奇" ng-if="cmpCode == '郑州有家' || cmpCode == '美第奇'">美第奇</option>
+		</select>
+	</div>	
+		   	   
+	<div class="item item-input">
+       <span class="input-label defWidth">同行人</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__Partner"
+		ng-readonly="submitData.fp_tWfCust_TravelExpenseClaim_CardId_Partner =='0'"/>
+	</div>		
+		   
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px"
+		ng-if="submitData.tWfCust_TravelExpenseClaim_Deduction_Show !='0'">　
+		<span class="input-label defWidth"><span style="color:red">*</span>抵扣预支</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__Deduction"" 
+			ng-disabled="submitData.tWfCust__ExpenseClaim_Deduction_Edit =='0'">
+			<option value ="是">是</option>
+			<option value ="否">否</option>
+		</select>
+	</div>
+	
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px"
+		ng-show="false">　
+		<span class="input-label defWidth"><span style="color:red">*</span>常规列支</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__IsCommon" value="是" 
+			disabled="true">
+			<option value ="是">是</option>
+		</select>
+	</div>
+	
+	<div class="item item-input">
+       <span class="input-label defWidth">
+         	账户名：
+       </span>
+       <input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__ActName" placeholder="请输入账户名"
+        ng-readonly="submitData.tWfCust_TravelExpenseClaim_ActName_Edit =='0'"/>
+       <div class="item-button-right"  ng-show="submitData.tWfCust_TravelExpenseClaim_ActName_Edit =='1'">
+         <button class="button " ng-click="openEmpCardModal(0)"><p>选择</p></button>
+       </div>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>卡号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__CardId" ng-keyup="formatCardId()"
+		ng-readonly="submitData.tWfCust_TravelExpenseClaim_CardId_Edit =='0'"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>开户行</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__Bank"
+		ng-readonly="submitData.tWfCust_TravelExpenseClaim_Bank_Edit =='0'"/>
+	</div>
+	
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>支行</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__SubBranch"
+		ng-readonly="submitData.tWfCust_TravelExpenseClaim_SubBranch_Edit =='0'"/>
+	</div>
+	
+	<div class="item item-input" ng-if="submitData.tWfCust_TravelExpenseClaim_BefAmount_Show !='0'">
+		<span class="input-label defWidth">借款余额</span>
+		<input type="number" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__BefAmount"
+		 readonly="true"/>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth">报销额</span>
+		<input type="number" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__Amount" placeholder="自动计算"
+		 readonly="true"/>
+	</div>
+	
+	<!-- <div class="item item-input">
+       <span class="input-label defWidth">
+         	预支单
+       </span>
+       <input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__WfExpenseAdvanceNo" placeholder="请选择预支单"
+        readonly="true"/>
+       <div class="item-button-right" >
+         <button class="button " ng-click="openExpenseAdvanceModal()"><p>选择</p></button>
+       </div>
+	</div> -->
+	<!-- <div class="item item-input" ng-if="submitData.fp__tWfCust_TravelExpenseClaim_AdvanceAmount_Show='1'">
+		<span class="input-label defWidth">预支金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__AdvanceAmount"
+				readonly="true"/>
+	</div> -->							
+	<div class="item item-input" ng-if="submitData.tWfCust_TravelExpenseClaim_ApproveAmount_Show == '1'">
+		<span class="input-label defWidth">审批金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__ApproveAmount" 
+		ng-change="chgConfAmount()" ng-readonly="submitData.tWfCust_TravelExpenseClaim_ApproveAmount_Edit !='1'"/>
+	</div>
+	<div class="item item-input" ng-if="submitData.tWfCust_TravelExpenseClaim_DeductionAmount_Show == '1'">
+		<span class="input-label defWidth">抵扣金额</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__DeductionAmount" 
+			ng-readonly="submitData.tWfCust_TravelExpenseClaim_DeductionAmount_Edit !='1'"/>
+	</div>
+	<div class="item item-input" ng-if="submitData.tWfCust_TravelExpenseClaim__0__DocumentNo!= '否' && submitData.tWfCust_TravelExpenseClaim_DocumentNo_Show=='1'">
+		<span class="input-label defWidth">凭证号</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__DocumentNo" 
+			ng-readonly="submitData.tWfCust_TravelExpenseClaim_DocumentNo_Edit !='1'"/>
+	</div>
+	<div class="item item-input item-select" style="padding: 0px;padding-right:10px"
+		ng-if="commitDatas && commitDatas.taskDefKey =='usertask17'">　
+		<span class="input-label defWidth">流程结束</span>
+		<select style="padding-right: 0px;width: 100%" ng-model="submitData.TaskContinue" 
+			>
+			<option value ="是">是</option>
+			<option value ="否" ng-selected="true">否</option>
+		</select>
+	</div>
+	<div class="item item-input">
+		<span class="input-label defWidth"><span style="color:red">*</span>备注</span>
+		<textarea ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__Remarks" style="width:65%" 
+				textareaauto="submitData.fp__tWfCust_TravelExpenseClaim__0__Remarks" ></textarea>
+	</div>
+	<!-- 
+	<div class="item item-input" ng-if="submitData.tWfCust_TravelExpenseClaim_PayAccount_Show !='0'">
+		<span class="input-label defWidth"><span style="color:red">*</span>付款账户</span>
+		<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaim__0__PayAccount"
+		ng-if="submitData.tWfCust_TravelExpenseClaim_PayAccount_Edit !='1' "/>
+	</div>
+	 -->
+	<div style="padding: 10px;color:red;font-weight: bold" ng-if="remarks" ng-bind-html="remarks"></div>
+	<group scope="self" label="差旅费明细" addcallback="fybxAddCallback(index)" 
+		   delcallback="fybxDelCallback(index)" delall="fybxDelAll" indexs="fybxIndexs"
+		   detailnum="{{detailNum}}" afterdetailnum="fybxAfterDetailNum()">
+		<div id="detailDiv"> 
+			<ionic-datepicker input-obj="datepickerObject">
+				<ion-item class="item-input" ng-click="changeDate(?,'beginDate')">
+					<div class="input-label defWidth">出发时间:</div>
+					<div>{{submitData.fp__tWfCust_TravelExpenseClaimDtl__?__BeginDate}}</div>
+						<i class="icon icon ion-ios-calendar-outline" 
+							style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+				</ion-item>
+			</ionic-datepicker>
+			<ionic-datepicker input-obj="datepickerObject">
+				<ion-item class="item-input" ng-click="changeDate(?,'endDate')">
+					<div class="input-label defWidth"> 回程时间</div>
+					<div>{{submitData.fp__tWfCust_TravelExpenseClaimDtl__?__EndDate}}</div>
+						<i class="icon icon ion-ios-calendar-outline" 
+							style="padding: 0px;position: absolute;right: 10px;font-size: 26px;color: #b2b2b2"></i>
+				</ion-item>
+			</ionic-datepicker>
+			<div class="item item-input">
+				<span class="input-label defWidth">出发地</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__Origin" 
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_Origin_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">目的地</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__Destination" 
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_Destination_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">交通费</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__TransportFee" ng-change="chgMainAmount()"
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_TransportFee_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">餐费</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__FoodFee" ng-change="chgMainAmount()"
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_FoodFee_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">晚数</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__NightNumber" 
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_NightNumber_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">住宿费</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__HotelFee" ng-change="chgMainAmount()"
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_HotelFee_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">其他天数</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__OtherDayNumber" 
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_OtherDayNumber_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">其他金额</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__OtherFee" ng-change="chgMainAmount()"
+				 		ng-readonly="submitData.tWfCust_TravelExpenseClaimDtl_OtherFee_Edit =='0'" />
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">小计</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelExpenseClaimDtl__?__Amount" 
+				 		readonly="true"/>
+			</div>
+		</div>
+	</group>
+	
+	<group scope="self" label="抵扣预支单明细" addcallback="bxyzdAddCallback(index)" 
+		   delcallback="calcDeductionAmount(bxyzdIndexs)" delall="bxyzdDelAll" indexs="bxyzdIndexs"
+		   detailnum="{{bxyzdDetailNum}}" afterdetailnum="bxyzdAfterDetailNum()" >
+		<div id="editDiv"> 
+			<div class="item item-input">
+		       <span class="input-label defWidth">
+		         	预支单
+		       </span>
+		       <input type="text" ng-model="submitData.fp__tWfCust_TravelClaimAdvanceDtl__?__WfExpenseAdvanceNo" placeholder="请选择预支单"
+		        readonly="true"/>
+		       <div class="item-button-right" >
+		         <button class="button " ng-click="openExpenseAdvanceModal(?)"><p>选择</p></button>
+		       </div>
+		    </div>
+			<div class="item item-input">
+				<span class="input-label defWidth">预支额</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelClaimAdvanceDtl__?__AdvanceAmount"/>
+			</div>
+			<div class="item item-input">
+				<span class="input-label defWidth">抵扣金额</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelClaimAdvanceDtl__?__DeductionAmount" ng-change="calcDeductionAmount()"/>
+			</div>
+			<div class="item item-input" ng-hide="true">
+				<span class="input-label defWidth">pk</span>
+				<input type="text" ng-model="submitData.fp__tWfCust_TravelClaimAdvanceDtl__?__PK"/>
+			</div>
+		</div>
+	</group>
+	
+	<div style="border: none;background-color:rgb(245,245,245);height:36px">
+	<span style="test-align:center;padding:0;line-height:36px;color:black;padding-left:20px">图片</span>
+	</div>
+	<div class="row" style="background-color:white">
+       <div style="width: 45%"><button ng-click="pickerPhoto()" class="button button-positive button-block"><span style="font-size: 15px">从相册中选择</span></button></div>
+       <div style="width: 45%;margin-left: 10%"> <button ng-click="takePhoto()" class="button button-positive button-block"><i class="icon ion-ios-camera" ></i><span style="font-size: 15px">拍照</span></button></div>
+    </div>
+    <div ng-controller="photoCtrl">
+      <div class="gallery-view">
+        <ion-gallery ion-gallery-items="photoUrlList" ng-click="initSlideIndex(photoUrlList,$event,submitData.taskDefKey != 'startevent' && submitData.taskDefKey != 'applyman')" ></ion-gallery>
+      </div>
+    </div>
+</div>

@@ -1,0 +1,45 @@
+<ion-header-bar class="bar-positive">
+  <button class="button button-clear icon ion-ios-arrow-back" ng-click="goback()"></button>
+  <h1 class="title">材料需求</h1>
+</ion-header-bar>
+
+  <ion-content>
+    <div data-ng-init="goQuery(1)" style="display: none"></div>
+
+    <ion-refresher on-refresh="goSearch()"
+                   pulling-text="刷新...">
+    </ion-refresher>
+
+    <ion-list>
+      <label class="item item-input item-select">
+        <span class="input-label">材料类型1：</span>
+        <select ng-model="data.itemType1" ng-options="item.code as item.descr for item in itemType1List"
+                ng-change="goSearch()"><option value="" >请选择</option></select>
+      </label>
+    </ion-list>
+
+    <div class="list item-input-inset" style="margin-bottom: 0;padding:5px" ng-click="goSearch()">
+      <label class="item-input-wrapper" style="background: lightgray">
+        <i class="icon ion-search placeholder-icon"></i>
+        <input type="text" placeholder="请输入材料名称" style="background: lightgray;" ng-model="data.itemDescr">
+      </label>
+      <button class="button button-clear" style="color:blue;">搜索</button>
+    </div>
+
+    <ion-list>
+      <ion-item ng-repeat="item in materialNeedsItems" class="item-text-wrap">
+          <h2 class="padding-bottom">{{item.itemDescr}}</h2>
+          <div style="width: 50%;float: left;">预算：{{item.qty}}&nbsp;{{item.uom}}</div>
+          <div style="width: 50%;float: left;">金额：{{item.lineAmount}}</div>
+          <div style="clear: both;" class="padding-bottom">区域：{{item.fixAreaDescr}}</div>
+      </ion-item>
+    </ion-list>
+    <div ng-include="'templates/common/content-footer.html'" onload="footerData=materialNeedsItems"></div>
+
+    <ion-infinite-scroll
+      ng-if="materialNeedsFlag"
+      on-infinite="goQuery()"
+      distance="1%">
+    </ion-infinite-scroll>
+  </ion-content>
+</ion-view>

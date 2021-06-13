@@ -1,0 +1,103 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<jasperReport xmlns="http://jasperreports.sourceforge.net/jasperreports" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://jasperreports.sourceforge.net/jasperreports http://jasperreports.sourceforge.net/xsd/jasperreport.xsd" name="report4" language="groovy" pageWidth="842" pageHeight="595" orientation="Landscape" columnWidth="802" leftMargin="20" rightMargin="20" topMargin="20" bottomMargin="20" uuid="d5c7bbb9-ae7f-4e71-9e46-1813eb6f897f">
+	<property name="ireport.zoom" value="1.1000000000000005"/>
+	<property name="ireport.x" value="0"/>
+	<property name="ireport.y" value="0"/>
+	<parameter name="SUBREPORT_DIR" class="java.lang.String" isForPrompting="false">
+		<defaultValueExpression><![CDATA["E:\\iReport-5.6.0\\iReport-5.6.0\\ireport\\modules\\"]]></defaultValueExpression>
+	</parameter>
+	<parameter name="CustCode" class="java.lang.String"/>
+	<queryString language="SQL">
+		<![CDATA[select DATEDIFF(month,min(PlanBegin),max(planbegin))total from tPrjProg where  CustCode=$P{CustCode}]]>
+	</queryString>
+	<field name="total" class="java.lang.Integer"/>
+	<group name="PrjItem" isStartNewPage="true">
+		<groupHeader>
+			<band height="50">
+				<subreport>
+					<reportElement x="0" y="0" width="200" height="50" uuid="ebca94b8-e046-4d6c-abae-59d6363bb8ff"/>
+					<subreportParameter name="CustCode">
+						<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report2_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="68">
+				<printWhenExpression><![CDATA[$F{total}>3]]></printWhenExpression>
+				<subreport>
+					<reportElement x="0" y="0" width="200" height="50" uuid="b35254bb-9f6e-4402-9371-3fc7cddc962b"/>
+					<subreportParameter name="CustCode">
+						<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report2_subreport3.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement x="0" y="62" width="100" height="1" uuid="f05309c8-58de-49cb-aa10-1b484b06d35c">
+						<printWhenExpression><![CDATA[$F{total}>7]]></printWhenExpression>
+					</reportElement>
+				</break>
+			</band>
+			<band height="50">
+				<printWhenExpression><![CDATA[$F{total}>7]]></printWhenExpression>
+				<subreport>
+					<reportElement x="0" y="0" width="200" height="50" uuid="fd65c483-a3f5-4182-af43-4ed429267938"/>
+					<subreportParameter name="CustCode">
+						<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report2_subreport4.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+			<band height="50">
+				<printWhenExpression><![CDATA[$F{total}>7]]></printWhenExpression>
+				<subreport>
+					<reportElement x="0" y="0" width="200" height="50" uuid="7f89d0af-9e6a-44b2-b47c-ff6eceda9643"/>
+					<subreportParameter name="CustCode">
+						<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report2_subreport5.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<group name="mouth" isStartNewPage="true">
+		<groupHeader>
+			<band height="113">
+				<subreport>
+					<reportElement x="0" y="0" width="200" height="73" uuid="efc4343f-1972-450a-aff5-4315539c8b40"/>
+					<subreportParameter name="CustCode">
+						<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report2_subreport2.jasper"]]></subreportExpression>
+				</subreport>
+				<break>
+					<reportElement x="0" y="97" width="100" height="1" uuid="b92f831e-c94f-4c35-872d-9f03ae4fa924">
+						<printWhenExpression><![CDATA[$F{total}>3]]></printWhenExpression>
+					</reportElement>
+				</break>
+			</band>
+		</groupHeader>
+		<groupFooter>
+			<band height="41">
+				<printWhenExpression><![CDATA[$F{total}>3]]></printWhenExpression>
+				<subreport>
+					<reportElement isPrintRepeatedValues="false" x="0" y="-1" width="200" height="41" uuid="8b7b9524-f010-4801-8c7a-ae5b05177701"/>
+					<subreportParameter name="CustCode">
+						<subreportParameterExpression><![CDATA[$P{CustCode}]]></subreportParameterExpression>
+					</subreportParameter>
+					<connectionExpression><![CDATA[$P{REPORT_CONNECTION}]]></connectionExpression>
+					<subreportExpression><![CDATA[$P{SUBREPORT_DIR} + "report4_subreport1.jasper"]]></subreportExpression>
+				</subreport>
+			</band>
+		</groupFooter>
+	</group>
+	<background>
+		<band splitType="Stretch"/>
+	</background>
+</jasperReport>

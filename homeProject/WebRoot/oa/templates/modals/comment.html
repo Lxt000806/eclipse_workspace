@@ -1,0 +1,10 @@
+\<ion-modal-view>
+	<ion-header-bar class="bar-positive">
+		<button class="button button-icon icon ion-ios-arrow-back" ng-click="closeCommentModal(false)"></button>
+		<h1 class="title">{{commentTitle}}</h1>
+		<button class="button button-clear" ng-click="closeCommentModal(true)">确定</button>
+	</ion-header-bar>
+	<ion-content>
+		<textarea id="commentTextarea" style="height: 300px;width: 100%;padding: 10px;" inputfocus></textarea>
+	</ion-content>
+</ion-modal-view>

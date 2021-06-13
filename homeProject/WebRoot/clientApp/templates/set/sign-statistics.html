@@ -1,0 +1,27 @@
+<ion-view view-title="统计">
+    <ion-nav-buttons>
+        <button class="button button-icon ion-ios-arrow-back" ng-click="goback()"></button>
+    </ion-nav-buttons>
+    <ion-content>
+        <div data-ng-init="getSignInList()" style="display: none" ></div>
+        <div class="row"  >
+          <div class="col-50" style="padding-top: 13px;padding-left: 13px">
+            <span style="font-size: 14px">星期{{week}} {{date}}</span>
+          </div>
+            <div class="col-34" >
+                <div style="float: right;">
+                <ionic-datepicker input-obj="datepickerObject"  >
+                    <button class="button button-clear"  ><i class=" ion-ios-calendar " style="font-size: 20px"></i> <span style="font-size: 14px">选择日期</span></button>
+                </ionic-datepicker>
+                </div>
+            </div>
+        </div>
+        <ion-list>
+            <ion-item ng-repeat="item in SignInList">
+                <span style="font-size: 14px">楼盘:{{item.custAddress}}</span><br/>
+                <span style="font-size: 14px">地址:{{item.address}}</span><span style="font-size: 14px; float: right;margin-right: 30px">{{item.crtDate}}</span>
+            </ion-item>
+        </ion-list>
+
+    </ion-content>
+</ion-view>
